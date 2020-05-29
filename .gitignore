@@ -3,3 +3,9 @@ Logs
 Packages
 ProjectSettings
 Temp
+.vs
+obj
+Assembly-CSharp.csproj
+Magician-Legendary-RPG.sln
+spine-unity.csproj
+spine-unity-editor.csproj
