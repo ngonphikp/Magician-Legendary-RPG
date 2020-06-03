@@ -28,6 +28,6 @@ public class C_Registry : MonoBehaviour
 
         txtNoti.text = "Đăng ký thành công";
 
-        ScenesManager.instance.ChangeScene("HomeGame");
+        ScenesManager.instance.ChangeScene("SelectionGame");
     }
 }

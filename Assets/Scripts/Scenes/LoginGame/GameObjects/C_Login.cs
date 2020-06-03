@@ -12,6 +12,9 @@ public class C_Login : MonoBehaviour
     [SerializeField]
     private Text txtNoti = null;
 
+    [SerializeField]
+    private bool isSelection = true;
+
     private void OnEnable()
     {
         ipfUsername.text = "";
@@ -28,6 +31,15 @@ public class C_Login : MonoBehaviour
 
         txtNoti.text = "Đăng nhập thành công";
 
-        ScenesManager.instance.ChangeScene("HomeGame");
+        // Nếu đã chọn pháp sư => HomeGame
+        if(isSelection)
+        {
+            ScenesManager.instance.ChangeScene("HomeGame");
+        }
+        // Nếu chưa chọn => SelectionGame
+        else
+        {
+            ScenesManager.instance.ChangeScene("SelectionGame");
+        }
     }
 }
