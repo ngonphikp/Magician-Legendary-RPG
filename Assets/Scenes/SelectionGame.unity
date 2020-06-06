@@ -962,7 +962,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 473559836}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100401198}
+        m_MethodName: SkillMagician
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &473559836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1156,7 +1167,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 491943753}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100401198}
+        m_MethodName: ChangMagician
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &491943753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1349,7 +1371,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 546153062}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100401198}
+        m_MethodName: SkillMagician
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &546153062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2169,6 +2202,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ipfTenNhanVat: {fileID: 1432861329}
   txtNoti: {fileID: 433568340}
+  idMagicians:
+  - T1002
+  - T1003
+  - T1004
+  - T1005
+  - T1006
+  posMagician: {fileID: 141912208}
 --- !u!1 &1131367538 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3745770942435195674, guid: 23f44133a9991544895b142dd8da63f5,
@@ -2446,7 +2486,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1404222170}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100401198}
+        m_MethodName: ChangMagician
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1404222170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2706,7 +2757,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1469907861}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100401198}
+        m_MethodName: SkillMagician
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1469907861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2945,7 +3007,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1588167383}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100401198}
+        m_MethodName: ChangMagician
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1588167383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3142,7 +3215,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1747503212}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100401198}
+        m_MethodName: ChangMagician
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1747503212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3339,7 +3423,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1771884366}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100401198}
+        m_MethodName: ChangMagician
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1771884366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3458,7 +3553,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1948562186}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100401198}
+        m_MethodName: SkillMagician
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1948562186
 MonoBehaviour:
   m_ObjectHideFlags: 0
