@@ -7,14 +7,14 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
 
     public Dictionary<string, string> scenes = new Dictionary<string, string>(); // Key: Tên scene, Value: Tên scene cha (PreviousScene - Khi back)
-    public Dictionary<string, M_Hero> herosDic = new Dictionary<string, M_Hero>();
 
-    public float myTimeScale = 1.0f;
-    public bool isScaleTime = false;
+    public List<M_Hero> heros = new List<M_Hero>();
+    public Dictionary<string, M_Hero> herosDic = new Dictionary<string, M_Hero>();
 
     private void Awake()
     {
         MakeSingleInstance();
+        LoadConfigJson();
     }
 
     private void MakeSingleInstance()
@@ -30,14 +30,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ShowNoti(string txt)
+    private void LoadConfigJson()
     {
-        Debug.Log("=======================================================ShowNooti: " + txt);
+        LoadListHero();
     }
 
-    public void ScaleTime()
+    private void LoadListHero()
     {
-        isScaleTime = !isScaleTime;
-        myTimeScale = (isScaleTime) ? 2.0f : 1.0f;
+        JSonConvert convert = new JSonConvert();
+        heros = convert.GetListHero();
+
+        //list.ForEach(x => Debug.Log(x.id + " / " + x.name + " / " + x.star + " / " + x.description + x.element + " / " + x.kingdom + " / " + x.Class));
+
+        herosDic = new Dictionary<string, M_Hero>(heros.Count);
+        heros.ForEach(x => herosDic.Add(x.id, x));
     }
 }

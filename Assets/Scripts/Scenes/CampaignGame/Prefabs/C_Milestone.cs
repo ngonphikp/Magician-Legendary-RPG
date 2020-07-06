@@ -20,6 +20,8 @@ public class C_Milestone : MonoBehaviour
     public void Click()
     {
         Debug.Log("Click :" + this.gameObject.name);
+
+        ScenesManager.instance.ChangeScene("ArrangeGame");
     }
 
     public void SetStar(int star)

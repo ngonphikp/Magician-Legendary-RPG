@@ -24,7 +24,7 @@ public class C_TimeScalePS : MonoBehaviour
             if (ps != null)
             {
                 var main = ps.main;
-                main.simulationSpeed = speed * GameManager.instance.myTimeScale;
+                main.simulationSpeed = speed * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
             }
         }
         catch (System.Exception)

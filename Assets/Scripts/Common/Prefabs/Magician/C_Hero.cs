@@ -411,13 +411,13 @@ class FxHero
     public async void PlayAsync()
     {
         //Debug.Log(fx.name + " Play");
-        await Task.Delay(TimeSpan.FromSeconds(this.delay / GameManager.instance.myTimeScale));
+        await Task.Delay(TimeSpan.FromSeconds(this.delay / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
         fx.SetActive(false);
         fx.SetActive(true);
 
         if (isLoop)
         {
-            await Task.Delay(TimeSpan.FromSeconds(this.duration / GameManager.instance.myTimeScale));
+            await Task.Delay(TimeSpan.FromSeconds(this.duration / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
             fx.SetActive(false);
         }
     }

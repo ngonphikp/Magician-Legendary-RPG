@@ -27,7 +27,7 @@ public class C_ParticleSystemAutoDestroy : MonoBehaviour
 
     private async void AutoDestroy()
     {
-        await Task.Delay(TimeSpan.FromSeconds(t / GameManager.instance.myTimeScale));
+        await Task.Delay(TimeSpan.FromSeconds(t / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
         Destroy(gameObject);
     }
 }

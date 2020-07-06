@@ -34,7 +34,7 @@ public class C_UIMagician : MonoBehaviour
     {
         float dis = ep - curEp;
         if (dis < 0) dis *= -1;
-        curEp = Mathf.Lerp(curEp, ep, Time.deltaTime * anim * GameManager.instance.myTimeScale / dis);
+        curEp = Mathf.Lerp(curEp, ep, Time.deltaTime * anim * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1) / dis);
         Ep.fillAmount = curEp;
     }
 

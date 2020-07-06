@@ -17,9 +17,9 @@ public class C_TimeScaleSpineAnim : MonoBehaviour
 
     private void Change()
     {
-        if(anim != null && GameManager.instance != null)
+        if(anim != null)
         {
-            anim.timeScale = GameManager.instance.myTimeScale;
+            anim.timeScale = ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
         }
     }
 

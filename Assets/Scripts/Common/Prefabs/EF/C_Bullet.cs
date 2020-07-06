@@ -94,10 +94,10 @@ public class C_Bullet : MonoBehaviour
         }
         Vector3 comback = startPos + offset;
 
-        await Task.Delay(TimeSpan.FromSeconds(timecb / GameManager.instance.myTimeScale));
+        await Task.Delay(TimeSpan.FromSeconds(timecb / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
         while (true)
         {
-            float step = speed * Time.deltaTime * GameManager.instance.myTimeScale;
+            float step = speed * Time.deltaTime * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
             transform.position = Vector3.MoveTowards(transform.position, comback, step);
 
             if (Vector3.Distance(transform.position, comback) < 0.001f)
@@ -120,18 +120,18 @@ public class C_Bullet : MonoBehaviour
         if (!(target.character.team == 1)) rotateOffset = 0;
 
         // Delay di chuyển bullet
-        await Task.Delay(TimeSpan.FromSeconds(timeDlMove / GameManager.instance.myTimeScale));
+        await Task.Delay(TimeSpan.FromSeconds(timeDlMove / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
 
         while (true)
         {
             if (isParabol)
             {
-                t += Time.deltaTime * GameManager.instance.myTimeScale;
+                t += Time.deltaTime * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
                 transform.position = MathParabola.Parabola(startPos, finish, height, t / timet);
             }
             else
             {
-                float step = speed * Time.deltaTime * GameManager.instance.myTimeScale;
+                float step = speed * Time.deltaTime * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
                 transform.position = Vector3.MoveTowards(transform.position, finish, step);
             }
 
@@ -143,9 +143,9 @@ public class C_Bullet : MonoBehaviour
             if (isRotating)
             {
                 transform.Rotate(
-                    rotating.x * Time.deltaTime * 1000 * GameManager.instance.myTimeScale,
-                    rotating.y * Time.deltaTime * 1000 * GameManager.instance.myTimeScale,
-                    rotating.z * Time.deltaTime * 1000 * GameManager.instance.myTimeScale
+                    rotating.x * Time.deltaTime * 1000 * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1),
+                    rotating.y * Time.deltaTime * 1000 * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1),
+                    rotating.z * Time.deltaTime * 1000 * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)
                );
             }
 
@@ -202,13 +202,13 @@ public class C_Bullet : MonoBehaviour
                 }
                 else
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(timed / GameManager.instance.myTimeScale));
+                    await Task.Delay(TimeSpan.FromSeconds(timed / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
                     Destroy(gameObject);
                 }
 
                 if (isHit && target != null)
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(time / GameManager.instance.myTimeScale));
+                    await Task.Delay(TimeSpan.FromSeconds(time / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
                     target.Beaten();
                 }
                 break;

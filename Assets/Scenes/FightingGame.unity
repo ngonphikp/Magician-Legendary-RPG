@@ -385,6 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 153376764}
   - component: {fileID: 153376765}
+  - component: {fileID: 153376766}
   m_Layer: 0
   m_Name: FightingGame
   m_TagString: Untagged
@@ -502,6 +503,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &153376766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153376763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2175fbbfa4aef474ba4c013627aa584c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myTimeScale: 1
+  isScaleTime: 0
 --- !u!1 &158881965
 GameObject:
   m_ObjectHideFlags: 0

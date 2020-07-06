@@ -68,14 +68,14 @@ public class C_UIHero : MonoBehaviour
     {
         float dis = hp - curHp;
         if (dis < 0) dis *= -1;
-        curHp = Mathf.Lerp(curHp, hp, Time.deltaTime * anim * GameManager.instance.myTimeScale / dis);
+        curHp = Mathf.Lerp(curHp, hp, Time.deltaTime * anim * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1) / dis);
         Hp.fillAmount = curHp;
     }
     private void ChangEp()
     {
         float dis = ep - curEp;
         if (dis < 0) dis *= -1;
-        curEp = Mathf.Lerp(curEp, ep, Time.deltaTime * anim * GameManager.instance.myTimeScale / dis);
+        curEp = Mathf.Lerp(curEp, ep, Time.deltaTime * anim * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1) / dis);
         Ep.fillAmount = curEp;
     }
 

@@ -7,7 +7,7 @@ public class Character
     public long idUser { get; set; }
     public string id { get; set; }
     public string name { get; set; }
-    public int clan { get; set; } = 1;
+    public int element { get; set; } = 1;
     public int level { get; set; }
     public int atk { get; set; }
     public int def { get; set; }
@@ -60,7 +60,7 @@ public class Character
         this.idUser = data.idUser;
         this.id = data.id;
         this.name = data.name;
-        this.clan = data.clan;
+        this.element = data.element;
         this.level = data.level;
         this.atk = data.atk;
         this.def = data.def;
@@ -74,7 +74,7 @@ public class Character
     public void SetData2(Character data)
     {
         this.name = data.name;
-        this.clan = data.clan;
+        this.element = data.element;
         this.idData = data.idData;
     }
 }

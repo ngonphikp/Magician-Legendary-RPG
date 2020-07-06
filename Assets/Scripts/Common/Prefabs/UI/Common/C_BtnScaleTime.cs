@@ -6,6 +6,6 @@ public class C_BtnScaleTime : MonoBehaviour
 {
     public void ScaleTime()
     {
-        GameManager.instance.ScaleTime();
+        if (FightingGame.instance) FightingGame.instance.ScaleTime();
     }
 }

@@ -19,16 +19,16 @@ public class C_TimeScaleAnim : MonoBehaviour
 
     public void Change()
     {
-        if(anim != null && GameManager.instance)
+        if(anim != null)
         {
             foreach (AnimationState state in anim)
             {
-                state.speed = GameManager.instance.myTimeScale;
+                state.speed = ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
             }
         }
-        if(animator != null && GameManager.instance)
+        if(animator != null)
         {
-            animator.speed = GameManager.instance.myTimeScale;
+            animator.speed = ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
         }
     }
 

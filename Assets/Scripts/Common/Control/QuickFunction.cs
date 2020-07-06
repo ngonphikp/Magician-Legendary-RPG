@@ -87,8 +87,7 @@ public class QuickFunction
                 });
                 call();
             }else{                
-                Debug.Log("time to call " + actionCall[call]);             
-                GameManager.instance.ShowNoti("C1002");
+                Debug.Log("time to call " + actionCall[call]);  
             }
         }
         else

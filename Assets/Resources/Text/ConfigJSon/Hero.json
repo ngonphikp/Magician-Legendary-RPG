@@ -1,0 +1,20 @@
+{
+  "listHero": [
+    {"id":"T1000","name":"Baum","element":"K1","level":1,"atk":100,"def":20,"hp":500,"crit":2.0,"dodge":2.0},
+    {"id":"T1001","name":"Masson","element":"K1","level":1,"atk":120,"def":24,"hp":600,"crit":2.4,"dodge":2.4},
+    {"id":"T1002","name":"Juma","element":"K1","level":1,"atk":144,"def":28,"hp":720,"crit":2.88,"dodge":2.88},
+    {"id":"T1003","name":"Tessa","element":"K1","level":1,"atk":172,"def":34,"hp":863,"crit":3.4559999999999995,"dodge":3.4559999999999995},
+    {"id":"T1004","name":"Alia","element":"K1","level":1,"atk":207,"def":41,"hp":1036,"crit":4.1472,"dodge":4.1472},
+    {"id":"T1005","name":"Ulrag","element":"K1","level":1,"atk":248,"def":49,"hp":1244,"crit":4.976639999999999,"dodge":4.976639999999999},
+    {"id":"T1006","name":"Erik","element":"K1","level":1,"atk":298,"def":59,"hp":1492,"crit":5.971967999999999,"dodge":5.971967999999999},
+    {"id":"T1007","name":"Kaled","element":"K1","level":1,"atk":358,"def":71,"hp":1791,"crit":7.166361599999998,"dodge":7.166361599999998},
+    {"id":"T1008","name":"Jak","element":"K1","level":1,"atk":429,"def":85,"hp":2149,"crit":8.599633919999997,"dodge":8.599633919999997},
+    {"id":"T1009","name":"Rasha","element":"K1","level":1,"atk":515,"def":103,"hp":2579,"crit":10.319560703999997,"dodge":10.319560703999997},
+    {"id":"T1010","name":"Gargoyle","element":"K1","level":1,"atk":619,"def":123,"hp":3095,"crit":12.383472844799995,"dodge":12.383472844799995},
+    {"id":"T1011","name":"Anese","element":"K1","level":1,"atk":743,"def":148,"hp":3715,"crit":14.860167413759994,"dodge":14.860167413759994},
+    {"id":"T1012","name":"Kleb","element":"K1","level":1,"atk":891,"def":178,"hp":4458,"crit":17.832200896511992,"dodge":17.832200896511992},
+    {"id":"T1013","name":"Klob","element":"K1","level":1,"atk":1069,"def":213,"hp":5349,"crit":21.39864107581439,"dodge":21.39864107581439},
+    {"id":"T1014","name":"Gronk","element":"K1","level":1,"atk":1283,"def":256,"hp":6419,"crit":25.678369290977265,"dodge":25.678369290977265},
+    {"id":"T1015","name":"Samson","element":"K1","level":1,"atk":1540,"def":308,"hp":7703,"crit":30.81404314917272,"dodge":30.81404314917272}
+    ]
+}
