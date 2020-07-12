@@ -24,10 +24,8 @@ public class C_Registry : MonoBehaviour
         string username = ipfUsername.text;
         string password = ipfPassword.text;
 
-        Debug.Log("=======================================Registry: " + username + " + " + password);
+        Debug.Log("====================Registry: " + username + " + " + password);
 
-        txtNoti.text = "Đăng ký thành công";
-
-        ScenesManager.instance.ChangeScene("SelectionGame");
+        LoginSendUtil.sendRegister(username, password);
     }
 }

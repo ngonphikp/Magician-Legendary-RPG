@@ -5,9 +5,5 @@ using UnityEngine;
 public static class ModuleConfig 
 {
     public const string
-        USER = "user",
-        ZONE = "zone",
-        LOBBY = "lobby",
-        CHAT = "chat",
-        INGAME = "inGame";
+        USER = "user";
 }

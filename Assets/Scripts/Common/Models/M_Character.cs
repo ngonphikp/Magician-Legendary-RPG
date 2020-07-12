@@ -21,21 +21,4 @@ public class M_Character
 
     public int current_ep = 0, max_ep = 1;
     public int current_hp = 0, max_hp = 1;
-
-    public void setCharacter(M_Character character)
-    {
-        this.id = character.id;
-        this.level = character.level;
-
-        this.current_ep = character.current_ep;
-        this.max_ep = character.max_ep;
-        this.current_hp = character.current_hp;
-        this.max_hp = character.max_hp;
-        this.actor_id = character.actor_id;
-    }
-
-    public M_Character()
-    {
-
-    }
 }

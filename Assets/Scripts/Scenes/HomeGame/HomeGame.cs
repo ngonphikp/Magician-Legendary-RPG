@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class HomeGame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OutGame()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        LoginSendUtil.sendLogout();
     }
 }

@@ -1,0 +1,6 @@
+{
+   "TCPPort":9933,
+   "WsPort":8181,
+   "Zone":"game",
+   "host":"127.0.0.1"
+}
