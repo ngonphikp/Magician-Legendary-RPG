@@ -316,7 +316,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: T1005
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 502334462419447928, guid: 23f44133a9991544895b142dd8da63f5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 23f44133a9991544895b142dd8da63f5, type: 3}
 --- !u!1 &141912207
 GameObject:
@@ -328,7 +329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 141912208}
   m_Layer: 5
-  m_Name: posMagician
+  m_Name: posHero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,12 +355,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &142836799 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1197978706404587136, guid: 23f44133a9991544895b142dd8da63f5,
-    type: 3}
-  m_PrefabInstance: {fileID: 115660420}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &173837209
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,7 +959,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1100401198}
-        m_MethodName: SkillMagician
+        m_MethodName: SkillHero
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1169,7 +1164,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1100401198}
-        m_MethodName: ChangMagician
+        m_MethodName: ChangeHero
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1373,7 +1368,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1100401198}
-        m_MethodName: SkillMagician
+        m_MethodName: SkillHero
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1814,7 +1809,7 @@ GameObject:
   - component: {fileID: 977227109}
   - component: {fileID: 977227108}
   m_Layer: 5
-  m_Name: CanvasMagician
+  m_Name: CanvasHero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2202,65 +2197,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ipfTenNhanVat: {fileID: 1432861329}
   txtNoti: {fileID: 433568340}
-  idMagicians:
+  idHeros:
   - T1002
   - T1003
   - T1004
   - T1005
   - T1006
   posMagician: {fileID: 141912208}
---- !u!1 &1131367538 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3745770942435195674, guid: 23f44133a9991544895b142dd8da63f5,
-    type: 3}
-  m_PrefabInstance: {fileID: 115660420}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1131367539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1131367538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4ad1f6915e769a46a7b306af20b1678, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 142836799}
-  isAnim2: 0
-  isAnim3: 0
-  isAnim4: 0
-  isAnim5: 0
-  isAnim6: 0
-  isAnim7: 0
-  UIHero: {fileID: 0}
-  Fx2: []
-  Fx3: []
-  Fx4: []
-  Fx5: []
-  Fx6: []
-  Fx7: []
-  isCombat: 0
-  character:
-    hash: 
-    isEx: 0
-    team: 0
-    type: 0
-    star: 1
-    level: 1
-    id: 
-    actor_id: 
-    kingdom: 1
-    element: 401
-    power: 0
-    idx: 0
-    current_ep: 0
-    max_ep: 1
-    current_hp: 0
-    max_hp: 1
-  isHit: 1
-  isDie: 0
 --- !u!1 &1210135643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2488,7 +2431,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1100401198}
-        m_MethodName: ChangMagician
+        m_MethodName: ChangeHero
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2759,7 +2702,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1100401198}
-        m_MethodName: SkillMagician
+        m_MethodName: SkillHero
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3009,7 +2952,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1100401198}
-        m_MethodName: ChangMagician
+        m_MethodName: ChangeHero
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3217,7 +3160,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1100401198}
-        m_MethodName: ChangMagician
+        m_MethodName: ChangeHero
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3425,7 +3368,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1100401198}
-        m_MethodName: ChangMagician
+        m_MethodName: ChangeHero
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3555,7 +3498,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1100401198}
-        m_MethodName: SkillMagician
+        m_MethodName: SkillHero
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

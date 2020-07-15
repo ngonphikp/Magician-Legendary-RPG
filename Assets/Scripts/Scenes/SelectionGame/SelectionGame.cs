@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SelectionGame : MonoBehaviour
 {
-    [Header("Đăng nhập")]
+    [Header("Vào Game")]
     [SerializeField]
     private InputField ipfTenNhanVat = null;
     [SerializeField]
@@ -13,31 +13,30 @@ public class SelectionGame : MonoBehaviour
 
     [Header("Chọn Magician")]
     [SerializeField]
-    private string[] idMagicians = new string[5];
+    private string[] idHeros = new string[5];
     [SerializeField]
     private Transform posMagician = null;
 
     private int idxActive = 0;
-    private C_Magician magician = null;
+    private C_Hero hero = null;
 
 
     private void Start()
     {
-        LoadMagician(idMagicians[idxActive]);
+        LoadHero(idHeros[idxActive]);
     }
 
-    private void LoadMagician(string id)
+    private void LoadHero(string id)
     {
         foreach (Transform child in posMagician)
         {
             Destroy(child.gameObject);
         }
-        GameObject magicianAs = QuickFunction.getAssetPref("Prefabs/Magician/" + id);
-        if (magicianAs != null)
+        GameObject heroAs = QuickFunction.getAssetPref("Prefabs/Hero/" + id);
+        if (heroAs != null)
         {
-            GameObject magicianObj = Instantiate(magicianAs, posMagician);
-            //heroObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -150);
-            magician = magicianObj.GetComponent<C_Magician>();
+            GameObject heroObj = Instantiate(heroAs, posMagician);
+            hero = heroObj.GetComponent<C_Hero>();
         }
     }
 
@@ -46,22 +45,22 @@ public class SelectionGame : MonoBehaviour
     {
         string tennhanvat = ipfTenNhanVat.text;
 
-        Debug.Log("=======================================Vào Game: " + tennhanvat + " / " + idMagicians[idxActive]);
+        Debug.Log("====================Vào Game: " + tennhanvat + " / " + idHeros[idxActive]);
 
         txtNoti.text = "Vào Game thành công";
 
         ScenesManager.instance.ChangeScene("HomeGame");
     }
 
-    public void ChangMagician(int idx)
+    public void ChangeHero(int idx)
     {
         if (idx == idxActive) return;
         idxActive = idx;
-        LoadMagician(idMagicians[idxActive]);
+        LoadHero(idHeros[idxActive]);
     }
 
-    public void SkillMagician(int anim)
+    public void SkillHero(int anim)
     {
-        magician.Play(anim);
+        hero.Play(anim);
     }
 }

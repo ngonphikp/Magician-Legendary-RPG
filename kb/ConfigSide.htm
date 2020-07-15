@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <script>
+    var obj = {};
+    obj.list = [];
+    
+    for (let index = 0; index < 50; index++) {
+        let side = {};
+        
+        side.idSide = "Side " + index;
+        side.name = "Ải " + (index + 1);
+        side.flag = Math.floor(Math.random() * 11) + 5;
+        side.coin = (Math.floor(Math.random() * 11) + 5 ) * 1000;
+        side.soul = Math.floor(Math.random() * 4) + 1;
+        side.star = 0;
+        side.idData = index;
+    
+        side.listHero = [];
+        var poss = [];
+        for (let i = 0; i < (Math.floor(Math.random() * 2) + 1) + Math.floor(index / 10); i++) {
+            let hero = {};
+            
+            hero.id = "Hero " + (Math.floor(Math.random() * 6) + 12);
+
+            //hero.level = (Math.floor(Math.random() * 2) + 1) + Math.floor(index / 10);
+			hero.level = 1;
+
+            var pos = 0;
+            var isLoop = true;
+            while(isLoop){
+              pos = Math.floor(Math.random() * 9);
+              isLoop = false;
+              for (let j = 0; j < poss.length; j++) {
+                if(pos == poss[j]){
+                  isLoop = true;
+                  break;
+                }
+              }
+            }                    
+            poss.push(pos);
+            hero.position = pos;            
+            
+            side.listHero.push(hero);
+        }        
+        obj.list.push(side);
+    }    
+      
+    obj.list.forEach(element => {
+      console.log(JSON.stringify(element) + ",");
+    });
+
+    //console.log(JSON.stringify(obj));  
+    </script>
+</body>
+</html>

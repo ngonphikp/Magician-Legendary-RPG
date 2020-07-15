@@ -5,12 +5,19 @@ using UnityEngine.UI;
 
 public class C_Login : MonoBehaviour
 {
+    public static C_Login instance = null;
+
     [SerializeField]
     private InputField ipfUsername = null;
     [SerializeField]
     private InputField ipfPassword = null;
     [SerializeField]
     private Text txtNoti = null;
+
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+    }
 
     private void OnEnable()
     {
@@ -27,5 +34,10 @@ public class C_Login : MonoBehaviour
         Debug.Log("=======================Login: " + username + " + " + password);
 
         LoginSendUtil.sendLogin(username, password);
+    }
+
+    public void setNoti(string str)
+    {
+        txtNoti.text = str;
     }
 }

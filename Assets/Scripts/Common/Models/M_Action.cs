@@ -14,7 +14,6 @@ public class M_Action
 
     public void ReadActionObj(SFSObject objAction)
     {
-        PlayGame.instance.sumPlay++;
         this.actor = objAction.GetUtfString("actor");
         this.id = objAction.GetInt("id");
 

@@ -70,11 +70,19 @@ public class HandleLogin
 
     public static void OnLoginError(BaseEvent evt)
     {
+        Debug.Log("Login server error!");
+
         short ec = (short)evt.Params["errorCode"];
         var message = evt.Params["errorMessage"];
         try
         {
             Debug.Log("ErrorCode: " + ec);
+
+            string noti = (ErrorCode.Codes.ContainsKey(ec)) ? ErrorCode.Codes[ec] : ("ErrorCode: " + ec);
+
+            if (C_Login.instance) C_Login.instance.setNoti(noti);
+
+            if (C_Registry.instance) C_Registry.instance.setNoti(noti);
         }
         catch (Exception e)
         {
@@ -83,6 +91,8 @@ public class HandleLogin
     }
     public static void OnLogOut(BaseEvent evt)
     {
+        Debug.Log("Logout server!");
+
         SceneManager.LoadScene("LoginGame");
     }
 }

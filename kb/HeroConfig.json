@@ -1,0 +1,20 @@
+{"list":[
+	{"id":"Hero 0","name":"A1","clan":1,"level":1,"atk":100,"def":20,"hp":500,"critRate":2,"dodge":2,"position":0,"idData":0},
+	{"id":"Hero 1","name":"A2","clan":1,"level":1,"atk":120,"def":24,"hp":600,"critRate":2,"dodge":2,"position":0,"idData":1},
+	{"id":"Hero 2","name":"A3","clan":1,"level":1,"atk":144,"def":28,"hp":720,"critRate":2,"dodge":2,"position":0,"idData":2},
+	{"id":"Hero 3","name":"A4","clan":1,"level":1,"atk":172,"def":34,"hp":863,"critRate":3,"dodge":3,"position":0,"idData":3},
+	{"id":"Hero 4","name":"A5","clan":1,"level":1,"atk":207,"def":41,"hp":1036,"critRate":4,"dodge":4,"position":0,"idData":4},
+	{"id":"Hero 5","name":"A6","clan":1,"level":1,"atk":248,"def":49,"hp":1244,"critRate":4,"dodge":4,"position":0,"idData":5},
+	{"id":"Hero 6","name":"D1","clan":2,"level":1,"atk":80,"def":40,"hp":600,"critRate":1,"dodge":3,"position":0,"idData":0},
+	{"id":"Hero 7","name":"D2","clan":2,"level":1,"atk":96,"def":48,"hp":720,"critRate":1,"dodge":3,"position":0,"idData":1},
+	{"id":"Hero 8","name":"D3","clan":2,"level":1,"atk":115,"def":57,"hp":864,"critRate":1,"dodge":4,"position":0,"idData":2},
+	{"id":"Hero 9","name":"D4","clan":2,"level":1,"atk":138,"def":69,"hp":1036,"critRate":1,"dodge":5,"position":0,"idData":3},
+	{"id":"Hero 10","name":"D5","clan":2,"level":1,"atk":165,"def":82,"hp":1244,"critRate":2,"dodge":6,"position":0,"idData":4},
+	{"id":"Hero 11","name":"D6","clan":2,"level":1,"atk":199,"def":99,"hp":1492,"critRate":2,"dodge":7,"position":0,"idData":5},
+	{"id":"Hero 12","name":"M1","clan":3,"level":1,"atk":40,"def":20,"hp":400,"critRate":3,"dodge":3,"position":0,"idData":0},
+	{"id":"Hero 13","name":"M2","clan":3,"level":1,"atk":48,"def":24,"hp":480,"critRate":3,"dodge":3,"position":0,"idData":1},
+	{"id":"Hero 14","name":"M3","clan":3,"level":1,"atk":57,"def":28,"hp":576,"critRate":4,"dodge":4,"position":0,"idData":2},
+	{"id":"Hero 15","name":"M4","clan":3,"level":1,"atk":69,"def":34,"hp":691,"critRate":5,"dodge":5,"position":0,"idData":3},
+	{"id":"Hero 16","name":"M5","clan":3,"level":1,"atk":82,"def":41,"hp":829,"critRate":6,"dodge":6,"position":0,"idData":4},
+	{"id":"Hero 17","name":"M6","clan":3,"level":1,"atk":99,"def":49,"hp":995,"critRate":7,"dodge":7,"position":0,"idData":5}
+]}
