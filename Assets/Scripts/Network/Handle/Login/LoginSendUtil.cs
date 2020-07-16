@@ -42,7 +42,7 @@ public class LoginSendUtil
             SmartFoxConnection.Init();
             SmartFoxConnection.send(packet);
         }
-    }
+    }    
 
     public static void sendLogout()
     {

@@ -13,11 +13,22 @@ public class M_NhanVat
     public string name;
     public string element;
 
+    public int idx = -1;
+
     public C_Enum.CharacterType type = C_Enum.CharacterType.Hero;
 
     public M_NhanVat()
     {
 
+    }
+
+    public M_NhanVat(int id_nv, string id_cfg, int id_tk, int lv, int idx)
+    {
+        this.id_nv = id_nv;
+        this.id_cfg = id_cfg;
+        this.id_tk = id_tk;
+        this.lv = lv;
+        this.idx = idx;
     }
 
     public M_NhanVat(ISFSObject obj)
@@ -28,5 +39,6 @@ public class M_NhanVat
         this.id_cfg = obj.GetUtfString("id_cfg");
         this.id_tk = obj.GetInt("id_tk");
         this.lv = obj.GetInt("lv");
+        this.idx = obj.GetInt("idx");
     }
 }

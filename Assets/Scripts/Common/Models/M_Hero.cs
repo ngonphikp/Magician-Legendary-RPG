@@ -17,18 +17,13 @@ public class M_Hero : M_NhanVat
 
     }
 
-    public M_Hero(string id_cfg, int level)
-    {
-        this.id_cfg = id_cfg;
-        this.lv = level;
-    }
-
     public M_Hero(M_NhanVat nhanvat)
     {
         this.id_cfg = nhanvat.id_cfg;
         this.id_nv = nhanvat.id_nv;
         this.id_tk = nhanvat.id_tk;
         this.lv = nhanvat.lv;
+        this.idx = nhanvat.idx;
     }
 
     public void UpdateById(string id_cfg = null)

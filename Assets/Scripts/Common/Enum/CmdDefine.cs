@@ -11,5 +11,6 @@ public class CmdDefine
         //___________________MODULE USER___________________
         REGISTER = 1001,
         LOGIN = 1002,
-        GETINFO = 1003;
+        GETINFO = 1003,
+        SELECTION = 1004;
 }

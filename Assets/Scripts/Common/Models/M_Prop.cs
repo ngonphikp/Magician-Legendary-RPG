@@ -77,7 +77,7 @@ public class M_Prop
                 this.par8d0 = sfsProps.GetInt(0);
                 break;
             default:
-                Debug.Log("=====================================================>Prop default");
+                Debug.Log("==================================>Prop default");
                 break;
         }
     }

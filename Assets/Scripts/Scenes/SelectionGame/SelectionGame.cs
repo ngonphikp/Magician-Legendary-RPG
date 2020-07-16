@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SelectionGame : MonoBehaviour
 {
+    public static SelectionGame instance = null;
+
     [Header("Vào Game")]
     [SerializeField]
     private InputField ipfTenNhanVat = null;
@@ -19,6 +21,12 @@ public class SelectionGame : MonoBehaviour
 
     private int idxActive = 0;
     private C_Hero hero = null;
+    private string tenNhanVat = "";
+
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+    }
 
 
     private void Start()
@@ -43,13 +51,36 @@ public class SelectionGame : MonoBehaviour
 
     public void VaoGame()
     {
-        string tennhanvat = ipfTenNhanVat.text;
+        tenNhanVat = ipfTenNhanVat.text;
 
-        Debug.Log("====================Vào Game: " + tennhanvat + " / " + idHeros[idxActive]);
+        Debug.Log("====================Vào Game: " + tenNhanVat + " / " + idHeros[idxActive]);
 
         txtNoti.text = "Vào Game thành công";
 
-        ScenesManager.instance.ChangeScene("HomeGame");
+        UserSendUtil.sendSelection(tenNhanVat, idHeros[idxActive]);
+    }
+
+    public void RecSelection(List<M_NhanVat> lstNhanVat)
+    {
+        Debug.Log("====================RecSelection");
+
+        //lstNhanVat.ForEach(x => Debug.Log(x.id_nv + " / " + x.id_cfg + " / " + x.id_tk + " / " + x.lv));
+
+        if (lstNhanVat.Count > 0)
+        {           
+            GameManager.instance.listHero.Clear();
+            for (int i = 0; i < lstNhanVat.Count; i++)
+            {
+                M_Hero hero = new M_Hero(lstNhanVat[i]);
+                hero.UpdateById();
+
+                GameManager.instance.listHero.Add(hero);
+            }
+
+            GameManager.instance.taikhoan.name = tenNhanVat;
+
+            ScenesManager.instance.ChangeScene("HomeGame");
+        }
     }
 
     public void ChangeHero(int idx)
