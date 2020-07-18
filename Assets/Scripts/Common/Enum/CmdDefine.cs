@@ -12,5 +12,6 @@ public class CmdDefine
         REGISTER = 1001,
         LOGIN = 1002,
         GETINFO = 1003,
-        SELECTION = 1004;
+        SELECTION = 1004,
+        ARRANGE = 1005;
 }

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public class C_Params
 {
+    public const int
+        maxActive = 5;
+
     public const string
         //IP_API = "192.168.1.75",
         IP_API = "159.65.143.31",

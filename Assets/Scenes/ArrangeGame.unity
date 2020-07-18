@@ -128,10 +128,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 172340461}
     m_Modifications:
+    - target: {fileID: 3379903423545680411, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: DD
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_Name
       value: CellAT (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -269,6 +279,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CellAT (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -443,6 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9254e6314a4b93849a5bc91d071da2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 1808306506}
   listHeroAv: {fileID: 1266112802}
   heroAvEl: {fileID: 8140200568676597338, guid: 23bf1913572d2174e99b20e68b4b4edc,
     type: 3}
@@ -466,6 +482,7 @@ MonoBehaviour:
   - {fileID: 844075879}
   - {fileID: 1505685910}
   - {fileID: 2089387806}
+  countActive: 0
 --- !u!1 &172340460
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +508,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172340460}
-  m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1299,6 +1316,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CellAT (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1436,10 +1458,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 172340461}
     m_Modifications:
+    - target: {fileID: 3379903423545680411, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: DD
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_Name
       value: CellAT (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -1656,6 +1688,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CellAT (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1793,10 +1830,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 172340461}
     m_Modifications:
+    - target: {fileID: 3379903423545680411, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: DD
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_Name
       value: CellAT
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -1930,10 +1977,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 172340461}
     m_Modifications:
+    - target: {fileID: 3379903423545680411, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: DD
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_Name
       value: CellAT (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -2150,10 +2207,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 172340461}
     m_Modifications:
+    - target: {fileID: 3379903423545680411, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: DD
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_Name
       value: CellAT (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -2376,6 +2443,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CellAT
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -2603,10 +2675,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 172340461}
     m_Modifications:
+    - target: {fileID: 3379903423545680411, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: DD
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_Name
       value: CellAT (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -2740,10 +2822,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 172340461}
     m_Modifications:
+    - target: {fileID: 3379903423545680411, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: DD
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_Name
       value: CellAT (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -2881,6 +2973,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CellAT (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -3023,6 +3120,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CellAT (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -3282,6 +3384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1485357442}
   - component: {fileID: 1485357443}
+  - component: {fileID: 1485357444}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -3296,7 +3399,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1485357441}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3304,7 +3407,7 @@ RectTransform:
   - {fileID: 1917136238}
   m_Father: {fileID: 1808306507}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3318,6 +3421,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1485357441}
   m_CullTransparentMesh: 0
+--- !u!111 &1485357444
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485357441}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: b7a6a04a26cf2994485fe15e8ab053b7, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: b7a6a04a26cf2994485fe15e8ab053b7, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &1505685908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3329,6 +3448,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CellAT (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -3472,7 +3596,6 @@ GameObject:
   - component: {fileID: 1621608268}
   - component: {fileID: 1621608267}
   - component: {fileID: 1621608266}
-  - component: {fileID: 1621608269}
   m_Layer: 5
   m_Name: btnFighting
   m_TagString: Untagged
@@ -3543,9 +3666,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1621608269}
-        m_MethodName: ChangeScene
-        m_Mode: 5
+      - m_Target: {fileID: 153376765}
+        m_MethodName: Fightting
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3591,18 +3714,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621608264}
   m_CullTransparentMesh: 0
---- !u!114 &1621608269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1621608264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 754a7f6477c7d114bb7d3d0b9dca4548, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1625853106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3610,10 +3721,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 172340461}
     m_Modifications:
+    - target: {fileID: 3379903423545680411, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: DD
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_Name
       value: CellAT (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -4263,6 +4384,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CellAT (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4418,7 +4544,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917136237}
-  m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4482,6 +4608,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CellAT (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
@@ -4620,10 +4751,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 172340461}
     m_Modifications:
+    - target: {fileID: 3379903423545680411, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: DD
+      objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}
       propertyPath: m_Name
       value: CellAT (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588531015286522027, guid: 983dad22948e6e54cab09c6b0be64770,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7588531015286522028, guid: 983dad22948e6e54cab09c6b0be64770,
         type: 3}

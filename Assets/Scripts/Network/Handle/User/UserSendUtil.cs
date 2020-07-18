@@ -44,4 +44,29 @@ public class UserSendUtil
             SmartFoxConnection.send(packet);
         }
     }
+
+    public static void sendArrange(List<M_Hero> heros)
+    {
+        Debug.Log("----------------------->Arrange");
+        ISFSObject isFSObject = new SFSObject();
+        isFSObject.PutInt(CmdDefine.CMDID, CmdDefine.ARRANGE);
+
+        ISFSArray heroObjs = new SFSArray();
+        for (int i = 0; i < heros.Count; i++)
+        {
+            heroObjs.AddSFSObject(heros[i].parse());
+        }
+
+        isFSObject.PutSFSArray("nhanvats", heroObjs);
+        var packet = new ExtensionRequest(ModuleConfig.USER, isFSObject);
+        if (SmartFoxConnection.isAlready())
+        {
+            SmartFoxConnection.send(packet);
+        }
+        else
+        {
+            SmartFoxConnection.Init();
+            SmartFoxConnection.send(packet);
+        }
+    }
 }

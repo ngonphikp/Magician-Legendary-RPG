@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class M_NhanVat
 {
-    public int id_nv;
+    public int id_nv = -1;
     public string id_cfg;
     public int id_tk;
 

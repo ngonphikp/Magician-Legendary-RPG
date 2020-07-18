@@ -7,21 +7,28 @@ public class C_HeroAvEl : MonoBehaviour
 {
     [SerializeField]
     private Text txtIdCfg = null;
-    [SerializeField]
-    private bool isActive = false;
+    
+    public bool isActive = false;
 
-    private M_Hero hero;
+    public M_Hero hero;
 
     public void setHero(M_Hero hero)
     {
         this.hero = hero;
 
-        txtIdCfg.text = hero.id_cfg;
+        txtIdCfg.text = hero.id_nv + " / " + hero.id_cfg;
     }
 
     public void ClickHero()
     {
-        Debug.Log("==================================ClickHero: " + hero.id_nv + " => " + isActive);
+        Debug.Log("ClickHero: " + hero.id_nv + " => " + isActive);
+        if (ArrangeGame.instance.countActive >= C_Params.maxActive)
+        {
+            Debug.LogWarning("Full Active");
+            return;
+        }
+
+        ArrangeGame.instance.Active(this.hero);
 
         if (!isActive)
         {
