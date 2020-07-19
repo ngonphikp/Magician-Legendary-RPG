@@ -37,16 +37,8 @@ public class LoginGame : MonoBehaviour
 
         // Nếu đã Selection
         if(lstNhanVat.Count > 0)
-        {            
-            GameManager.instance.listHero.Clear();
-            for (int i = 0; i < lstNhanVat.Count; i++)
-            {
-                M_Hero hero = new M_Hero(lstNhanVat[i]);
-                hero.UpdateById();
-
-                GameManager.instance.listHero.Add(hero);
-            }
-
+        {
+            GameManager.instance.nhanVats = lstNhanVat;
             ScenesManager.instance.ChangeScene("HomeGame");
         }
         // Nếu chưa Selection

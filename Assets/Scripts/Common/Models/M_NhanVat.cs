@@ -44,4 +44,17 @@ public class M_NhanVat
         this.lv = obj.GetInt("lv");
         this.idx = obj.GetInt("idx");
     }
+
+    public ISFSObject parse()
+    {
+        ISFSObject obj = new SFSObject();
+
+        obj.PutInt("id_nv", this.id_nv);
+        obj.PutUtfString("id_cfg", this.id_cfg);
+        obj.PutInt("id_tk", this.id_tk);
+        obj.PutInt("lv", this.lv);
+        obj.PutInt("idx", this.idx);
+
+        return obj;
+    }
 }

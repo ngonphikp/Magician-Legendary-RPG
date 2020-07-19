@@ -29,7 +29,7 @@ public class ArrangeGame : MonoBehaviour
     [SerializeField]
     private Button btnFighting = null;
 
-    private List<M_Hero> listHero = new List<M_Hero>();
+    private List<M_NhanVat> nhanVats = new List<M_NhanVat>();
     public int countActive = 0;
 
     public Dictionary<int, C_HeroAvEl> Objs = new Dictionary<int, C_HeroAvEl>();
@@ -61,25 +61,25 @@ public class ArrangeGame : MonoBehaviour
     {
         Objs.Clear();
 
-        for (int i = 0; i < GameManager.instance.listHero.Count; i++)
+        for (int i = 0; i < GameManager.instance.nhanVats.Count; i++)
         {
             C_HeroAvEl heroAv = Instantiate(heroAvEl, listHeroAv).GetComponent<C_HeroAvEl>();
-            heroAv.setHero(GameManager.instance.listHero[i]);
+            heroAv.set(GameManager.instance.nhanVats[i]);
 
-            listHero.Add(GameManager.instance.listHero[i]);
+            nhanVats.Add(GameManager.instance.nhanVats[i]);
 
-            if (GameManager.instance.listHero[i].idx != -1)
+            if (GameManager.instance.nhanVats[i].idx != -1)
             {
                 if (countActive >= C_Params.maxActive) break;
 
                 heroAv.Active();
 
-                teamL[GameManager.instance.listHero[i].idx].setHero(GameManager.instance.listHero[i], canvas);
+                teamL[GameManager.instance.nhanVats[i].idx].set(GameManager.instance.nhanVats[i], canvas);
 
                 countActive++;
             }
 
-            Objs.Add(GameManager.instance.listHero[i].id_nv, heroAv);
+            Objs.Add(GameManager.instance.nhanVats[i].id_nv, heroAv);
         }
 
         Debug.Log("Count: " + Objs.Keys.Count);
@@ -87,14 +87,14 @@ public class ArrangeGame : MonoBehaviour
         await Task.Yield();
     }
 
-    public void Active(M_Hero hero)
+    public void Active(M_NhanVat nhanVat)
     {
         for (int i = 0; i < teamL.Length; i++)
         {
-            if (teamL[i].content.hero.idx == -1)
+            if (teamL[i].content.nhanVat.idx == -1)
             {
-                hero.idx = i;
-                teamL[i].setHero(hero, canvas);
+                nhanVat.idx = i;
+                teamL[i].set(nhanVat, canvas);
                 countActive++;
 
                 return;
@@ -114,16 +114,16 @@ public class ArrangeGame : MonoBehaviour
 
     private void iSave()
     {
-        List<M_Hero> heros = new List<M_Hero>();
+        List<M_NhanVat> nhanVats = new List<M_NhanVat>();
 
         // Update index hero in teamL
         for (int i = 0; i < teamL.Length; i++)
         {
-            if (teamL[i].content.hero.idx != -1)
+            if (teamL[i].content.nhanVat.idx != -1)
             {
-                teamL[i].content.hero.idx = i;
+                teamL[i].content.nhanVat.idx = i;
 
-                heros.Add(teamL[i].content.hero);
+                nhanVats.Add(teamL[i].content.nhanVat);
             }
         }
 
@@ -132,17 +132,17 @@ public class ArrangeGame : MonoBehaviour
         {
             if (!el.isActive)
             {
-                el.hero.idx = -1;
+                el.nhanVat.idx = -1;
 
-                heros.Add(el.hero);
+                nhanVats.Add(el.nhanVat);
             }
         }
 
         //heros.ForEach(x => Debug.Log(x.id_nv + " / " + x.id_cfg + " / " + x.idx));        
 
-        UserSendUtil.sendArrange(heros);
+        UserSendUtil.sendArrange(nhanVats);
 
-        GameManager.instance.listHero = heros;
+        GameManager.instance.nhanVats = nhanVats;
 
         if (GameManager.instance.demo) RecArrange();
     }

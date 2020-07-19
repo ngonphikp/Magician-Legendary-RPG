@@ -36,11 +36,11 @@ public class FightingGame : MonoBehaviour
 
     private async void LoadListHero()
     {
-        for (int i = 0; i < GameManager.instance.listHero.Count; i++)
+        for (int i = 0; i < GameManager.instance.nhanVats.Count; i++)
         {
-            if (GameManager.instance.listHero[i].idx != -1)
+            if (GameManager.instance.nhanVats[i].idx != -1)
             {
-                teamL[GameManager.instance.listHero[i].idx].setHero(GameManager.instance.listHero[i], canvas);
+                teamL[GameManager.instance.nhanVats[i].idx].set(GameManager.instance.nhanVats[i], canvas);
             }
         }
 

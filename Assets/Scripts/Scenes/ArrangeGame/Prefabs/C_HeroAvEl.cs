@@ -10,25 +10,25 @@ public class C_HeroAvEl : MonoBehaviour
     
     public bool isActive = false;
 
-    public M_Hero hero;
+    public M_NhanVat nhanVat;
 
-    public void setHero(M_Hero hero)
+    public void set(M_NhanVat nhanVat)
     {
-        this.hero = hero;
+        this.nhanVat = nhanVat;
 
-        txtIdCfg.text = hero.id_nv + " / " + hero.id_cfg;
+        txtIdCfg.text = nhanVat.id_nv + " / " + nhanVat.id_cfg;
     }
 
     public void ClickHero()
     {
-        Debug.Log("ClickHero: " + hero.id_nv + " => " + isActive);
+        Debug.Log("ClickHero: " + nhanVat.id_nv + " => " + isActive);
         if (ArrangeGame.instance.countActive >= C_Params.maxActive)
         {
             Debug.LogWarning("Full Active");
             return;
         }
 
-        ArrangeGame.instance.Active(this.hero);
+        ArrangeGame.instance.Active(this.nhanVat);
 
         if (!isActive)
         {

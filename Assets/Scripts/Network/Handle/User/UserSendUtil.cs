@@ -45,19 +45,19 @@ public class UserSendUtil
         }
     }
 
-    public static void sendArrange(List<M_Hero> heros)
+    public static void sendArrange(List<M_NhanVat> nhanVats)
     {
         Debug.Log("----------------------->Arrange");
         ISFSObject isFSObject = new SFSObject();
         isFSObject.PutInt(CmdDefine.CMDID, CmdDefine.ARRANGE);
 
-        ISFSArray heroObjs = new SFSArray();
-        for (int i = 0; i < heros.Count; i++)
+        ISFSArray nvObjs = new SFSArray();
+        for (int i = 0; i < nhanVats.Count; i++)
         {
-            heroObjs.AddSFSObject(heros[i].parse());
+            nvObjs.AddSFSObject(nhanVats[i].parse());
         }
 
-        isFSObject.PutSFSArray("nhanvats", heroObjs);
+        isFSObject.PutSFSArray("nhanvats", nvObjs);
         var packet = new ExtensionRequest(ModuleConfig.USER, isFSObject);
         if (SmartFoxConnection.isAlready())
         {

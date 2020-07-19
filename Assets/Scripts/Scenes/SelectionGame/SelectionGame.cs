@@ -67,15 +67,8 @@ public class SelectionGame : MonoBehaviour
         //lstNhanVat.ForEach(x => Debug.Log(x.id_nv + " / " + x.id_cfg + " / " + x.id_tk + " / " + x.lv));
 
         if (lstNhanVat.Count > 0)
-        {           
-            GameManager.instance.listHero.Clear();
-            for (int i = 0; i < lstNhanVat.Count; i++)
-            {
-                M_Hero hero = new M_Hero(lstNhanVat[i]);
-                hero.UpdateById();
-
-                GameManager.instance.listHero.Add(hero);
-            }
+        {
+            GameManager.instance.nhanVats = lstNhanVat;
 
             GameManager.instance.taikhoan.name = tenNhanVat;
 

@@ -5,34 +5,40 @@ using UnityEngine.UI;
 
 public class C_Milestone : MonoBehaviour
 {
-    private int star = 0;
-
     [SerializeField]
     private Sprite[] spriteStars = null;
 
     private Image img;
+    private M_Milestone milestone = new M_Milestone();
 
     private void Awake()
     {
         img = this.GetComponent<Image>();
     }
 
+    public void set(M_Milestone milestone)
+    {
+        this.milestone = milestone;
+
+        this.milestone.star = Random.Range(0, 4);
+        UpdateStar();
+    }
+
     public void Click()
     {
-        Debug.Log("Click :" + this.gameObject.name);
+        Debug.Log("Click :" + this.milestone.id);
 
         GameManager.instance.isAttack = true;
+        GameManager.instance.idxMilestone = this.milestone.id;
 
         ScenesManager.instance.ChangeScene("ArrangeGame");
     }
 
-    public void SetStar(int star)
+    private void UpdateStar()
     {
-        if (this.star == star) return;
-        this.star = star;
-        if(star <= spriteStars.Length)
+        if(this.milestone.star <= spriteStars.Length)
         {
-            img.sprite = spriteStars[star];
+            img.sprite = spriteStars[this.milestone.star];
         }
         else
         {

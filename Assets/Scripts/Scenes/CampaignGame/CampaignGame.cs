@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class CampaignGame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private C_Milestone[] milestones = null;
+
+    private void Start()
     {
-        
+        LoadMilestones();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LoadMilestones()
     {
-        
+        for(int i = 0; i < milestones.Length; i++)
+        {
+            milestones[i].set(GameManager.instance.milestones[i]);
+        }
     }
 }

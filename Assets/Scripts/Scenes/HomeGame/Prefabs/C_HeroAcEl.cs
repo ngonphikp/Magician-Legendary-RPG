@@ -7,13 +7,13 @@ public class C_HeroAcEl : MonoBehaviour
     [SerializeField]
     private Transform content = null;
 
-    private M_Hero hero;
+    private M_NhanVat nhanVat;
 
-    public void setHero(M_Hero hero)
+    public void set(M_NhanVat nhanVat)
     {
-        this.hero = hero;
+        this.nhanVat = nhanVat;
 
-        GameObject heroAs = QuickFunction.getAssetPref("Prefabs/Hero/" + hero.id_cfg);
+        GameObject heroAs = QuickFunction.getAssetPref("Prefabs/Hero/" + nhanVat.id_cfg);
 
         // Test
         if (heroAs == null) heroAs = QuickFunction.getAssetPref("Prefabs/Hero/T1004");
@@ -26,6 +26,6 @@ public class C_HeroAcEl : MonoBehaviour
 
     public void ClickHero()
     {
-        Debug.Log("==================================ClickHero: " + hero.id_nv + " / " + hero.id_cfg);
+        Debug.Log("==================================ClickHero: " + nhanVat.id_nv + " / " + nhanVat.id_cfg);
     }
 }

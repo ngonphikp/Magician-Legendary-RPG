@@ -19,12 +19,19 @@ public class GameManager : MonoBehaviour
     public List<M_Hero> heros = new List<M_Hero>();
     public Dictionary<string, M_Hero> herosDic = new Dictionary<string, M_Hero>();
 
+    public List<M_Creep> creeps = new List<M_Creep>();
+    public Dictionary<string, M_Creep> creepsDic = new Dictionary<string, M_Creep>();
+
+    public List<M_Milestone> milestones = new List<M_Milestone>();
+    public Dictionary<int, M_Milestone> milestonesDic = new Dictionary<int, M_Milestone>();
+
     // Data User
     public M_TaiKhoan taikhoan = new M_TaiKhoan();
-    public List<M_Hero> listHero = new List<M_Hero>();
+    public List<M_NhanVat> nhanVats = new List<M_NhanVat>();
 
     // Arrange & Fighting
     public bool isAttack = false;
+    public int idxMilestone = 0;
 
     private void Awake()
     {
@@ -48,6 +55,8 @@ public class GameManager : MonoBehaviour
     private void LoadConfigJson()
     {
         LoadListHero();
+        LoadListCreep();
+        LoadListMilestone();
     }
 
     private void LoadListHero()
@@ -57,6 +66,24 @@ public class GameManager : MonoBehaviour
 
         herosDic = new Dictionary<string, M_Hero>(heros.Count);
         heros.ForEach(x => herosDic.Add(x.id_cfg, x));
+    }
+
+    private void LoadListCreep()
+    {
+        JSonConvert convert = new JSonConvert();
+        creeps = convert.GetListCreep().ToList<M_Creep>();
+
+        creepsDic = new Dictionary<string, M_Creep>(creeps.Count);
+        creeps.ForEach(x => creepsDic.Add(x.id_cfg, x));
+    }
+
+    private void LoadListMilestone()
+    {
+        JSonConvert convert = new JSonConvert();
+        milestones = convert.GetListMilestone().ToList<M_Milestone>();
+
+        milestonesDic = new Dictionary<int, M_Milestone>(milestones.Count);
+        milestones.ForEach(x => milestonesDic.Add(x.id, x));
     }
 
     private void Start()
@@ -69,24 +96,18 @@ public class GameManager : MonoBehaviour
             taikhoan.password = "password99";
             taikhoan.name = "name99";
 
-            listHero.Clear();
+            nhanVats.Clear();
 
             int[] arrIdx = { 0, 2, 4, 6, 8};
 
             for(int i = 0; i < 5; i++)
             {
-                M_NhanVat nv = new M_NhanVat(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 100), arrIdx[i]);
-                M_Hero hr = new M_Hero(nv);
-                hr.UpdateById();
-                listHero.Add(hr);
+                nhanVats.Add(new M_NhanVat(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 100), arrIdx[i]));
             }
 
             for (int i = 5; i < 15; i++)
             {
-                M_NhanVat nv = new M_NhanVat(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 100), -1);
-                M_Hero hr = new M_Hero(nv);
-                hr.UpdateById();
-                listHero.Add(hr);
+                nhanVats.Add(new M_NhanVat(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 100), -1));
             }
 
             ScenesManager.instance.ChangeScene("HomeGame");

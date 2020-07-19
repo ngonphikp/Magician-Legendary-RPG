@@ -9,20 +9,20 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     [SerializeField]
     private GameObject Trigger = null;
 
-    public M_Hero hero = new M_Hero();
+    public M_NhanVat nhanVat = new M_NhanVat();
 
     private Canvas canvas;
     private C_DD other;
     private bool isActive = false;
     private bool isOnBeginDrag = false;
 
-    public void Init(M_Hero hero, Canvas canvas)
+    public void Init(M_NhanVat nhanVat, Canvas canvas)
     {
         this.isActive = true;
-        this.hero = hero;
+        this.nhanVat = nhanVat;
         this.canvas = canvas;
 
-        createHero();
+        createNhanVat();
     }
 
     private void setTrigger(bool isActive)
@@ -30,7 +30,7 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         Trigger.SetActive(isActive);
     }
 
-    private void createHero()
+    private void createNhanVat()
     {
         foreach (Transform child in this.gameObject.transform)
         {
@@ -39,31 +39,46 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         if (this.isActive)
         {
-            GameObject heroAs = QuickFunction.getAssetPref("Prefabs/Hero/" + hero.id_cfg);
+            GameObject nvAs = QuickFunction.getAssetPref("Prefabs/Hero/" + nhanVat.id_cfg);
 
-            if (heroAs == null) heroAs = QuickFunction.getAssetPref("Prefabs/Hero/T1004");
-
-            if (heroAs != null)
+            if (nvAs == null)
             {
-                Instantiate(heroAs, this.gameObject.transform);
+                switch (nhanVat.type)
+                {
+                    case C_Enum.CharacterType.Hero:
+                        nvAs = QuickFunction.getAssetPref("Prefabs/Hero/T1004");
+                        break;
+                    case C_Enum.CharacterType.Creep:
+                        nvAs = QuickFunction.getAssetPref("Prefabs/Hero/M1000");
+                        break;
+                    default:
+                        nvAs = QuickFunction.getAssetPref("Prefabs/Hero/T1004");
+                        break;
+                }
+                
+            }
+
+            if (nvAs != null)
+            {
+                Instantiate(nvAs, this.gameObject.transform);
             }
         }
     }
 
-    public void ReLoad(M_Hero hero, bool isActive, Canvas canvas = null)
+    public void ReLoad(M_NhanVat nhanVat, bool isActive, Canvas canvas = null)
     {
         this.isActive = isActive;
-        this.hero = hero;        
+        this.nhanVat = nhanVat;        
 
         if (this.canvas == null) this.canvas = canvas;
 
-        createHero();
+        createNhanVat();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!isActive) return;
-        Debug.Log("OnBeginDrag: " + hero.id_nv);
+        Debug.Log("OnBeginDrag: " + nhanVat.id_nv);
 
         this.isOnBeginDrag = true;
     }
@@ -71,24 +86,24 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     public void OnDrag(PointerEventData eventData)
     {
         if (!isActive) return;
-        //Debug.Log("OnDrag: " + parent.hero.id_nv);
+        //Debug.Log("OnDrag: " + parent.nhanVat.id_nv);
         this.GetComponent<RectTransform>().anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         if (!isActive) return;
-        Debug.Log("OnEndDrag: " + hero.id_nv);
+        Debug.Log("OnEndDrag: " + nhanVat.id_nv);
 
         if (other != null)
         {
-            Debug.Log("Other: " + other.hero.id_nv);
+            Debug.Log("Other: " + other.nhanVat.id_nv);
 
-            M_Hero hero = this.hero;
+            M_NhanVat nhanVat = this.nhanVat;
             bool isActive = this.isActive;
 
-            this.ReLoad(other.hero, other.isActive, this.canvas);
-            other.ReLoad(hero, isActive, this.canvas);
+            this.ReLoad(other.nhanVat, other.isActive, this.canvas);
+            other.ReLoad(nhanVat, isActive, this.canvas);
 
             this.setTrigger(false);
             other.setTrigger(false);            
@@ -103,12 +118,12 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     public void OnClick()
     {
         if (!isActive || isOnBeginDrag) return;
-        Debug.Log("OnClick: " + hero.id_nv);
+        Debug.Log("OnClick: " + nhanVat.id_nv);
 
-        ArrangeGame.instance.Objs[hero.id_nv].UnActive();
+        ArrangeGame.instance.Objs[nhanVat.id_nv].UnActive();
         ArrangeGame.instance.countActive--;
 
-        this.ReLoad(new M_Hero(), false);        
+        this.ReLoad(new M_NhanVat(), false);        
     }
 
     private C_DD oldOther;

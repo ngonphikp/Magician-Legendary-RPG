@@ -4,7 +4,7 @@ using UnityEngine;
 using Sfs2X.Entities.Data;
 
 [System.Serializable]
-public class M_Hero : M_NhanVat
+public class M_Creep : M_NhanVat
 {
     public int def = 1;
     public int hp = 1;
@@ -12,12 +12,12 @@ public class M_Hero : M_NhanVat
     public float crit = 1.0f;
     public float dodge = 1.0f;    
 
-    public M_Hero()
+    public M_Creep()
     {
 
     }
 
-    public M_Hero(M_NhanVat nhanvat)
+    public M_Creep(M_NhanVat nhanvat)
     {
         this.id_cfg = nhanvat.id_cfg;
         this.id_nv = nhanvat.id_nv;
@@ -30,13 +30,13 @@ public class M_Hero : M_NhanVat
     {
         if (id_cfg == null) id_cfg = this.id_cfg;
         else this.id_cfg = id_cfg;
-        M_Hero heroInConfig = GameManager.instance.herosDic[id_cfg];
-        this.name = heroInConfig.name;
-        this.element = heroInConfig.element;
-        this.def = heroInConfig.def;
-        this.hp = heroInConfig.hp;
-        this.crit = heroInConfig.crit;
-        this.dodge = heroInConfig.dodge;
-        this.atk = heroInConfig.atk;
-    }    
+        M_Creep creepInConfig = GameManager.instance.creepsDic[id_cfg];
+        this.name = creepInConfig.name;
+        this.element = creepInConfig.element;
+        this.def = creepInConfig.def;
+        this.hp = creepInConfig.hp;
+        this.crit = creepInConfig.crit;
+        this.dodge = creepInConfig.dodge;
+        this.atk = creepInConfig.atk;
+    }
 }
