@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 2736713703792691069}
   - component: {fileID: 7146774399938190489}
   - component: {fileID: 7006226281807148405}
-  - component: {fileID: 4448144204679884476}
+  - component: {fileID: 1803589165786396868}
   m_Layer: 5
   m_Name: CellAT
   m_TagString: MainHero
@@ -467,20 +467,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: {fileID: 2319400632509314629}
---- !u!111 &4448144204679884476
-Animation:
+--- !u!95 &1803589165786396868
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7588531015286522027}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: a31a493b73e130c40ae7bfb0694f18e1, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: b7a6a04a26cf2994485fe15e8ab053b7, type: 2}
-  - {fileID: 7400000, guid: a31a493b73e130c40ae7bfb0694f18e1, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ae847a9fb8eb602429a8d082096a76a2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

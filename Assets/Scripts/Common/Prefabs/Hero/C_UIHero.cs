@@ -15,37 +15,6 @@ public class C_UIHero : MonoBehaviour
     private Text lvTxt = null;
     [SerializeField]
     private Image elImg = null;
-    [SerializeField]
-    private Transform texts = null;
-    [SerializeField]
-    private GameObject btnHeroSkill = null;
-    [SerializeField]
-    private GameObject textPrbHP1 = null;
-    [SerializeField]
-    private GameObject textPrbHP2 = null;
-    [SerializeField]
-    private GameObject textPrbHP2r = null;
-    [SerializeField]
-    private GameObject textPrbEP1 = null;
-    [SerializeField]
-    private GameObject textPrbEP2 = null;
-    [SerializeField]
-    private GameObject textPrbEP2r = null;
-    [SerializeField]
-    private GameObject textPrbDG = null;
-    [SerializeField]
-    private GameObject textPrbDGr = null;
-    [SerializeField]
-    private GameObject textPrbMiss = null;
-    [SerializeField]
-    private GameObject textPrbMissr = null;
-
-    [SerializeField]
-    private GameObject SoftEffectPrb = null;
-    [SerializeField]
-    private Transform posSE = null;
-
-    private Dictionary<string, C_SoftEffect> softEffects = new Dictionary<string, C_SoftEffect>();
 
     private bool isRight = false;
 
@@ -79,65 +48,11 @@ public class C_UIHero : MonoBehaviour
         Ep.fillAmount = curEp;
     }
 
-    public void CreateText(string str, C_Enum.TypeText type)
-    {
-        GameObject text = null;
-        switch (type)
-        {
-            case C_Enum.TypeText.HP1:
-                text = Instantiate(textPrbHP1, texts);
-                break;
-            case C_Enum.TypeText.HP2:
-                text = (!isRight) ? Instantiate(textPrbHP2, texts) : Instantiate(textPrbHP2r, texts);
-                break;
-            case C_Enum.TypeText.EP1:
-                text = Instantiate(textPrbEP1, texts);
-                break;
-            case C_Enum.TypeText.EP2:
-                text = (!isRight) ? Instantiate(textPrbEP2, texts) : Instantiate(textPrbEP2r, texts);
-                break;
-            case C_Enum.TypeText.DG:
-                text = (!isRight) ? Instantiate(textPrbDG, texts) : Instantiate(textPrbDGr, texts);
-                break;
-            case C_Enum.TypeText.Miss:
-                text = (!isRight) ? Instantiate(textPrbMiss, texts) : Instantiate(textPrbMissr, texts);
-                break;
-            default:
-                break;
-        }
-        if (text != null) text.GetComponent<Text>().text = str;
-    }
-
-    public void AddEffect(string rs_effect)
-    {
-        // Debug.Log("========================================================>Add Effect: " + id_effect);
-        GameObject se = Instantiate(SoftEffectPrb, posSE);
-        C_SoftEffect cse = se.GetComponent<C_SoftEffect>();
-        cse.set(rs_effect);
-
-        if (!softEffects.ContainsKey(rs_effect)) softEffects.Add(rs_effect, cse);
-    }
-
-    public void RemoveEffect(string rs_effect)
-    {
-        // Debug.Log("========================================================>Remove Effect: " + id_effect);
-        if (softEffects.ContainsKey(rs_effect))
-        {
-            C_SoftEffect cse = softEffects[rs_effect];
-            cse.DestroySE();
-            softEffects.Remove(rs_effect);
-        }
-    }
-
-    public void set(int team, int lv, string el, bool isCombat)
+    public void set(int team)
     {
         gameObject.SetActive(true);
         this.isRight = (team == 1);
         if (isRight) UIRight();
-        lvTxt.text = lv.ToString();
-        Sprite elSp = QuickFunction.getAssetImages("Sprites/ElementSmall/" + el);
-        if (elSp != null) elImg.sprite = elSp;
-        btnHeroSkill.SetActive(isCombat);
     }
 
     private void UIRight()

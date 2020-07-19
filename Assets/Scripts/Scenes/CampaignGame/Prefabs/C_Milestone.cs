@@ -21,6 +21,8 @@ public class C_Milestone : MonoBehaviour
     {
         Debug.Log("Click :" + this.gameObject.name);
 
+        GameManager.instance.isAttack = true;
+
         ScenesManager.instance.ChangeScene("ArrangeGame");
     }
 

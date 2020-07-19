@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-#if UNITY_EDITOR
-using UnityEditor.Animations;
-#endif
 using UnityEngine;
 
 public class C_Hero : MonoBehaviour
@@ -24,39 +20,20 @@ public class C_Hero : MonoBehaviour
     [SerializeField]
     private C_UIHero UIHero = null;
 
-    [Header("Hiệu ứng cận chiến")]
-    [SerializeField]
-    private List<FxHero> Fx2 = new List<FxHero>();
-    [SerializeField]
-    private List<FxHero> Fx3 = new List<FxHero>();
-    [SerializeField]
-    private List<FxHero> Fx4 = new List<FxHero>();
-    [SerializeField]
-    private List<FxHero> Fx5 = new List<FxHero>();
-    [SerializeField]
-    private List<FxHero> Fx6 = new List<FxHero>();
-    [SerializeField]
-    private List<FxHero> Fx7 = new List<FxHero>();
-
     [Header("Khả năng chiến đấu")]
     public bool isCombat = false;
-
-    public M_Character character = new M_Character();
-
-    private List<M_Prop> propHPs = new List<M_Prop>(); // Mảng diễn thay đổi hp
-    private List<M_Prop> propEPs = new List<M_Prop>(); // Mảng diễn thay đổi hp
-
     public bool isHit = true;
     public bool isDie = false;
 
     private I_Control ctl = null;
+    private M_NhanVat nhanvat;
 
     private void Start()
     {
         if (UIHero != null)
         {
-            UIHero.hp = character.current_hp * 1.0f / character.max_hp;
-            UIHero.ep = character.current_ep * 1.0f / character.max_ep;
+            UIHero.hp = nhanvat.current_hp * 1.0f / nhanvat.max_hp;
+            UIHero.ep = nhanvat.current_ep * 1.0f / nhanvat.max_ep;
         }
 
         ctl = this.GetComponent<I_Control>();
@@ -71,69 +48,53 @@ public class C_Hero : MonoBehaviour
             if (isAnim2)
             {
                 anim.SetTrigger("anim2");
-                EnableFx(Fx2);
                 isAnim2 = false;
 
-                if (isCombat && (PlayGame.instance.targets.Count > 0 || PlayGame.instance.targetBuffs.Count > 0)) ctl.Play(2);
+                if (isCombat) ctl.Play(2);
             }
             if (isAnim3)
             {
                 anim.SetTrigger("anim3");
-                EnableFx(Fx3);
                 isAnim3 = false;
 
-                if (isCombat && (PlayGame.instance.targets.Count > 0 || PlayGame.instance.targetBuffs.Count > 0)) ctl.Play(3);
+                if (isCombat) ctl.Play(3);
             }
             if (isAnim4)
             {
                 anim.SetTrigger("anim4");
-                EnableFx(Fx4);
                 isAnim4 = false;
 
-                if (isCombat && (PlayGame.instance.targets.Count > 0 || PlayGame.instance.targetBuffs.Count > 0)) ctl.Play(4);
+                if (isCombat) ctl.Play(4);
             }
             if (isAnim5)
             {
                 anim.SetTrigger("anim5");
-                EnableFx(Fx5);
                 isAnim5 = false;
 
-                if (isCombat && (PlayGame.instance.targets.Count > 0 || PlayGame.instance.targetBuffs.Count > 0)) ctl.Play(5);
+                if (isCombat) ctl.Play(5);
             }
             if (isAnim6)
             {
                 anim.SetTrigger("anim6");
-                EnableFx(Fx6);
                 isAnim6 = false;
 
-                if (isCombat && (PlayGame.instance.targets.Count > 0 || PlayGame.instance.targetBuffs.Count > 0)) ctl.Play(6);
-
-                CheckAnimDie();
+                if (isCombat) ctl.Play(6);
             }
             if (isAnim7)
             {
                 anim.SetTrigger("anim7");
-                EnableFx(Fx7);
                 isAnim7 = false;
 
-                if (isCombat && (PlayGame.instance.targets.Count > 0 || PlayGame.instance.targetBuffs.Count > 0)) ctl.Play(7);
+                if (isCombat) ctl.Play(7);
             }
             await Task.Yield();
-        }
-    }
-
-    private void EnableFx(List<FxHero> Fx)
-    {
-        for (int i = 0; i < Fx.Count; i++)
-        {
-            Fx[i].PlayAsync();
         }
     }
 
     public void Play(System.Object par)
     {
         int i = (int)par;
-        Debug.Log("===========================" + this.character.actor_id + " Play:" + i);
+        Debug.Log("===========================" + this.nhanvat.id_nv + " Play:" + i);
 
         if (isAnim1())
         {
@@ -161,7 +122,7 @@ public class C_Hero : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("===========================" + this.character.actor_id + " Not Anim 1");
+            Debug.LogWarning("===========================" + this.nhanvat.id_nv + " Not Anim 1");
         }
     }
 
@@ -177,100 +138,24 @@ public class C_Hero : MonoBehaviour
         ChangeHp();
     }
 
-    public void PushChangeHp(M_Prop prop)
-    {
-        //Debug.Log("PushChangeHp");
-        //prop.getDumpObject();
-        propHPs.Add(prop);
-    }
-
-    public void PushChangeEp(M_Prop prop)
-    {
-        //Debug.Log("PushChangeEp");
-        //prop.getDumpObject();
-        propEPs.Add(prop);
-    }
-
     public void ChangeHp()
     {
-        Debug.Log("ChangeHp: " + this.character.actor_id);        
+        Debug.Log("ChangeHp: " + this.nhanvat.id_nv);        
     }
 
     public void ChangeEp()
     {
-        Debug.Log("ChangeEp: " + this.character.actor_id);        
-    }
-
-    public string getAnim()
-    {
-        if (!this.gameObject.activeSelf) return "null";
-        AnimatorClipInfo[] m_CurrentClipInfo = anim.GetCurrentAnimatorClipInfo(0);
-        return m_CurrentClipInfo[0].clip.name;
+        Debug.Log("ChangeEp: " + this.nhanvat.id_nv);        
     }
 
     public bool isAnim1()
     {
         if (!this.gameObject.activeSelf) return false;
-        if (this.GetComponent<RectTransform>().localPosition != new Vector3() && PlayGame.instance) return false;
+        if (this.GetComponent<RectTransform>().localPosition != new Vector3()) return false;
         AnimatorClipInfo[] m_CurrentClipInfo = anim.GetCurrentAnimatorClipInfo(0);
         if (m_CurrentClipInfo.Length < 1) return false;
         string m_ClipName = m_CurrentClipInfo[0].clip.name;
         //Debug.Log(m_ClipName);
         return (m_ClipName == "anim1");
-    }
-
-    public async void CheckAnimDie()
-    {
-        while (true)
-        {
-            AnimatorClipInfo[] m_CurrentClipInfo = anim.GetCurrentAnimatorClipInfo(0);
-
-            if (m_CurrentClipInfo.Length < 1) break;
-            string m_ClipName = m_CurrentClipInfo[0].clip.name;
-            // Debug.Log(m_ClipName);
-            if (m_ClipName == "Die")
-            {
-                this.gameObject.SetActive(false);
-                break;
-            }
-            await Task.Yield();
-        }
-    }
-}
-
-
-[System.Serializable]
-class FxHero
-{
-    public GameObject fx;
-    public float duration;
-    public float delay;
-    public bool isLoop;
-
-    public FxHero()
-    {
-
-    }
-
-    public FxHero(GameObject fx, float duration, float delay, bool isLoop)
-    {
-        this.fx = fx;
-        this.duration = duration;
-        this.delay = delay;
-        this.isLoop = isLoop;
-    }
-
-    public async void PlayAsync()
-    {
-        //Debug.Log(fx.name + " Play");
-        await Task.Delay(TimeSpan.FromSeconds(this.delay / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
-        fx.SetActive(false);
-        fx.SetActive(true);
-
-        if (isLoop)
-        {
-            await Task.Delay(TimeSpan.FromSeconds(this.duration / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
-            fx.SetActive(false);
-        }
     }
 }

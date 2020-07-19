@@ -15,6 +15,9 @@ public class M_NhanVat
 
     public int idx = -1;
 
+    public int current_ep = 0, max_ep = 1;
+    public int current_hp = 0, max_hp = 1;
+
     public C_Enum.CharacterType type = C_Enum.CharacterType.Hero;
 
     public M_NhanVat()

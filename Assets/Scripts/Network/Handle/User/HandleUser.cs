@@ -10,7 +10,7 @@ public class HandleUser
     {
         short cmdid = (short)sfsObject.GetInt(CmdDefine.CMDID);
 
-        Debug.Log(sfsObject);
+        Debug.Log(sfsObject.GetDump());
 
         switch (cmdid)
         {
@@ -19,6 +19,9 @@ public class HandleUser
                 break;
             case CmdDefine.SELECTION:
                 handleSelection(sfsObject);
+                break;
+            case CmdDefine.ARRANGE:
+                handleArrange(sfsObject);
                 break;
             default:
 
@@ -63,6 +66,20 @@ public class HandleUser
             }
 
             SelectionGame.instance.RecSelection(lstNhanVat);
+        }
+        else
+        {
+            Debug.Log("ErrorCode: " + ec);
+        }
+    }
+
+    public static void handleArrange(SFSObject packet)
+    {
+        Debug.Log("______________HANDLE ARRANGE_____________\n" + packet.GetDump());
+        short ec = packet.GetShort(CmdDefine.ERROR_CODE);
+        if (ec == ErrorCode.SUCCESS)
+        {
+            ArrangeGame.instance.RecArrange();
         }
         else
         {

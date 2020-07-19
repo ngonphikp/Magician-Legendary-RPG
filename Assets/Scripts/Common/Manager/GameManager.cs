@@ -9,8 +9,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private bool demo = false;
+    public bool demo = false;
 
     public static GameManager instance = null;
 
@@ -23,6 +22,9 @@ public class GameManager : MonoBehaviour
     // Data User
     public M_TaiKhoan taikhoan = new M_TaiKhoan();
     public List<M_Hero> listHero = new List<M_Hero>();
+
+    // Arrange & Fighting
+    public bool isAttack = false;
 
     private void Awake()
     {
