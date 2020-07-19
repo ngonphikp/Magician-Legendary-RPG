@@ -6,8 +6,8 @@ public class C_CellAT : MonoBehaviour
 {
     public C_DD content = null;
 
-    public void set(M_NhanVat nhanVat, Canvas canvas = null)
+    public void set(M_NhanVat nhanVat, Canvas canvas = null, bool isDD = true)
     {
-        content.Init(nhanVat, canvas);        
+        content.Init(nhanVat, canvas, isDD);
     }
 }

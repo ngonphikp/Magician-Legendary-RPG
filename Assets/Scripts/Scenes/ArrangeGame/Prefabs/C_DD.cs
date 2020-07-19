@@ -15,12 +15,14 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     private C_DD other;
     private bool isActive = false;
     private bool isOnBeginDrag = false;
+    private bool isDD = true;
 
-    public void Init(M_NhanVat nhanVat, Canvas canvas)
+    public void Init(M_NhanVat nhanVat, Canvas canvas, bool isDD = true)
     {
         this.isActive = true;
         this.nhanVat = nhanVat;
         this.canvas = canvas;
+        this.isDD = isDD;
 
         createNhanVat();
     }
@@ -77,7 +79,7 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (!isActive) return;
+        if (!isActive || !ArrangeGame.instance || !isDD) return;
         Debug.Log("OnBeginDrag: " + nhanVat.id_nv);
 
         this.isOnBeginDrag = true;
@@ -85,14 +87,14 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!isActive) return;
+        if (!isActive || !ArrangeGame.instance || !isDD) return;
         //Debug.Log("OnDrag: " + parent.nhanVat.id_nv);
         this.GetComponent<RectTransform>().anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!isActive) return;
+        if (!isActive || !ArrangeGame.instance || !isDD) return;
         Debug.Log("OnEndDrag: " + nhanVat.id_nv);
 
         if (other != null)
@@ -117,7 +119,7 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnClick()
     {
-        if (!isActive || isOnBeginDrag) return;
+        if (!isActive || isOnBeginDrag || !ArrangeGame.instance || !isDD) return;
         Debug.Log("OnClick: " + nhanVat.id_nv);
 
         ArrangeGame.instance.Objs[nhanVat.id_nv].UnActive();
@@ -130,7 +132,7 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("DD") && other.gameObject.GetComponent<C_DD>() != null && this.isOnBeginDrag)
+        if (other.CompareTag("DD") && other.gameObject.GetComponent<C_DD>() != null && this.isOnBeginDrag && ArrangeGame.instance && isDD)
         {
             this.other = other.gameObject.GetComponent<C_DD>();
 

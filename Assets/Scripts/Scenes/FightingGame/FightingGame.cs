@@ -32,6 +32,8 @@ public class FightingGame : MonoBehaviour
     private void Start()
     {
         LoadListHero();
+
+        LoadListCreep();
     }
 
     private async void LoadListHero()
@@ -41,6 +43,21 @@ public class FightingGame : MonoBehaviour
             if (GameManager.instance.nhanVats[i].idx != -1)
             {
                 teamL[GameManager.instance.nhanVats[i].idx].set(GameManager.instance.nhanVats[i], canvas);
+            }
+        }
+
+        await Task.Yield();
+    }
+
+    private async void LoadListCreep()
+    {
+        List<M_Creep> creeps = GameManager.instance.milestones[GameManager.instance.idxMilestone].listCreep;
+
+        for (int i = 0; i < creeps.Count; i++)
+        {
+            if (creeps[i].idx != -1)
+            {
+                teamR[creeps[i].idx].set(creeps[i], canvas);
             }
         }
 

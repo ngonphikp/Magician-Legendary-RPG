@@ -46,6 +46,8 @@ public class ArrangeGame : MonoBehaviour
 
         LoadListHero();
 
+        if(GameManager.instance.isAttack) LoadListCreep();
+
         LoadAnim(true);
     }
 
@@ -83,6 +85,21 @@ public class ArrangeGame : MonoBehaviour
         }
 
         Debug.Log("Count: " + Objs.Keys.Count);
+
+        await Task.Yield();
+    }
+
+    private async void LoadListCreep()
+    {
+        List<M_Creep> creeps = GameManager.instance.milestones[GameManager.instance.idxMilestone].listCreep;
+
+        for (int i = 0; i < creeps.Count; i++)
+        {
+            if (creeps[i].idx != -1)
+            {
+                teamR[creeps[i].idx].set(creeps[i], canvas, false);
+            }
+        }
 
         await Task.Yield();
     }
