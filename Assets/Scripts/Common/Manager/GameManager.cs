@@ -1,9 +1,4 @@
-﻿using Sfs2X;
-using Sfs2X.Core;
-using Sfs2X.Logging;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -28,6 +23,8 @@ public class GameManager : MonoBehaviour
     // Data User
     public M_TaiKhoan taikhoan = new M_TaiKhoan();
     public List<M_NhanVat> nhanVats = new List<M_NhanVat>();
+    public List<M_Milestone> tick_milestones = new List<M_Milestone>();
+    public Dictionary<int, M_Milestone> tick_milestonesDic = new Dictionary<int, M_Milestone>();
 
     // Arrange & Fighting
     public bool isAttack = false;
@@ -110,12 +107,27 @@ public class GameManager : MonoBehaviour
                 nhanVats.Add(new M_NhanVat(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 100), -1));
             }
 
+            for(int i = 0; i < 10; i++)
+            {
+                tick_milestones.Add(new M_Milestone(i, UnityEngine.Random.Range(1, 4)));
+            }
+
+            tick_milestones.Add(new M_Milestone(10, 0));
+
+            UpdateTickMS();
+
             ScenesManager.instance.ChangeScene("HomeGame");
 
             return;
         }
 
         SmartFoxConnection.Connect();
+    }
+
+    public void UpdateTickMS()
+    {
+        tick_milestonesDic = new Dictionary<int, M_Milestone>(tick_milestones.Count);
+        tick_milestones.ForEach(x => tick_milestonesDic.Add(x.id, x));
     }
 
     private void Update()

@@ -1671,8 +1671,9 @@ MonoBehaviour:
     usename: 
     password: 
     name: 
-  listHero: []
+  tick_milestones: []
   isAttack: 0
+  idxMilestone: 0
 --- !u!4 &582768019
 Transform:
   m_ObjectHideFlags: 0

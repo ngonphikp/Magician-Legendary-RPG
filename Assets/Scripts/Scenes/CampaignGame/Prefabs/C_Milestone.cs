@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,8 +21,13 @@ public class C_Milestone : MonoBehaviour
     {
         this.milestone = milestone;
 
-        this.milestone.star = Random.Range(0, 4);
-        UpdateStar();
+        if (GameManager.instance.tick_milestonesDic.ContainsKey(this.milestone.id))
+        {
+            this.milestone.star = GameManager.instance.tick_milestonesDic[milestone.id].star;
+            UpdateStar();
+
+            this.GetComponent<Button>().interactable = true;
+        }        
     }
 
     public void Click()

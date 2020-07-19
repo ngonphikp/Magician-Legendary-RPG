@@ -38,12 +38,20 @@ public class HandleUser
             List<M_NhanVat> lstNhanVat = new List<M_NhanVat>();
             ISFSArray nhanvats = packet.GetSFSArray("nhanvats");
             for(int i = 0; i < nhanvats.Size(); i++)
-            {
-                M_NhanVat nhanvat = new M_NhanVat(nhanvats.GetSFSObject(i));               
-                lstNhanVat.Add(nhanvat);
+            {         
+                lstNhanVat.Add(new M_NhanVat(nhanvats.GetSFSObject(i)));
             }
 
-            LoginGame.instance.RecInfo(lstNhanVat);
+            List<M_Milestone> tick_milestones = new List<M_Milestone>();
+            ISFSArray milestones = packet.GetSFSArray("tick_milestones");
+            for (int i = 0; i < milestones.Size(); i++)
+            {
+                tick_milestones.Add(new M_Milestone(milestones.GetSFSObject(i)));
+            }
+
+            tick_milestones.Add(new M_Milestone(milestones.Size(), 0));
+
+            LoginGame.instance.RecInfo(lstNhanVat, tick_milestones);
         }
         else
         {
@@ -61,8 +69,7 @@ public class HandleUser
             ISFSArray nhanvats = packet.GetSFSArray("nhanvats");
             for (int i = 0; i < nhanvats.Size(); i++)
             {
-                M_NhanVat nhanvat = new M_NhanVat(nhanvats.GetSFSObject(i));
-                lstNhanVat.Add(nhanvat);
+                lstNhanVat.Add(new M_NhanVat(nhanvats.GetSFSObject(i)));
             }
 
             SelectionGame.instance.RecSelection(lstNhanVat);

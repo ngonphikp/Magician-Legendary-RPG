@@ -29,16 +29,21 @@ public class LoginGame : MonoBehaviour
         UserSendUtil.GetInfo(tk.id);
     }
 
-    public void RecInfo(List<M_NhanVat> lstNhanVat)
+    public void RecInfo(List<M_NhanVat> lstNhanVat, List<M_Milestone> tick_milestones)
     {
         Debug.Log("====================RecInfo");
 
         //lstNhanVat.ForEach(x => Debug.Log(x.id_nv + " / " + x.id_cfg + " / " + x.id_tk + " / " + x.lv));
+        //tick_milestones.ForEach(x => Debug.Log(x.id + " / " + x.star));
 
         // Nếu đã Selection
         if(lstNhanVat.Count > 0)
         {
             GameManager.instance.nhanVats = lstNhanVat;
+
+            GameManager.instance.tick_milestones = tick_milestones;
+            GameManager.instance.UpdateTickMS();
+
             ScenesManager.instance.ChangeScene("HomeGame");
         }
         // Nếu chưa Selection
