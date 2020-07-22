@@ -27,4 +27,11 @@ public class C_Enum
         Sage = 4,
         Cel = 5
     }
+
+    public enum CardType
+    {
+        CT = 0, // Star 1, 2
+        DT = 1, // Star 3, 4
+        TT = 2, // Star 5, 6
+    }
 }

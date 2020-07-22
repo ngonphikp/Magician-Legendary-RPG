@@ -23,6 +23,9 @@ public class HandleUser
             case CmdDefine.ARRANGE:
                 handleArrange(sfsObject);
                 break;
+            case CmdDefine.TAVERN:
+                handleTavern(sfsObject);
+                break;
             default:
 
                 break;
@@ -87,6 +90,21 @@ public class HandleUser
         if (ec == ErrorCode.SUCCESS)
         {
             ArrangeGame.instance.RecArrange();
+        }
+        else
+        {
+            Debug.Log("ErrorCode: " + ec);
+        }
+    }
+
+    public static void handleTavern(SFSObject packet)
+    {
+        Debug.Log("______________HANDLE TAVERN_____________\n" + packet.GetDump());
+        short ec = packet.GetShort(CmdDefine.ERROR_CODE);
+        if (ec == ErrorCode.SUCCESS)
+        {
+            C_Enum.CardType type = (C_Enum.CardType)packet.GetInt("type_tavern");
+            TavernGame.instance.RecCard(type);
         }
         else
         {

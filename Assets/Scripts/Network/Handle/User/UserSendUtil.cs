@@ -69,4 +69,24 @@ public class UserSendUtil
             SmartFoxConnection.send(packet);
         }
     }
+
+    public static void sendTavern(C_Enum.CardType type)
+    {
+        Debug.Log("----------------------->Tavern");
+        ISFSObject isFSObject = new SFSObject();
+        isFSObject.PutInt(CmdDefine.CMDID, CmdDefine.TAVERN);
+
+        isFSObject.PutInt("type_tavern", (int)type);
+        isFSObject.PutInt("id", GameManager.instance.taikhoan.id);
+        var packet = new ExtensionRequest(ModuleConfig.USER, isFSObject);
+        if (SmartFoxConnection.isAlready())
+        {
+            SmartFoxConnection.send(packet);
+        }
+        else
+        {
+            SmartFoxConnection.Init();
+            SmartFoxConnection.send(packet);
+        }
+    }
 }

@@ -50,6 +50,7 @@ public class JSonConvert
             hero.id_cfg = obj.GetText("id");
             hero.name = obj.GetText("name");
             hero.element = obj.GetText("element");
+            hero.star = obj.GetInt("star");
             hero.def = obj.GetInt("def");
             hero.hp = obj.GetInt("hp");
             hero.atk = obj.GetInt("atk");
@@ -77,6 +78,7 @@ public class JSonConvert
             creep.id_cfg = obj.GetText("id");
             creep.name = obj.GetText("name");
             creep.element = obj.GetText("element");
+            creep.star = obj.GetInt("star");
             creep.def = obj.GetInt("def");
             creep.hp = obj.GetInt("hp");
             creep.atk = obj.GetInt("atk");

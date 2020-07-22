@@ -12,6 +12,7 @@ public class M_NhanVat
     public int lv;
     public string name;
     public string element;
+    public int star;
 
     public int idx = -1;
 

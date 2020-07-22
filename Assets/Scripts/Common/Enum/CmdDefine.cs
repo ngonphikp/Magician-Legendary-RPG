@@ -13,5 +13,6 @@ public class CmdDefine
         LOGIN = 1002,
         GETINFO = 1003,
         SELECTION = 1004,
-        ARRANGE = 1005;
+        ARRANGE = 1005,
+        TAVERN = 1006;
 }
