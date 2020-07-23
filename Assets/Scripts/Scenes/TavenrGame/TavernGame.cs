@@ -22,11 +22,11 @@ public class TavernGame : MonoBehaviour
         UserSendUtil.sendTavern(card.type);
     }
 
-    public void RecCard(C_Enum.CardType type)
+    public void RecCard(C_Enum.CardType type, M_NhanVat nhanvat)
     {
-        Debug.Log("RecCard: " + type);
+        Debug.Log("RecCard: " + type);        
 
-        cardsDic[type].Rec();
+        cardsDic[type].Rec(nhanvat);
         cardsDic.Remove(type);
     }
 }

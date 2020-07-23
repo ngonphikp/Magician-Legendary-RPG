@@ -104,7 +104,10 @@ public class HandleUser
         if (ec == ErrorCode.SUCCESS)
         {
             C_Enum.CardType type = (C_Enum.CardType)packet.GetInt("type_tavern");
-            TavernGame.instance.RecCard(type);
+
+            M_NhanVat nhanvat = new M_NhanVat(packet.GetSFSObject("nhanvat"));
+                                    
+            TavernGame.instance.RecCard(type, nhanvat);
         }
         else
         {
