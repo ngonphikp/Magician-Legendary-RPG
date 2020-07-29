@@ -27,8 +27,13 @@ public class HomeGame : MonoBehaviour
         {
             if (GameManager.instance.nhanVats[i].idx != -1)
             {
-                C_HeroAcEl heroAc = Instantiate(heroAcEl, listHeroAc).GetComponent<C_HeroAcEl>();
-                heroAc.set(GameManager.instance.nhanVats[i]);
+                C_CharacterAcEl heroAc = Instantiate(heroAcEl, listHeroAc).GetComponent<C_CharacterAcEl>();
+
+                M_Character nhanVat = GameManager.instance.nhanVats[i];
+                nhanVat.current_hp = nhanVat.max_hp = 1;
+                nhanVat.current_ep = nhanVat.max_ep = 1;
+
+                heroAc.set(nhanVat);
             }                
         }
 

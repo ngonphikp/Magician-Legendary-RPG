@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class C_Hero : MonoBehaviour
+public class C_Character : MonoBehaviour
 {
     [Header("Điều khiển hành động")]
     [SerializeField]
@@ -18,7 +18,7 @@ public class C_Hero : MonoBehaviour
 
     [Header("Thành phần giao diện")]
     [SerializeField]
-    private C_UIHero UIHero = null;
+    private C_UICharacter UIHero = null;
 
     [Header("Khả năng chiến đấu")]
     public bool isCombat = false;
@@ -26,7 +26,7 @@ public class C_Hero : MonoBehaviour
     public bool isDie = false;
 
     private I_Control ctl = null;
-    private M_NhanVat nhanvat;
+    public M_Character nhanvat = new M_Character();
 
     private void Start()
     {
@@ -89,6 +89,18 @@ public class C_Hero : MonoBehaviour
             }
             await Task.Yield();
         }
+    }
+
+    public void Set(M_Character nhanvat)
+    {
+        this.nhanvat = nhanvat;
+
+        if (FightingGame.instance)
+        {
+            
+        }
+
+        if (UIHero != null) UIHero.set(this);
     }
 
     public void Play(System.Object par)

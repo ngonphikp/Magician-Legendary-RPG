@@ -45,7 +45,7 @@ public class UserSendUtil
         }
     }
 
-    public static void sendArrange(List<M_NhanVat> nhanVats)
+    public static void sendArrange(List<M_Character> nhanVats)
     {
         Debug.Log("----------------------->Arrange");
         ISFSObject isFSObject = new SFSObject();

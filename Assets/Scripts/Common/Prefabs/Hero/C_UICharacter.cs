@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class C_UIHero : MonoBehaviour
+public class C_UICharacter : MonoBehaviour
 {
-    [SerializeField]
-    private Sprite enemyHp = null;
     [SerializeField]
     private Image Hp = null;
     [SerializeField]
@@ -37,21 +35,22 @@ public class C_UIHero : MonoBehaviour
     {
         float dis = hp - curHp;
         if (dis < 0) dis *= -1;
-        curHp = Mathf.Lerp(curHp, hp, Time.deltaTime * anim * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1) / dis);
+        curHp = Mathf.Lerp(curHp, hp, Time.deltaTime * anim / dis);
         Hp.fillAmount = curHp;
     }
     private void ChangEp()
     {
         float dis = ep - curEp;
         if (dis < 0) dis *= -1;
-        curEp = Mathf.Lerp(curEp, ep, Time.deltaTime * anim * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1) / dis);
+        curEp = Mathf.Lerp(curEp, ep, Time.deltaTime * anim / dis);
         Ep.fillAmount = curEp;
     }
 
-    public void set(int team)
+    public void set(C_Character ctl)
     {
         gameObject.SetActive(true);
-        this.isRight = (team == 1);
+        lvTxt.text = ctl.nhanvat.lv.ToString();
+        this.isRight = (ctl.nhanvat.team == 1);
         if (isRight) UIRight();
     }
 
@@ -60,7 +59,5 @@ public class C_UIHero : MonoBehaviour
         Vector3 scl = gameObject.transform.localScale;
         scl.x *= -1;
         gameObject.transform.localScale = scl;
-
-        Hp.sprite = enemyHp;
     }
 }

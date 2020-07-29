@@ -11,18 +11,18 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, string> scenes = new Dictionary<string, string>(); // Key: Tên scene, Value: Tên scene cha (PreviousScene - Khi back)
 
     // Data Config
-    public List<M_Hero> heros = new List<M_Hero>();
-    public Dictionary<string, M_Hero> herosDic = new Dictionary<string, M_Hero>();
+    public List<M_Character> heros = new List<M_Character>();
+    public Dictionary<string, M_Character> herosDic = new Dictionary<string, M_Character>();
 
-    public List<M_Creep> creeps = new List<M_Creep>();
-    public Dictionary<string, M_Creep> creepsDic = new Dictionary<string, M_Creep>();
+    public List<M_Character> creeps = new List<M_Character>();
+    public Dictionary<string, M_Character> creepsDic = new Dictionary<string, M_Character>();
 
     public List<M_Milestone> milestones = new List<M_Milestone>();
     public Dictionary<int, M_Milestone> milestonesDic = new Dictionary<int, M_Milestone>();
 
     // Data User
     public M_TaiKhoan taikhoan = new M_TaiKhoan();
-    public List<M_NhanVat> nhanVats = new List<M_NhanVat>();
+    public List<M_Character> nhanVats = new List<M_Character>();
     public List<M_Milestone> tick_milestones = new List<M_Milestone>();
     public Dictionary<int, M_Milestone> tick_milestonesDic = new Dictionary<int, M_Milestone>();
 
@@ -59,18 +59,18 @@ public class GameManager : MonoBehaviour
     private void LoadListHero()
     {
         JSonConvert convert = new JSonConvert();
-        heros = convert.GetListHero().ToList<M_Hero>();
+        heros = convert.GetListHero().ToList<M_Character>();
 
-        herosDic = new Dictionary<string, M_Hero>(heros.Count);
+        herosDic = new Dictionary<string, M_Character>(heros.Count);
         heros.ForEach(x => herosDic.Add(x.id_cfg, x));
     }
 
     private void LoadListCreep()
     {
         JSonConvert convert = new JSonConvert();
-        creeps = convert.GetListCreep().ToList<M_Creep>();
+        creeps = convert.GetListCreep().ToList<M_Character>();
 
-        creepsDic = new Dictionary<string, M_Creep>(creeps.Count);
+        creepsDic = new Dictionary<string, M_Character>(creeps.Count);
         creeps.ForEach(x => creepsDic.Add(x.id_cfg, x));
     }
 
@@ -99,12 +99,18 @@ public class GameManager : MonoBehaviour
 
             for(int i = 0; i < 5; i++)
             {
-                nhanVats.Add(new M_NhanVat(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 100), arrIdx[i]));
+                M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 100), arrIdx[i]);
+                nhanVat.type = C_Enum.CharacterType.Hero;
+                nhanVat.UpdateById();
+                nhanVats.Add(nhanVat);
             }
 
             for (int i = 5; i < 15; i++)
             {
-                nhanVats.Add(new M_NhanVat(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 100), -1));
+                M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 100), -1);
+                nhanVat.type = C_Enum.CharacterType.Hero;
+                nhanVat.UpdateById();
+                nhanVats.Add(nhanVat);
             }
 
             for(int i = 0; i < 10; i++)

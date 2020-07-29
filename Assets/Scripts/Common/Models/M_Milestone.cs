@@ -9,7 +9,7 @@ public class M_Milestone
     public int id;
     public string name;
     public int star = 0;
-    public List<M_Creep> listCreep = new List<M_Creep>();
+    public List<M_Character> listCreep = new List<M_Character>();
 
     public M_Milestone()
     {

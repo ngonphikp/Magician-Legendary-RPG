@@ -38,11 +38,14 @@ public class HandleUser
         short ec = packet.GetShort(CmdDefine.ERROR_CODE);
         if (ec == ErrorCode.SUCCESS)
         {
-            List<M_NhanVat> lstNhanVat = new List<M_NhanVat>();
+            List<M_Character> lstNhanVat = new List<M_Character>();
             ISFSArray nhanvats = packet.GetSFSArray("nhanvats");
             for(int i = 0; i < nhanvats.Size(); i++)
-            {         
-                lstNhanVat.Add(new M_NhanVat(nhanvats.GetSFSObject(i)));
+            {
+                M_Character nhanVat = new M_Character(nhanvats.GetSFSObject(i), C_Enum.ReadType.SERVER);
+                nhanVat.UpdateById();
+                nhanVat.type = C_Enum.CharacterType.Hero;
+                lstNhanVat.Add(nhanVat);
             }
 
             List<M_Milestone> tick_milestones = new List<M_Milestone>();
@@ -68,11 +71,14 @@ public class HandleUser
         short ec = packet.GetShort(CmdDefine.ERROR_CODE);
         if (ec == ErrorCode.SUCCESS)
         {
-            List<M_NhanVat> lstNhanVat = new List<M_NhanVat>();
+            List<M_Character> lstNhanVat = new List<M_Character>();
             ISFSArray nhanvats = packet.GetSFSArray("nhanvats");
             for (int i = 0; i < nhanvats.Size(); i++)
             {
-                lstNhanVat.Add(new M_NhanVat(nhanvats.GetSFSObject(i)));
+                M_Character nhanVat = new M_Character(nhanvats.GetSFSObject(i), C_Enum.ReadType.SERVER);
+                nhanVat.UpdateById();
+                nhanVat.type = C_Enum.CharacterType.Hero;
+                lstNhanVat.Add(nhanVat);
             }
 
             SelectionGame.instance.RecSelection(lstNhanVat);
@@ -105,7 +111,9 @@ public class HandleUser
         {
             C_Enum.CardType type = (C_Enum.CardType)packet.GetInt("type_tavern");
 
-            M_NhanVat nhanvat = new M_NhanVat(packet.GetSFSObject("nhanvat"));
+            M_Character nhanvat = new M_Character(packet.GetSFSObject("nhanvat"), C_Enum.ReadType.SERVER);
+            nhanvat.UpdateById();
+            nhanvat.type = C_Enum.CharacterType.Hero;            
                                     
             TavernGame.instance.RecCard(type, nhanvat);
         }

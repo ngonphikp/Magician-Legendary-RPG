@@ -20,7 +20,7 @@ public class SelectionGame : MonoBehaviour
     private Transform posMagician = null;
 
     private int idxActive = 0;
-    private C_Hero hero = null;
+    private C_Character hero = null;
     private string tenNhanVat = "";
 
     private void Awake()
@@ -40,11 +40,11 @@ public class SelectionGame : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        GameObject heroAs = QuickFunction.getAssetPref("Prefabs/Hero/" + id);
+        GameObject heroAs = QuickFunction.getAssetPref("Prefabs/Character/" + id);
         if (heroAs != null)
         {
             GameObject heroObj = Instantiate(heroAs, posMagician);
-            hero = heroObj.GetComponent<C_Hero>();
+            hero = heroObj.GetComponent<C_Character>();
         }
     }
 
@@ -60,7 +60,7 @@ public class SelectionGame : MonoBehaviour
         UserSendUtil.sendSelection(tenNhanVat, idHeros[idxActive]);
     }
 
-    public void RecSelection(List<M_NhanVat> lstNhanVat)
+    public void RecSelection(List<M_Character> lstNhanVat)
     {
         Debug.Log("====================RecSelection");
 

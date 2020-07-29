@@ -11,9 +11,9 @@ public class FightingGame : MonoBehaviour
     private Canvas canvas = null;
 
     [SerializeField]
-    private C_CellAT[] teamL = null;
+    private Transform[] posTeamL = null;
     [SerializeField]
-    private C_CellAT[] teamR = null;
+    private Transform[] posTeamR = null;
 
     public float myTimeScale = 1.0f;
     public bool isScaleTime = false;
@@ -32,7 +32,6 @@ public class FightingGame : MonoBehaviour
     private void Start()
     {
         LoadListHero();
-
         LoadListCreep();
     }
 
@@ -40,10 +39,10 @@ public class FightingGame : MonoBehaviour
     {
         for (int i = 0; i < GameManager.instance.nhanVats.Count; i++)
         {
-            if (GameManager.instance.nhanVats[i].idx != -1)
-            {
-                teamL[GameManager.instance.nhanVats[i].idx].set(GameManager.instance.nhanVats[i], canvas);
-            }
+            //if (GameManager.instance.nhanVats[i].idx != -1)
+            //{
+            //    teamL[GameManager.instance.nhanVats[i].idx].set(GameManager.instance.nhanVats[i], canvas);
+            //}
         }
 
         await Task.Yield();
@@ -51,14 +50,14 @@ public class FightingGame : MonoBehaviour
 
     private async void LoadListCreep()
     {
-        List<M_Creep> creeps = GameManager.instance.milestones[GameManager.instance.idxMilestone].listCreep;
+        List<M_Character> creeps = GameManager.instance.milestones[GameManager.instance.idxMilestone].listCreep;
 
         for (int i = 0; i < creeps.Count; i++)
         {
-            if (creeps[i].idx != -1)
-            {
-                teamR[creeps[i].idx].set(creeps[i], canvas);
-            }
+            //if (creeps[i].idx != -1)
+            //{
+            //    teamR[creeps[i].idx].set(creeps[i], canvas);
+            //}
         }
 
         await Task.Yield();

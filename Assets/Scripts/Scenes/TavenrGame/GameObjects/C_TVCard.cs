@@ -21,7 +21,7 @@ public class C_TVCard : MonoBehaviour
         TavernGame.instance.ReqCard(this);
     }
 
-    public void Rec(M_NhanVat nhanvat)
+    public void Rec(M_Character nhanvat)
     {
         btnConfirm.interactable = true;
 
@@ -32,11 +32,11 @@ public class C_TVCard : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        GameObject nvAs = QuickFunction.getAssetPref("Prefabs/Hero/" + nhanvat.id_cfg);
+        GameObject nvAs = QuickFunction.getAssetPref("Prefabs/Character/" + nhanvat.id_cfg);
 
         if (nvAs == null)
         {
-            nvAs = QuickFunction.getAssetPref("Prefabs/Hero/T1004");
+            nvAs = QuickFunction.getAssetPref("Prefabs/Character/T1004");
         }
 
         if (nvAs != null)

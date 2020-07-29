@@ -35,7 +35,7 @@ public class JSonConvert
         }
     }
 
-    public IEnumerable<M_Hero> GetListHero()
+    public IEnumerable<M_Character> GetListHero()
     {
         TextAsset file = QuickFunction.getAssetJsons("ConfigJSon/Hero");
         string jsonString = file.ToString();
@@ -46,16 +46,7 @@ public class JSonConvert
             ISFSObject obj = arr.GetSFSObject(i);
             //Debug.Log(obj.GetDump());
 
-            M_Hero hero = new M_Hero();
-            hero.id_cfg = obj.GetText("id");
-            hero.name = obj.GetText("name");
-            hero.element = obj.GetText("element");
-            hero.star = obj.GetInt("star");
-            hero.def = obj.GetInt("def");
-            hero.hp = obj.GetInt("hp");
-            hero.atk = obj.GetInt("atk");
-            hero.crit = (float)obj.GetDouble("crit");
-            hero.dodge = (float)obj.GetDouble("dodge");
+            M_Character hero = new M_Character(obj, C_Enum.ReadType.CONFIG);
 
             hero.type = C_Enum.CharacterType.Hero;
 
@@ -63,7 +54,7 @@ public class JSonConvert
         }
     }
 
-    public IEnumerable<M_Creep> GetListCreep()
+    public IEnumerable<M_Character> GetListCreep()
     {
         TextAsset file = QuickFunction.getAssetJsons("ConfigJSon/Creep");
         string jsonString = file.ToString();
@@ -74,16 +65,7 @@ public class JSonConvert
             ISFSObject obj = arr.GetSFSObject(i);
             //Debug.Log(obj.GetDump());
 
-            M_Creep creep = new M_Creep();
-            creep.id_cfg = obj.GetText("id");
-            creep.name = obj.GetText("name");
-            creep.element = obj.GetText("element");
-            creep.star = obj.GetInt("star");
-            creep.def = obj.GetInt("def");
-            creep.hp = obj.GetInt("hp");
-            creep.atk = obj.GetInt("atk");
-            creep.crit = (float)obj.GetDouble("crit");
-            creep.dodge = (float)obj.GetDouble("dodge");
+            M_Character creep = new M_Character(obj, C_Enum.ReadType.CONFIG);
 
             creep.type = C_Enum.CharacterType.Creep;
 
@@ -115,7 +97,7 @@ public class JSonConvert
                 ISFSObject cObj = cArr.GetSFSObject(j);
                 //Debug.Log(cObj.GetDump());
 
-                M_Creep creep = new M_Creep();
+                M_Character creep = new M_Character();
                 creep.id_cfg = cObj.GetText("id");
                 creep.lv = cObj.GetInt("lv");
                 creep.idx = cObj.GetInt("idx");

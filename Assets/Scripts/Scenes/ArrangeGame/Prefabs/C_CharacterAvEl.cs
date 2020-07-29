@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class C_HeroAvEl : MonoBehaviour
+public class C_CharacterAvEl : MonoBehaviour
 {
     [SerializeField]
     private Text txtIdCfg = null;
     
     public bool isActive = false;
 
-    public M_NhanVat nhanVat;
+    public M_Character nhanVat;
 
-    public void set(M_NhanVat nhanVat)
+    public void set(M_Character nhanVat)
     {
         this.nhanVat = nhanVat;
 

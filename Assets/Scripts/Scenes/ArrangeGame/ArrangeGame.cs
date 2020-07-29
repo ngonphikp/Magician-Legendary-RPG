@@ -29,10 +29,10 @@ public class ArrangeGame : MonoBehaviour
     [SerializeField]
     private Button btnFighting = null;
 
-    private List<M_NhanVat> nhanVats = new List<M_NhanVat>();
+    private List<M_Character> nhanVats = new List<M_Character>();
     public int countActive = 0;
 
-    public Dictionary<int, C_HeroAvEl> Objs = new Dictionary<int, C_HeroAvEl>();
+    public Dictionary<int, C_CharacterAvEl> Objs = new Dictionary<int, C_CharacterAvEl>();
 
     private void Awake()
     {
@@ -65,23 +65,28 @@ public class ArrangeGame : MonoBehaviour
 
         for (int i = 0; i < GameManager.instance.nhanVats.Count; i++)
         {
-            C_HeroAvEl heroAv = Instantiate(heroAvEl, listHeroAv).GetComponent<C_HeroAvEl>();
-            heroAv.set(GameManager.instance.nhanVats[i]);
+            M_Character nhanVat = GameManager.instance.nhanVats[i];
+            nhanVat.current_hp = nhanVat.max_hp = 1;
+            nhanVat.current_ep = nhanVat.max_ep = 1;
+            nhanVat.team = 0;
 
-            nhanVats.Add(GameManager.instance.nhanVats[i]);
+            C_CharacterAvEl heroAv = Instantiate(heroAvEl, listHeroAv).GetComponent<C_CharacterAvEl>();
+            heroAv.set(nhanVat);
 
-            if (GameManager.instance.nhanVats[i].idx != -1)
+            nhanVats.Add(nhanVat);
+
+            if (nhanVat.idx != -1)
             {
                 if (countActive >= C_Params.maxActive) break;
 
-                heroAv.Active();
+                heroAv.Active();                
 
-                teamL[GameManager.instance.nhanVats[i].idx].set(GameManager.instance.nhanVats[i], canvas);
+                teamL[nhanVat.idx].set(nhanVat, canvas);
 
                 countActive++;
             }
 
-            Objs.Add(GameManager.instance.nhanVats[i].id_nv, heroAv);
+            Objs.Add(nhanVat.id_nv, heroAv);
         }
 
         Debug.Log("Count: " + Objs.Keys.Count);
@@ -91,20 +96,25 @@ public class ArrangeGame : MonoBehaviour
 
     private async void LoadListCreep()
     {
-        List<M_Creep> creeps = GameManager.instance.milestones[GameManager.instance.idxMilestone].listCreep;
+        List<M_Character> creeps = GameManager.instance.milestones[GameManager.instance.idxMilestone].listCreep;
 
         for (int i = 0; i < creeps.Count; i++)
         {
             if (creeps[i].idx != -1)
             {
-                teamR[creeps[i].idx].set(creeps[i], canvas, false);
+                M_Character nhanVat = creeps[i];
+                nhanVat.current_hp = nhanVat.max_hp = 1;
+                nhanVat.current_ep = nhanVat.max_ep = 1;
+                nhanVat.team = 1;
+
+                teamR[creeps[i].idx].set(nhanVat, canvas, false);
             }
         }
 
         await Task.Yield();
     }
 
-    public void Active(M_NhanVat nhanVat)
+    public void Active(M_Character nhanVat)
     {
         for (int i = 0; i < teamL.Length; i++)
         {
@@ -131,7 +141,7 @@ public class ArrangeGame : MonoBehaviour
 
     private void iSave()
     {
-        List<M_NhanVat> nhanVats = new List<M_NhanVat>();
+        List<M_Character> nhanVats = new List<M_Character>();
 
         // Update index hero in teamL
         for (int i = 0; i < teamL.Length; i++)
@@ -145,7 +155,7 @@ public class ArrangeGame : MonoBehaviour
         }
 
         // Update index hero in list
-        foreach (C_HeroAvEl el in Objs.Values)
+        foreach (C_CharacterAvEl el in Objs.Values)
         {
             if (!el.isActive)
             {

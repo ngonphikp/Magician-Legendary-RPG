@@ -9,7 +9,7 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     [SerializeField]
     private GameObject Trigger = null;
 
-    public M_NhanVat nhanVat = new M_NhanVat();
+    public M_Character nhanVat = new M_Character();
 
     private Canvas canvas;
     private C_DD other;
@@ -17,7 +17,7 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     private bool isOnBeginDrag = false;
     private bool isDD = true;
 
-    public void Init(M_NhanVat nhanVat, Canvas canvas, bool isDD = true)
+    public void Init(M_Character nhanVat, Canvas canvas, bool isDD = true)
     {
         this.isActive = true;
         this.nhanVat = nhanVat;
@@ -41,20 +41,20 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         if (this.isActive)
         {
-            GameObject nvAs = QuickFunction.getAssetPref("Prefabs/Hero/" + nhanVat.id_cfg);
+            GameObject nvAs = QuickFunction.getAssetPref("Prefabs/Character/" + nhanVat.id_cfg);
 
             if (nvAs == null)
             {
                 switch (nhanVat.type)
                 {
                     case C_Enum.CharacterType.Hero:
-                        nvAs = QuickFunction.getAssetPref("Prefabs/Hero/T1004");
+                        nvAs = QuickFunction.getAssetPref("Prefabs/Character/T1004");
                         break;
                     case C_Enum.CharacterType.Creep:
-                        nvAs = QuickFunction.getAssetPref("Prefabs/Hero/M1000");
+                        nvAs = QuickFunction.getAssetPref("Prefabs/Character/M1000");
                         break;
                     default:
-                        nvAs = QuickFunction.getAssetPref("Prefabs/Hero/T1004");
+                        nvAs = QuickFunction.getAssetPref("Prefabs/Character/T1004");
                         break;
                 }
                 
@@ -62,12 +62,14 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
             if (nvAs != null)
             {
-                Instantiate(nvAs, this.gameObject.transform);
+                GameObject obj = Instantiate(nvAs, this.gameObject.transform);
+                C_Character hero = obj.GetComponent<C_Character>();
+                hero.Set(nhanVat);
             }
         }
     }
 
-    public void ReLoad(M_NhanVat nhanVat, bool isActive, Canvas canvas = null)
+    public void ReLoad(M_Character nhanVat, bool isActive, Canvas canvas = null)
     {
         this.isActive = isActive;
         this.nhanVat = nhanVat;        
@@ -101,7 +103,7 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         {
             Debug.Log("Other: " + other.nhanVat.id_nv);
 
-            M_NhanVat nhanVat = this.nhanVat;
+            M_Character nhanVat = this.nhanVat;
             bool isActive = this.isActive;
 
             this.ReLoad(other.nhanVat, other.isActive, this.canvas);
@@ -125,7 +127,7 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         ArrangeGame.instance.Objs[nhanVat.id_nv].UnActive();
         ArrangeGame.instance.countActive--;
 
-        this.ReLoad(new M_NhanVat(), false);        
+        this.ReLoad(new M_Character(), false);        
     }
 
     private C_DD oldOther;
