@@ -23,7 +23,7 @@ public class M_Character
 
     public int idx = -1;
 
-    public int current_ep = 0, max_ep = 1;
+    public int current_ep = 0, max_ep = 100;
     public int current_hp = 0, max_hp = 1;
 
     public C_Enum.CharacterType type = C_Enum.CharacterType.Hero;
@@ -33,6 +33,22 @@ public class M_Character
     public M_Character()
     {
 
+    }
+
+    public M_Character(M_Character nhanVat)
+    {
+        this.idx = nhanVat.idx;
+        this.id_cfg = nhanVat.id_cfg;
+        this.name = nhanVat.name;
+        this.element = nhanVat.element;
+        this.star = nhanVat.star;
+        this.def = nhanVat.def;
+        this.hp = nhanVat.hp;
+        this.atk = nhanVat.atk;
+        this.crit = nhanVat.crit;
+        this.dodge = nhanVat.dodge;
+
+        this.current_hp = this.max_hp = this.hp;
     }
 
     public M_Character(int id_nv, string id_cfg, int id_tk, int lv, int idx)
