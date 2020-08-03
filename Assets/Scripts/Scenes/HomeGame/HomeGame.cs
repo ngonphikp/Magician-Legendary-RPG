@@ -30,8 +30,10 @@ public class HomeGame : MonoBehaviour
                 C_CharacterAcEl heroAc = Instantiate(heroAcEl, listHeroAc).GetComponent<C_CharacterAcEl>();
 
                 M_Character nhanVat = GameManager.instance.nhanVats[i];
-                nhanVat.current_hp = nhanVat.max_hp = 1;
-                nhanVat.current_ep = nhanVat.max_ep = 1;
+                nhanVat.max_hp = 1;
+                nhanVat.Current_hp = 1;
+                nhanVat.max_ep = 1;
+                nhanVat.Current_ep = 1;
 
                 heroAc.set(nhanVat);
             }                

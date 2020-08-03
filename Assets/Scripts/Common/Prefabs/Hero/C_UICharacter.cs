@@ -14,6 +14,19 @@ public class C_UICharacter : MonoBehaviour
     [SerializeField]
     private Image elImg = null;
 
+    [SerializeField]
+    private Transform texts = null;
+    [SerializeField]
+    private GameObject textPrbHP1 = null;
+    [SerializeField]
+    private GameObject textPrbHP2 = null;
+    [SerializeField]
+    private GameObject textPrbEP1 = null;
+    [SerializeField]
+    private GameObject textPrbEP2 = null;
+    [SerializeField]
+    private GameObject textPrbDG = null;
+
     private bool isRight = false;
 
     [Header("Anim Chang Hp and Ep")]
@@ -59,5 +72,31 @@ public class C_UICharacter : MonoBehaviour
         Vector3 scl = gameObject.transform.localScale;
         scl.x *= -1;
         gameObject.transform.localScale = scl;
+    }
+
+    public void CreateText(C_Enum.TypeText type, string str = "")
+    {
+        GameObject text = null;
+        switch (type)
+        {
+            case C_Enum.TypeText.HP1:
+                text = Instantiate(textPrbHP1, texts);
+                break;
+            case C_Enum.TypeText.HP2:
+                text = Instantiate(textPrbHP2, texts);
+                break;
+            case C_Enum.TypeText.EP1:
+                text = Instantiate(textPrbEP1, texts);
+                break;
+            case C_Enum.TypeText.EP2:
+                text = Instantiate(textPrbEP2, texts);
+                break;
+            case C_Enum.TypeText.DG:
+                text = Instantiate(textPrbDG, texts);
+                break;
+            default:
+                break;
+        }
+        if (text != null && text.GetComponent<Text>() != null) text.GetComponent<Text>().text = str;
     }
 }

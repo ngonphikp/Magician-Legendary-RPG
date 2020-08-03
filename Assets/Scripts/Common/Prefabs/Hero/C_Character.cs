@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
+[System.Serializable]
 public class C_Character : MonoBehaviour
 {
     [Header("Điều khiển hành động")]
@@ -18,27 +19,39 @@ public class C_Character : MonoBehaviour
 
     [Header("Thành phần giao diện")]
     [SerializeField]
-    private C_UICharacter UIHero = null;
+    private C_UICharacter UICharacter = null;
 
     [Header("Khả năng chiến đấu")]
     public bool isCombat = false;
     public bool isHit = true;
     public bool isDie = false;
 
+    [SerializeField]
     private I_Control ctl = null;
     public M_Character nhanvat = new M_Character();
 
+    private List<M_Prop> propHPs = new List<M_Prop>(); // Mảng diễn thay đổi hp
+    private List<M_Prop> propEPs = new List<M_Prop>(); // Mảng diễn thay đổi ep
+
     private void Start()
     {
-        if (UIHero != null)
+        if (UICharacter != null)
         {
-            UIHero.hp = nhanvat.current_hp * 1.0f / nhanvat.max_hp;
-            UIHero.ep = nhanvat.current_ep * 1.0f / nhanvat.max_ep;
+            UICharacter.hp = nhanvat.Current_hp * 1.0f / nhanvat.max_hp;
+            UICharacter.ep = nhanvat.Current_ep * 1.0f / nhanvat.max_ep;
         }
 
         ctl = this.GetComponent<I_Control>();
 
         preUpdate();
+    }
+
+    private void Update()
+    {
+        if (anim != null)
+        {
+            anim.speed = ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
+        }
     }
 
     private async void preUpdate()
@@ -79,6 +92,8 @@ public class C_Character : MonoBehaviour
                 isAnim6 = false;
 
                 if (isCombat) ctl.Play(6);
+
+                AnimDie();
             }
             if (isAnim7)
             {
@@ -95,18 +110,12 @@ public class C_Character : MonoBehaviour
     {
         this.nhanvat = nhanvat;
 
-        if (FightingGame.instance)
-        {
-            
-        }
-
-        if (UIHero != null) UIHero.set(this);
+        if (UICharacter != null) UICharacter.set(this);
     }
 
-    public void Play(System.Object par)
+    public void Play(int i)
     {
-        int i = (int)par;
-        Debug.Log("===========================" + this.nhanvat.id_nv + " Play:" + i);
+        Debug.Log("=========================== " + this.nhanvat.id_nv + " Play:" + i);
 
         if (isAnim1())
         {
@@ -134,7 +143,7 @@ public class C_Character : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("===========================" + this.nhanvat.id_nv + " Not Anim 1");
+            Debug.LogWarning("=========================== " + this.nhanvat.id_nv + " Not Anim 1");
         }
     }
 
@@ -146,28 +155,104 @@ public class C_Character : MonoBehaviour
         }
         if (!isDie && isHit) Play(7);
 
+        FightingGame.instance.Beaten--;
+
         ChangeEp();
         ChangeHp();
     }
 
     public void ChangeHp()
     {
-        Debug.Log("ChangeHp: " + this.nhanvat.id_nv);        
+        Debug.Log("ChangeHp: " + this.nhanvat.id_nv);
+        while (propHPs.Count > 0)
+        {
+            M_Prop prop = propHPs[0];
+            nhanvat.Current_hp += prop.hpChange;
+            if (UICharacter != null)
+            {
+                UICharacter.hp = nhanvat.Current_hp * 1.0f / nhanvat.max_hp;
+
+                if (prop.hpChange >= 0)
+                {
+                    UICharacter.CreateText(C_Enum.TypeText.HP1, "+ " + prop.hpChange.ToString());
+                }
+                else
+                {
+                    UICharacter.CreateText(C_Enum.TypeText.HP2, "- " + Mathf.Abs(prop.hpChange).ToString());
+                }
+            }
+            propHPs.RemoveAt(0);
+        }
     }
 
     public void ChangeEp()
     {
-        Debug.Log("ChangeEp: " + this.nhanvat.id_nv);        
+        Debug.Log("ChangeEp: " + this.nhanvat.id_nv);
+        while (propEPs.Count > 0)
+        {
+            M_Prop prop = propEPs[0];
+            nhanvat.Current_ep += prop.epChange;
+            if (UICharacter != null)
+            {
+                UICharacter.ep = nhanvat.Current_ep * 1.0f / nhanvat.max_ep;
+
+                if (prop.epChange >= 0)
+                {
+                    UICharacter.CreateText(C_Enum.TypeText.EP1, "+ " + prop.epChange.ToString());
+                }
+                else
+                {
+                    UICharacter.CreateText(C_Enum.TypeText.EP2, "- " + Mathf.Abs(prop.epChange).ToString());
+                }
+            }
+            propEPs.RemoveAt(0);
+        }
+    }
+
+    public void PushChangeHp(M_Prop prop)
+    {
+        propHPs.Add(prop);
+    }
+
+    public void PushChangeEp(M_Prop prop)
+    {
+        propEPs.Add(prop);
     }
 
     public bool isAnim1()
     {
-        if (!this.gameObject.activeSelf) return false;
-        if (this.GetComponent<RectTransform>().localPosition != new Vector3()) return false;
+        if (this.GetComponent<RectTransform>().localPosition != new Vector3() && FightingGame.instance) return false;
+
         AnimatorClipInfo[] m_CurrentClipInfo = anim.GetCurrentAnimatorClipInfo(0);
         if (m_CurrentClipInfo.Length < 1) return false;
         string m_ClipName = m_CurrentClipInfo[0].clip.name;
         //Debug.Log(m_ClipName);
         return (m_ClipName == "anim1");
+    }
+
+    private async void AnimDie()
+    {
+        // Làm mờ
+        SpriteRenderer sp = anim.gameObject.GetComponent<SpriteRenderer>();
+
+        float maxTime = 0.6f;
+        float timeOp = 0.6f;
+        float op = 1.0f;
+        while (true)
+        {
+            if (op <= 0.0f || timeOp <= 0.0f) break;
+
+            float delta = Time.deltaTime * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
+
+            timeOp -= delta;
+            op = timeOp / maxTime;
+
+            await Task.Delay(TimeSpan.FromSeconds(delta));
+
+            sp.color = new Color(1.0f, 1.0f, 1.0f, op);
+        }
+
+        this.gameObject.SetActive(false);
+        sp.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     }
 }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8075627419840597912}
   - component: {fileID: 6906151038381200724}
+  - component: {fileID: 3422352752159808153}
   m_Layer: 0
   m_Name: T1003
   m_TagString: Untagged
@@ -57,7 +58,7 @@ MonoBehaviour:
   isAnim5: 0
   isAnim6: 0
   isAnim7: 0
-  UIHero: {fileID: 3692003256118822645}
+  UICharacter: {fileID: 3692003256118822645}
   isCombat: 0
   isHit: 1
   isDie: 0
@@ -65,41 +66,11 @@ MonoBehaviour:
     id_nv: -1
     id_cfg: 
     id_tk: 0
-    lv: 0
-    name: 
-    element: 
-    star: 0
-    idx: -1
-    current_ep: 0
-    max_ep: 1
-    current_hp: 0
-    max_hp: 1
-    type: 0
-    team: 0
-  hero:
-    id_nv: -1
-    id_cfg: 
-    id_tk: 0
-    lv: 0
-    name: 
-    element: 
-    star: 0
-    idx: -1
-    current_ep: 0
-    max_ep: 1
-    current_hp: 0
-    max_hp: 1
-    type: 0
-    team: 0
     def: 1
     hp: 1
     atk: 1
     crit: 1
     dodge: 1
-  creep:
-    id_nv: -1
-    id_cfg: 
-    id_tk: 0
     lv: 0
     name: 
     element: 
@@ -111,11 +82,31 @@ MonoBehaviour:
     max_hp: 1
     type: 0
     team: 0
-    def: 1
-    hp: 1
-    atk: 1
-    crit: 1
-    dodge: 1
+--- !u!114 &3422352752159808153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8075627419840597915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4fd3df643f91224f8440345c50259a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time3d0: 0.8
+  time3ds: 0
+  time3df: 1
+  time3dm: 0.3
+  fx3d0: {fileID: 0}
+  dis3d0: -17
+  time5d0: 0.8
+  time5ds: 0.2
+  time5df: 1
+  time5dm: 0.3
+  fx5d0: {fileID: 0}
+  dis5d0: -17
+  height5: 7
 --- !u!1 &8936494587964211435
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +328,7 @@ PrefabInstance:
     - target: {fileID: 4446117679819595396, guid: 72ac4c418ba0ee445b7379fbd6ed7089,
         type: 3}
       propertyPath: m_Name
-      value: UIHero
+      value: UIChacracter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72ac4c418ba0ee445b7379fbd6ed7089, type: 3}

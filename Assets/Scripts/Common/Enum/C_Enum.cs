@@ -27,4 +27,21 @@ public class C_Enum
         DT = 1, // Star 3, 4
         TT = 2, // Star 5, 6
     }
+
+    public enum ActionType
+    {
+        SKILL = 0,
+        CHANGE_HP = 1,
+        CHANGE_EP = 2,
+        BEATEN = 3,
+    }
+
+    public enum TypeText
+    {
+        HP1, // Tăng HP
+        HP2, // Giảm HP
+        EP1, // Tăng EP
+        EP2, // Giảm EP
+        DG,  // Tránh né
+    }
 }

@@ -23,8 +23,29 @@ public class M_Character
 
     public int idx = -1;
 
-    public int current_ep = 0, max_ep = 100;
-    public int current_hp = 0, max_hp = 1;
+    [SerializeField]
+    private int current_ep = 0;
+    public int max_ep = 1;
+    [SerializeField]
+    private int current_hp = 0;
+    public int max_hp = 1;
+
+    public int Current_ep
+    {
+        get => current_ep; set
+        {
+            if (value < 0) value = 0; if (value > max_ep) value = max_ep;
+            current_ep = value;
+        }
+    }
+    public int Current_hp
+    {
+        get => current_hp; set
+        { 
+            if (value < 0) value = 0; if (value > max_hp) value = max_hp; 
+            current_hp = value;
+        }
+    }
 
     public C_Enum.CharacterType type = C_Enum.CharacterType.Hero;
 
@@ -37,6 +58,7 @@ public class M_Character
 
     public M_Character(M_Character nhanVat)
     {
+        this.id_nv = nhanVat.id_nv;
         this.idx = nhanVat.idx;
         this.id_cfg = nhanVat.id_cfg;
         this.name = nhanVat.name;
@@ -47,8 +69,11 @@ public class M_Character
         this.atk = nhanVat.atk;
         this.crit = nhanVat.crit;
         this.dodge = nhanVat.dodge;
+        this.team = nhanVat.team;
 
         this.current_hp = this.max_hp = this.hp;
+        this.current_ep = 0;
+        this.max_ep = 100;
     }
 
     public M_Character(int id_nv, string id_cfg, int id_tk, int lv, int idx)
