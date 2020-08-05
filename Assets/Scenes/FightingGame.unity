@@ -337,6 +337,7 @@ MonoBehaviour:
   txtTime: {fileID: 1618025399}
   idTargets: 
   targets: []
+  Beaten: 0
   myTimeScale: 1
   isScaleTime: 0
 --- !u!1 &173039982

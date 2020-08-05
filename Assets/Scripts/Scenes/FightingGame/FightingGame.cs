@@ -23,10 +23,12 @@ public class FightingGame : MonoBehaviour
     [SerializeField]
     private List<M_Character> dataTeamR = new List<M_Character>();
 
+    private bool isEndGame = false;
+
     [SerializeField]
     private Text txtTime = null;
 
-    List<C_Character> lstObj = new List<C_Character>();
+    private List<C_Character> lstObj = new List<C_Character>();
     public Dictionary<int, C_Character> Objs = new Dictionary<int, C_Character>();
 
     public List<int> idTargets = new List<int>();
@@ -37,11 +39,11 @@ public class FightingGame : MonoBehaviour
 
     public float myTimeScale = 1.0f;
     public bool isScaleTime = false;
-
-    private int check = 0;
+    
     // Check anim1 tất cả
     public bool Turn { get => turn; }
     private bool turn = true;
+    private int check = 0;
     private bool getAction = false;
 
     private void Awake()
@@ -55,282 +57,15 @@ public class FightingGame : MonoBehaviour
         myTimeScale = (isScaleTime) ? 2.0f : 1.0f;
     }
 
+    [Obsolete]
     private void Start()
     {
         LoadData();
         Scenario();
-        ChangeTurn();
         Combat();
     }
 
-    private async void ChangeTurn()
-    {
-        while (true)
-        {
-            // Đếm số Hero ở trạng thái Anim1
-            for (int i = 0; i < lstObj.Count; i++)
-                if (lstObj[i] != null) if (lstObj[i].isAnim1() || lstObj[i].isDie || !lstObj[i].gameObject.activeSelf) check++; else break;
-
-            turn = (check >= lstObj.Count);
-            check = 0;
-
-            await Task.Yield();
-        }
-    }
-
-    private async void Combat()
-    {
-        int t = 3;
-        txtTime.gameObject.SetActive(true);
-        while (true)
-        {
-            if (t <= 0) break;
-            Debug.Log("Đếm ngược: " + t);
-            txtTime.text = t + " ";
-            await Task.Delay(TimeSpan.FromSeconds(1));                        
-            t -= 1;            
-        }
-        txtTime.gameObject.SetActive(false);
-       
-        Debug.Log("Combat");
-
-        while (true)
-        {
-            if(actions.Count > 0 && turn && !getAction && Beaten == 0)
-            {
-                M_Action action = actions[0];
-                getAction = true;
-
-                await Play(action);
-                
-                actions.RemoveAt(0);
-                getAction = false;
-            }
-            await Task.Yield();
-        }
-    }
-
-    private async Task Play(M_Action action)
-    {
-        int idActor = action.idActor;
-        C_Character actor = Objs[idActor];
-
-        switch (action.type)
-        {
-            case C_Enum.ActionType.SKILL:
-                SKILLING(actor, action);
-                break;
-            case C_Enum.ActionType.CHANGE_HP:
-                actor.PushChangeHp(action.prop);
-                actor.ChangeHp();
-                break;
-            case C_Enum.ActionType.CHANGE_EP:
-                actor.PushChangeEp(action.prop);
-                actor.ChangeEp();
-                break;
-        }
-
-        await Task.Delay(TimeSpan.FromSeconds(Time.fixedDeltaTime / 10));
-
-        if (action.actions.Count > 0)
-        {
-            Debug.LogWarning("===========================Chưa diễn hết");
-            action.actions.ForEach(x => C_Util.getDumpObject(x));
-        }
-    }
-
-    private void SKILLING(C_Character actor, M_Action action)
-    {        
-        this.idTargets.Clear();
-        this.targets.Clear();
-
-        this.idTargets = action.prop.idTargets;
-        this.Beaten = idTargets.Count;
-
-        // Tìm Action của target
-        FindActionOfTaget(action.actions);
-
-        // Tìm Action của actor
-        FindActionOfActor(actor, action.actions);
-
-        // Diễn Skill khi có target
-        if (this.targets.Count > 0)
-        {
-            actor.Play(action.prop.idSkill);
-        }
-        actor.ChangeEp();
-        actor.ChangeHp();
-    }
-
-    private void FindActionOfTaget(List<M_Action> actionCs)
-    {
-        for (int i = 0; i < actionCs.Count; i++)
-        {
-            M_Action actionC = actionCs[i];
-            int idTargetC = actionC.idActor;
-
-            if (this.idTargets.Contains(idTargetC))
-            {
-                C_Character target = Objs[idTargetC];
-
-                switch (actionC.type)
-                {
-                    case C_Enum.ActionType.BEATEN:
-                        target.isHit = true;
-                        actionCs.RemoveAt(i--);
-                        break;
-                    case C_Enum.ActionType.CHANGE_HP:
-                        target.PushChangeHp(actionC.prop);
-                        actionCs.RemoveAt(i--);
-                        break;
-                    case C_Enum.ActionType.CHANGE_EP:
-                        target.PushChangeEp(actionC.prop);
-                        actionCs.RemoveAt(i--);
-                        break;
-                }
-
-                // Nếu tồn tại trong mảng targets
-                if (idxTarget(idTargetC) != -1)
-                {
-                    this.targets[idxTarget(idTargetC)] = target;
-                }
-                else
-                {
-                    this.targets.Add(target);
-                }
-            }            
-        }
-    }
-
-    private int idxTarget(int id_target)
-    {
-        for (int i = 0; i < this.targets.Count; i++)
-        {
-            if (this.targets[i].nhanvat.id_nv == id_target) return i;
-        }
-        return -1;
-    }
-
-    private void FindActionOfActor(C_Character actor, List<M_Action> actionCs)
-    {
-        for (int i = 0; i < actionCs.Count; i++)
-        {
-            M_Action actionC = actionCs[i];
-            int idActorC = actionC.idActor;
-
-            if (actor.nhanvat.id_nv == idActorC)
-            {
-                switch (actionC.type)
-                {
-                    case C_Enum.ActionType.CHANGE_HP:
-                        actor.PushChangeHp(actionC.prop);
-                        actionCs.RemoveAt(i--);
-                        break;
-                    case C_Enum.ActionType.CHANGE_EP:
-                        actor.PushChangeEp(actionC.prop);
-                        actionCs.RemoveAt(i--);
-                        break;
-                }
-            }
-        }
-    }
-
-    private void Scenario()
-    {
-        Debug.Log("Scenario");
-
-        {
-            M_Character actor = dataTeamL[0];
-            M_Character target = dataTeamR[0];
-            actions.Add(Action11(actor, 3, target));
-        }
-        {
-            M_Character actor = dataTeamL[1];
-            M_Character target = dataTeamR[1];
-            actions.Add(Action11(actor, 3, target));
-        }
-
-        {
-            M_Character actor = dataTeamL[0];
-            M_Character target = dataTeamR[0];
-            actions.Add(Action11(target, 3, actor));
-        }
-        {
-            M_Character actor = dataTeamL[1];
-            M_Character target = dataTeamR[1];
-            actions.Add(Action11(target, 3, actor));
-        }
-    }
-
-    private M_Action Action11(M_Character actor, int idSkill, M_Character target)
-    {
-        M_Action action = new M_Action();
-
-        action.idActor = actor.id_nv;
-        action.type = C_Enum.ActionType.SKILL;
-        action.prop = new M_Prop();
-        action.prop.idSkill = idSkill;
-
-        action.prop.idTargets.Clear();
-        action.prop.idTargets.Add(target.id_nv);
-
-        action.actions = new List<M_Action>();
-
-        // Actor tăng 20 ep
-        {
-            M_Action actionC = new M_Action();
-            actionC.idActor = actor.id_nv;
-            actionC.type = C_Enum.ActionType.CHANGE_EP;
-
-            actionC.prop = new M_Prop();
-            actionC.prop.epChange = 20;
-
-            actor.Current_ep += 20;
-            action.actions.Add(actionC);
-        }
-
-        // target trúng đòn
-        {
-            M_Action actionC = new M_Action();
-            actionC.idActor = target.id_nv;
-            actionC.type = C_Enum.ActionType.BEATEN;
-
-            action.actions.Add(actionC);
-        }
-
-        // target tăng 10 ep        
-        {
-            M_Action actionC = new M_Action();
-            actionC.idActor = target.id_nv;
-            actionC.type = C_Enum.ActionType.CHANGE_EP;
-
-            actionC.prop = new M_Prop();
-            actionC.prop.epChange = 10;
-
-            target.Current_ep += 10;
-            action.actions.Add(actionC);
-        }
-
-        // target giảm x hp: CT dame = ((atk - def) > 0) ? (atk - def) : 1
-        {
-            M_Action actionC = new M_Action();
-            actionC.idActor = target.id_nv;
-            actionC.type = C_Enum.ActionType.CHANGE_HP;
-
-            actionC.prop = new M_Prop();
-
-            int dame = ((actor.atk * 2 - target.def) > 0) ? (actor.atk * 2 - target.def) : 1;
-
-            actionC.prop.hpChange = -dame;
-
-            actor.Current_hp += -dame;
-            action.actions.Add(actionC);
-        }
-
-        C_Util.getDumpObject(action);
-        return action;
-    }
-
+    // Load Data
     private void LoadData()
     {
         Debug.Log("LoadData");
@@ -391,13 +126,427 @@ public class FightingGame : MonoBehaviour
                 C_Character c_obj = obj.GetComponent<C_Character>();
                 c_obj.Set(new M_Character(datas[i]));
                 c_obj.isCombat = true;
-                c_obj.isDie = false;
+                c_obj.nhanvat.isDie = false;
 
                 Objs.Add(datas[i].id_nv, c_obj);
                 lstObj.Add(c_obj);
             }
         }
     }
+
+    // Scenario
+
+    [Obsolete]
+    private void Scenario()
+    {
+        Debug.Log("Scenario");
+
+        while (true)
+        {
+            if (isEndGame) break;
+
+            Attack(dataTeamL, dataTeamR);
+
+            Attack(dataTeamR, dataTeamL);
+        }        
+    }
+
+    [Obsolete]
+    private void Attack(List<M_Character> TeamAttack, List<M_Character> TeamAttacked)
+    {
+        for (int i = 0; i < TeamAttack.Count; i++)
+        {
+            M_Character actor = TeamAttack[i];
+
+            if (actor.isDie) continue;
+
+            int idSkill = (actor.Current_ep >= actor.max_ep) ? 5 : 3;
+
+            int find = 1;
+
+            List<int> idxs = FindTargetNotDie(TeamAttacked);
+            if(idxs.Count == 0)
+            {
+                isEndGame = true;
+                break;
+            }
+            else if (idxs.Count > find)
+            {                
+                ShuffleArray(ref idxs);                
+            }
+
+            for (int j = 0; j < find && j < idxs.Count; j++)
+            {
+                List<M_Character> targets = new List<M_Character>();
+
+                targets.Add(TeamAttacked[idxs[j]]);
+
+                actions.Add(Action(actor, idSkill, targets));
+            }
+        }
+    }
+
+    [Obsolete]
+    private void ShuffleArray(ref List<int> idxs)
+    {
+        for(int i = 0; i < idxs.Count - 1; i++)
+        {
+            int random = UnityEngine.Random.RandomRange(i, idxs.Count);
+            Swap(ref idxs, i, random);
+        }
+    }
+
+    private void Swap(ref List<int> idxs, int a, int b)
+    {
+        int temp = idxs[a];
+        idxs[a] = idxs[b];
+        idxs[b] = temp;
+    }
+
+    private List<int> FindTargetNotDie(List<M_Character> TeamAttacked)
+    {
+        List<int> rs = new List<int>();
+        for (int i = 0; i < TeamAttacked.Count; i++)
+        {
+            if (!TeamAttacked[i].isDie) rs.Add(i);
+        }
+        return rs;
+    }
+
+    private M_Action Action(M_Character actor, int idSkill, List<M_Character> targets)
+    {
+        M_Action action = new M_Action();
+
+        action.idActor = actor.id_nv;
+        action.type = C_Enum.ActionType.SKILL;
+        action.prop = new M_Prop();
+        action.prop.idSkill = idSkill;
+
+        action.prop.idTargets.Clear();
+        for (int i = 0; i < targets.Count; i++)
+        {
+            action.prop.idTargets.Add(targets[i].id_nv);
+        }
+
+        action.actions = new List<M_Action>();
+
+        // Nếu dùng ulti
+        if (idSkill == 5)
+        {
+            // Actor tăng -100 ep
+            {
+                M_Action actionC = new M_Action();
+                actionC.idActor = actor.id_nv;
+                actionC.type = C_Enum.ActionType.CHANGE_EP;
+
+                actionC.prop = new M_Prop();
+                actionC.prop.epChange = -100;
+
+                actor.Current_ep += -100;
+                action.actions.Add(actionC);
+            }
+        }
+        else
+        {
+            // Actor tăng 20 ep
+            {
+                M_Action actionC = new M_Action();
+                actionC.idActor = actor.id_nv;
+                actionC.type = C_Enum.ActionType.CHANGE_EP;
+
+                actionC.prop = new M_Prop();
+                actionC.prop.epChange = 20;
+
+                actor.Current_ep += 20;
+                action.actions.Add(actionC);
+            }
+        }
+
+        for (int i = 0; i < targets.Count; i++)
+        {
+            // Tính dame trước
+            int dame = ((actor.atk * 2 - targets[i].def) > 0) ? (actor.atk * 2 - targets[i].def) : 1;
+
+            // Nếu dame chết
+            if (dame >= targets[i].Current_hp)
+            {
+                // target chết
+                {
+                    M_Action actionC = new M_Action();
+                    actionC.idActor = targets[i].id_nv;
+                    actionC.type = C_Enum.ActionType.DIE;
+
+                    targets[i].isDie = true;
+                    action.actions.Add(actionC);
+                }
+            }
+            else
+            {
+                // target trúng đòn
+                {
+                    M_Action actionC = new M_Action();
+                    actionC.idActor = targets[i].id_nv;
+                    actionC.type = C_Enum.ActionType.BEATEN;
+
+                    action.actions.Add(actionC);
+                }
+
+                // target tăng 10 ep        
+                {
+                    M_Action actionC = new M_Action();
+                    actionC.idActor = targets[i].id_nv;
+                    actionC.type = C_Enum.ActionType.CHANGE_EP;
+
+                    actionC.prop = new M_Prop();
+                    actionC.prop.epChange = 10;
+
+                    targets[i].Current_ep += 10;
+                    action.actions.Add(actionC);
+                }                
+            }
+
+            // target giảm x hp: CT dame = ((atk - def) > 0) ? (atk - def) : 1
+            {
+                M_Action actionC = new M_Action();
+                actionC.idActor = targets[i].id_nv;
+                actionC.type = C_Enum.ActionType.CHANGE_HP;
+
+                actionC.prop = new M_Prop();
+
+                actionC.prop.hpChange = -dame;
+
+                targets[i].Current_hp += -dame;
+                action.actions.Add(actionC);
+            }
+        }
+
+        C_Util.GetDumpObject(action);
+        return action;
+    }
+
+    // Combat
+
+    private async void Combat()
+    {
+        int t = 3;
+        txtTime.gameObject.SetActive(true);
+        while (true)
+        {
+            if (t <= 0) break;
+            Debug.Log("Đếm ngược: " + t);
+            txtTime.text = t + " ";
+            await Task.Delay(TimeSpan.FromSeconds(1));                        
+            t -= 1;            
+        }
+        txtTime.gameObject.SetActive(false);
+       
+        Debug.Log("Combat");
+
+        while (true)
+        {
+            if(actions.Count == 0)
+            {
+                txtTime.text = "End Game";
+                txtTime.gameObject.SetActive(true);
+                break;
+            }
+
+            if(!getAction && Beaten == 0)
+            {
+                CheckTurn();
+
+                if (turn)
+                {
+                    M_Action action = actions[0];
+                    getAction = true;
+
+                    await Play(action);
+
+                    actions.RemoveAt(0);
+                    getAction = false;
+                }                
+            }
+
+            await Task.Delay(TimeSpan.FromSeconds(0.1));
+        }
+    }
+
+    private void CheckTurn()
+    {
+        for (int i = 0; i < lstObj.Count; i++)
+        {
+            if (lstObj[i].nhanvat.isDie || !lstObj[i].gameObject.activeSelf || lstObj[i].isAnim1()) check++;
+            else break;
+        }
+
+        turn = (check >= lstObj.Count);
+        check = 0;
+    }
+
+    private async Task Play(M_Action action)
+    {
+        int idActor = action.idActor;
+        C_Character actor = Objs[idActor];
+
+        switch (action.type)
+        {
+            case C_Enum.ActionType.SKILL:
+                // Debug.Log("=========================== SKILLING: " + idActor);
+                SKILLING(actor, action);
+                break;
+            case C_Enum.ActionType.CHANGE_HP:
+                Debug.LogWarning("=========================== CHANGE_HP: " + idActor);
+                actor.PushChangeHp(action.prop);
+                actor.ChangeHp();
+                break;
+            case C_Enum.ActionType.CHANGE_EP:
+                Debug.LogWarning("=========================== CHANGE_EP: " + idActor);
+                actor.PushChangeEp(action.prop);
+                actor.ChangeEp();
+                break;
+            case C_Enum.ActionType.DIE:
+                Debug.LogWarning("=========================== DIE: " + idActor);
+                actor.nhanvat.isDie = true;
+
+                while (true)
+                {
+                    if (actor.isAnim1()) break;
+                    Debug.Log("=========================== Loop " + actor.nhanvat.id_nv + " Anim1");
+                    await Task.Delay(TimeSpan.FromSeconds(0.01));
+                }
+                actor.Play(6);
+                break;
+        }
+
+        await Task.Delay(TimeSpan.FromSeconds(0.01));
+
+        if (action.actions.Count > 0)
+        {
+            Debug.LogWarning("=========================== Chưa diễn hết");
+            action.actions.ForEach(x => C_Util.GetDumpObject(x));
+        }
+    }
+
+    private async void SKILLING(C_Character actor, M_Action action)
+    {       
+        this.idTargets.Clear();
+        this.targets.Clear();
+
+        this.idTargets = action.prop.idTargets;
+        this.Beaten = idTargets.Count;
+
+        // Tìm Action của target
+        FindActionOfTaget(action.actions);
+
+        // Tìm Action của actor
+        FindActionOfActor(actor, action.actions);
+
+        // Diễn Skill khi có target
+        if (this.targets.Count > 0)
+        {
+            while (true)
+            {
+                if (actor.isAnim1()) break;
+                Debug.Log("=========================== Loop " + actor.nhanvat.id_nv + " Anim1");
+                await Task.Delay(TimeSpan.FromSeconds(0.01));
+            }
+            actor.Play(action.prop.idSkill);
+        }
+        actor.ChangeEp();
+        actor.ChangeHp();
+
+        if (actor.nhanvat.isDie)
+        {
+            while (true)
+            {
+                if (actor.isAnim1()) break;
+                Debug.Log("=========================== Loop " + actor.nhanvat.id_nv + " Anim1");
+                await Task.Delay(TimeSpan.FromSeconds(0.01));
+            }
+            actor.Play(6);
+        }
+    }
+
+    private void FindActionOfTaget(List<M_Action> actionCs)
+    {
+        for (int i = 0; i < actionCs.Count; i++)
+        {
+            M_Action actionC = actionCs[i];
+            int idTargetC = actionC.idActor;
+
+            if (this.idTargets.Contains(idTargetC))
+            {
+                C_Character target = Objs[idTargetC];
+
+                switch (actionC.type)
+                {
+                    case C_Enum.ActionType.BEATEN:
+                        target.isHit = true;
+                        actionCs.RemoveAt(i--);
+                        break;
+                    case C_Enum.ActionType.CHANGE_HP:
+                        target.PushChangeHp(actionC.prop);
+                        actionCs.RemoveAt(i--);
+                        break;
+                    case C_Enum.ActionType.CHANGE_EP:
+                        target.PushChangeEp(actionC.prop);
+                        actionCs.RemoveAt(i--);
+                        break;
+                    case C_Enum.ActionType.DIE:
+                        target.nhanvat.isDie = true;
+                        actionCs.RemoveAt(i--);
+                        break;
+                }
+
+                // Nếu tồn tại trong mảng targets
+                if (idxTarget(idTargetC) != -1)
+                {
+                    this.targets[idxTarget(idTargetC)] = target;
+                }
+                else
+                {
+                    this.targets.Add(target);
+                }
+            }            
+        }
+    }
+
+    private int idxTarget(int id_target)
+    {
+        for (int i = 0; i < this.targets.Count; i++)
+        {
+            if (this.targets[i].nhanvat.id_nv == id_target) return i;
+        }
+        return -1;
+    }
+
+    private void FindActionOfActor(C_Character actor, List<M_Action> actionCs)
+    {
+        for (int i = 0; i < actionCs.Count; i++)
+        {
+            M_Action actionC = actionCs[i];
+            int idActorC = actionC.idActor;
+
+            if (actor.nhanvat.id_nv == idActorC)
+            {
+                switch (actionC.type)
+                {
+                    case C_Enum.ActionType.CHANGE_HP:
+                        actor.PushChangeHp(actionC.prop);
+                        actionCs.RemoveAt(i--);
+                        break;
+                    case C_Enum.ActionType.CHANGE_EP:
+                        actor.PushChangeEp(actionC.prop);
+                        actionCs.RemoveAt(i--);
+                        break;
+                    case C_Enum.ActionType.DIE:
+                        actor.nhanvat.isDie = true;
+                        actionCs.RemoveAt(i--);
+                        break;
+                }
+            }
+        }
+    }    
 
     void OnGUI()
     {

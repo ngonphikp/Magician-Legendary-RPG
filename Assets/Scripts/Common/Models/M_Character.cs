@@ -23,6 +23,8 @@ public class M_Character
 
     public int idx = -1;
 
+    public bool isDie = false;
+
     [SerializeField]
     private int current_ep = 0;
     public int max_ep = 1;

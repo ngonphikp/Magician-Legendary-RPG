@@ -34,6 +34,7 @@ public class C_Enum
         CHANGE_HP = 1,
         CHANGE_EP = 2,
         BEATEN = 3,
+        DIE = 4,
     }
 
     public enum TypeText

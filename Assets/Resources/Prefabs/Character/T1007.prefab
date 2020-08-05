@@ -116,6 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8747621958252180146}
   - component: {fileID: 384526148128052178}
+  - component: {fileID: -9077510001869034366}
   m_Layer: 0
   m_Name: T1007
   m_TagString: Untagged
@@ -166,7 +167,6 @@ MonoBehaviour:
   UICharacter: {fileID: 5071468357533630638}
   isCombat: 0
   isHit: 1
-  isDie: 0
   nhanvat:
     id_nv: -1
     id_cfg: 
@@ -181,12 +181,38 @@ MonoBehaviour:
     element: 
     star: 0
     idx: -1
+    isDie: 0
     current_ep: 0
     max_ep: 1
     current_hp: 0
     max_hp: 1
     type: 0
     team: 0
+--- !u!114 &-9077510001869034366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8747621958252180147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb230911ace82e45ae48dfe81d9a672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time3d0: 0.8
+  time3ds: 0
+  time3df: 1
+  time3dm: 0.3
+  fx3d0: {fileID: 0}
+  dis3d0: -17
+  height3: 7
+  time5d0: 0.4
+  fx5d0: {fileID: 0}
+  time5ds: 0.3
+  time5df: 0.6
+  time5dm: 0.3
+  dis5d0: 17
 --- !u!1001 &6110736876387677813
 PrefabInstance:
   m_ObjectHideFlags: 0

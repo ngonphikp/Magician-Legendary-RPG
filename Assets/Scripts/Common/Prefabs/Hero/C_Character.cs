@@ -24,7 +24,6 @@ public class C_Character : MonoBehaviour
     [Header("Khả năng chiến đấu")]
     public bool isCombat = false;
     public bool isHit = true;
-    public bool isDie = false;
 
     [SerializeField]
     private I_Control ctl = null;
@@ -63,35 +62,35 @@ public class C_Character : MonoBehaviour
                 anim.SetTrigger("anim2");
                 isAnim2 = false;
 
-                if (isCombat) ctl.Play(2);
+                if (isCombat && FightingGame.instance.targets.Count > 0) ctl.Play(2);
             }
             if (isAnim3)
             {
                 anim.SetTrigger("anim3");
                 isAnim3 = false;
 
-                if (isCombat) ctl.Play(3);
+                if (isCombat && FightingGame.instance.targets.Count > 0) ctl.Play(3);
             }
             if (isAnim4)
             {
                 anim.SetTrigger("anim4");
                 isAnim4 = false;
 
-                if (isCombat) ctl.Play(4);
+                if (isCombat && FightingGame.instance.targets.Count > 0) ctl.Play(4);
             }
             if (isAnim5)
             {
                 anim.SetTrigger("anim5");
                 isAnim5 = false;
 
-                if (isCombat) ctl.Play(5);
+                if (isCombat && FightingGame.instance.targets.Count > 0) ctl.Play(5);
             }
             if (isAnim6)
             {
                 anim.SetTrigger("anim6");
                 isAnim6 = false;
 
-                if (isCombat) ctl.Play(6);
+                if (isCombat && FightingGame.instance.targets.Count > 0) ctl.Play(6);
 
                 AnimDie();
             }
@@ -100,7 +99,7 @@ public class C_Character : MonoBehaviour
                 anim.SetTrigger("anim7");
                 isAnim7 = false;
 
-                if (isCombat) ctl.Play(7);
+                if (isCombat && FightingGame.instance.targets.Count > 0) ctl.Play(7);
             }
             await Task.Yield();
         }
@@ -149,11 +148,11 @@ public class C_Character : MonoBehaviour
 
     public void Beaten()
     {
-        if (isDie)
+        if (nhanvat.isDie)
         {
             Play(6);
         }
-        if (!isDie && isHit) Play(7);
+        if (!nhanvat.isDie && isHit) Play(7);
 
         FightingGame.instance.Beaten--;
 
@@ -163,7 +162,7 @@ public class C_Character : MonoBehaviour
 
     public void ChangeHp()
     {
-        Debug.Log("ChangeHp: " + this.nhanvat.id_nv);
+        //Debug.Log("ChangeHp: " + this.nhanvat.id_nv);
         while (propHPs.Count > 0)
         {
             M_Prop prop = propHPs[0];
@@ -187,7 +186,7 @@ public class C_Character : MonoBehaviour
 
     public void ChangeEp()
     {
-        Debug.Log("ChangeEp: " + this.nhanvat.id_nv);
+        //Debug.Log("ChangeEp: " + this.nhanvat.id_nv);
         while (propEPs.Count > 0)
         {
             M_Prop prop = propEPs[0];
@@ -223,11 +222,7 @@ public class C_Character : MonoBehaviour
     {
         if (this.GetComponent<RectTransform>().localPosition != new Vector3() && FightingGame.instance) return false;
 
-        AnimatorClipInfo[] m_CurrentClipInfo = anim.GetCurrentAnimatorClipInfo(0);
-        if (m_CurrentClipInfo.Length < 1) return false;
-        string m_ClipName = m_CurrentClipInfo[0].clip.name;
-        //Debug.Log(m_ClipName);
-        return (m_ClipName == "anim1");
+        return (AnimatorExtensions.GetCurrentStateName(anim, 0) == "Base Layer." + "anim1" && AnimatorExtensions.GetNextStateName(anim, 0) == "");
     }
 
     private async void AnimDie()

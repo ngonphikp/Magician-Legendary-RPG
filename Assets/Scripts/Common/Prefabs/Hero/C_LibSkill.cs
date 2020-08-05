@@ -86,7 +86,7 @@ public class C_LibSkill : MonoBehaviour
         // DeLay anim trúng đòn
         await Task.Delay(TimeSpan.FromSeconds(time / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
         targets[index].Beaten();
-        Debug.Log("===========================Hit: " + targets[index].nhanvat.id_nv);
+        //Debug.Log("===========================Hit: " + targets[index].nhanvat.id_nv);
     }
 
     public static void Shoot(GameObject bullet, Transform parent, List<C_Character> targets = null, bool isRotate = false, float timeInit = 0.0f, float timeDlMove = 0.0f, Vector3 offset = new Vector3())
