@@ -23,7 +23,8 @@ public class FightingGame : MonoBehaviour
     [SerializeField]
     private List<M_Character> dataTeamR = new List<M_Character>();
 
-    private bool isEndGame = false;
+    private C_Enum.ENDGAME isEndGame = C_Enum.ENDGAME.NOT;
+    private int starEndGame = 0;
 
     [SerializeField]
     private Text txtTime = null;
@@ -60,6 +61,11 @@ public class FightingGame : MonoBehaviour
     [Obsolete]
     private void Start()
     {
+        if (Application.platform != RuntimePlatform.Android)
+        {
+            Application.runInBackground = true;
+        }
+
         LoadData();
         Scenario();
         Combat();
@@ -77,7 +83,7 @@ public class FightingGame : MonoBehaviour
                 M_Character nhanVat = new M_Character(GameManager.instance.nhanVats[i]);
                 nhanVat.team = 0;
                 nhanVat.id_nv = i;
-                dataTeamL.Add(nhanVat);
+                dataTeamL.Add(new M_Character(nhanVat));
             }
         }
         dataTeamR.Clear();
@@ -86,7 +92,8 @@ public class FightingGame : MonoBehaviour
             M_Character nhanVat = new M_Character(GameManager.instance.milestones[GameManager.instance.idxMilestone].listCreep[i]);
             nhanVat.team = 1;
             nhanVat.id_nv = i + dataTeamL.Count;
-            dataTeamR.Add(nhanVat);
+            nhanVat.UpdateLevel();
+            dataTeamR.Add(new M_Character(nhanVat));
         }
 
         Init();
@@ -143,16 +150,16 @@ public class FightingGame : MonoBehaviour
 
         while (true)
         {
-            if (isEndGame) break;
+            if (isEndGame != C_Enum.ENDGAME.NOT) break;
 
-            Attack(dataTeamL, dataTeamR);
+            Attack(dataTeamL, dataTeamR, C_Enum.ENDGAME.WIN);
 
-            Attack(dataTeamR, dataTeamL);
+            Attack(dataTeamR, dataTeamL, C_Enum.ENDGAME.LOSE);
         }        
     }
 
     [Obsolete]
-    private void Attack(List<M_Character> TeamAttack, List<M_Character> TeamAttacked)
+    private void Attack(List<M_Character> TeamAttack, List<M_Character> TeamAttacked, C_Enum.ENDGAME rs)
     {
         for (int i = 0; i < TeamAttack.Count; i++)
         {
@@ -167,7 +174,31 @@ public class FightingGame : MonoBehaviour
             List<int> idxs = FindTargetNotDie(TeamAttacked);
             if(idxs.Count == 0)
             {
-                isEndGame = true;
+                isEndGame = rs;
+
+                // Nếu win thì kiểm tra số sao
+                if (rs == C_Enum.ENDGAME.WIN)
+                {
+                    bool isFull = true;
+                    bool is3Star = true;
+                    for (int j = 0; j < TeamAttack.Count; j++)
+                    {
+                        if (TeamAttack[j].isDie) isFull = false;
+                        else
+                        {
+                            if (TeamAttack[j].Current_hp <= (TeamAttack[j].max_hp * 0.2)) is3Star = false;
+                        }
+                    }
+
+                    // Nếu còn đủ team
+                    if (isFull)
+                    {                        
+                        starEndGame = (is3Star) ? 3 : 2;
+                    }
+                    else starEndGame = 1;
+                }
+                else starEndGame = 0;
+
                 break;
             }
             else if (idxs.Count > find)
@@ -213,6 +244,7 @@ public class FightingGame : MonoBehaviour
         return rs;
     }
 
+    [Obsolete]
     private M_Action Action(M_Character actor, int idSkill, List<M_Character> targets)
     {
         M_Action action = new M_Action();
@@ -264,59 +296,84 @@ public class FightingGame : MonoBehaviour
 
         for (int i = 0; i < targets.Count; i++)
         {
-            // Tính dame trước
-            int dame = ((actor.atk * 2 - targets[i].def) > 0) ? (actor.atk * 2 - targets[i].def) : 1;
+            // Tính dame mặc định
+            int dame = ((actor.atk - targets[i].def) > 0) ? (actor.atk - targets[i].def) : 1;
 
-            // Nếu dame chết
-            if (dame >= targets[i].Current_hp)
+            // Thêm hệ tương sinh tương khắc
+            if (C_Params.SystemCorrelation[actor.element] == targets[i].element) dame = (int)(dame * C_Params.ratioSC);
+
+            // Nếu dame có crit
+            bool isCrit = (UnityEngine.Random.RandomRange(0.0f, 100.0f) <= actor.crit);
+            if(isCrit) dame = (int)(dame * C_Params.ratioCrit);
+
+            // Nếu target né dame
+            bool isDodge = (UnityEngine.Random.RandomRange(0.0f, 100.0f) <= targets[i].dodge);
+
+            if (isDodge)
             {
-                // target chết
+                // target né đòn
                 {
                     M_Action actionC = new M_Action();
                     actionC.idActor = targets[i].id_nv;
-                    actionC.type = C_Enum.ActionType.DIE;
+                    actionC.type = C_Enum.ActionType.DODGE;
 
-                    targets[i].isDie = true;
                     action.actions.Add(actionC);
                 }
             }
             else
-            {
-                // target trúng đòn
+            {                
+                // Nếu dame chết
+                if (dame >= targets[i].Current_hp)
                 {
-                    M_Action actionC = new M_Action();
-                    actionC.idActor = targets[i].id_nv;
-                    actionC.type = C_Enum.ActionType.BEATEN;
+                    // target chết
+                    {
+                        M_Action actionC = new M_Action();
+                        actionC.idActor = targets[i].id_nv;
+                        actionC.type = C_Enum.ActionType.DIE;
 
-                    action.actions.Add(actionC);
+                        targets[i].isDie = true;
+                        action.actions.Add(actionC);
+                    }
+                }
+                else
+                {
+                    // target trúng đòn
+                    {
+                        M_Action actionC = new M_Action();
+                        actionC.idActor = targets[i].id_nv;
+                        actionC.type = C_Enum.ActionType.BEATEN;
+
+                        action.actions.Add(actionC);
+                    }
+
+                    // target tăng 10 ep        
+                    {
+                        M_Action actionC = new M_Action();
+                        actionC.idActor = targets[i].id_nv;
+                        actionC.type = C_Enum.ActionType.CHANGE_EP;
+
+                        actionC.prop = new M_Prop();
+                        actionC.prop.epChange = 10;
+
+                        targets[i].Current_ep += 10;
+                        action.actions.Add(actionC);
+                    }
                 }
 
-                // target tăng 10 ep        
+                // target giảm hp
                 {
                     M_Action actionC = new M_Action();
                     actionC.idActor = targets[i].id_nv;
-                    actionC.type = C_Enum.ActionType.CHANGE_EP;
+                    actionC.type = C_Enum.ActionType.CHANGE_HP;
 
                     actionC.prop = new M_Prop();
-                    actionC.prop.epChange = 10;
 
-                    targets[i].Current_ep += 10;
+                    actionC.prop.hpChange = -dame;
+                    actionC.prop.hpChangeCrit = isCrit;
+
+                    targets[i].Current_hp += -dame;
                     action.actions.Add(actionC);
-                }                
-            }
-
-            // target giảm x hp: CT dame = ((atk - def) > 0) ? (atk - def) : 1
-            {
-                M_Action actionC = new M_Action();
-                actionC.idActor = targets[i].id_nv;
-                actionC.type = C_Enum.ActionType.CHANGE_HP;
-
-                actionC.prop = new M_Prop();
-
-                actionC.prop.hpChange = -dame;
-
-                targets[i].Current_hp += -dame;
-                action.actions.Add(actionC);
+                }
             }
         }
 
@@ -346,8 +403,9 @@ public class FightingGame : MonoBehaviour
         {
             if(actions.Count == 0)
             {
-                txtTime.text = "End Game";
+                txtTime.text = isEndGame.ToString();
                 txtTime.gameObject.SetActive(true);
+                Debug.LogWarning(isEndGame.ToString() + " / " + starEndGame);
                 break;
             }
 
@@ -375,8 +433,10 @@ public class FightingGame : MonoBehaviour
     {
         for (int i = 0; i < lstObj.Count; i++)
         {
-            if (lstObj[i].nhanvat.isDie || !lstObj[i].gameObject.activeSelf || lstObj[i].isAnim1()) check++;
-            else break;
+            if (lstObj[i] != null) {
+                if (lstObj[i].nhanvat.isDie || !lstObj[i].gameObject.activeSelf || lstObj[i].isAnim1()) check++;
+                else break;
+            }
         }
 
         turn = (check >= lstObj.Count);
@@ -480,6 +540,10 @@ public class FightingGame : MonoBehaviour
 
                 switch (actionC.type)
                 {
+                    case C_Enum.ActionType.DODGE:
+                        target.isHit = false;
+                        actionCs.RemoveAt(i--);
+                        break;
                     case C_Enum.ActionType.BEATEN:
                         target.isHit = true;
                         actionCs.RemoveAt(i--);

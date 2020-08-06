@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     public List<M_Milestone> milestones = new List<M_Milestone>();
     public Dictionary<int, M_Milestone> milestonesDic = new Dictionary<int, M_Milestone>();
 
+    public List<M_Skill> skills = new List<M_Skill>();
+    public Dictionary<string, M_Skill> skillsDic = new Dictionary<string, M_Skill>();
+
     // Data User
     public M_TaiKhoan taikhoan = new M_TaiKhoan();
     public List<M_Character> nhanVats = new List<M_Character>();
@@ -54,6 +57,16 @@ public class GameManager : MonoBehaviour
         LoadListHero();
         LoadListCreep();
         LoadListMilestone();
+        LoadListSkill();
+    }
+
+    private void LoadListSkill()
+    {
+        JSonConvert convert = new JSonConvert();
+        skills = convert.GetListSkill().ToList<M_Skill>();
+
+        skillsDic = new Dictionary<string, M_Skill>(skills.Count);
+        skills.ForEach(x => skillsDic.Add(x.id_cfg, x));
     }
 
     private void LoadListHero()
@@ -99,17 +112,19 @@ public class GameManager : MonoBehaviour
 
             for(int i = 0; i < 5; i++)
             {
-                M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 100), arrIdx[i]);
+                M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, i + 1, arrIdx[i]);
                 nhanVat.type = C_Enum.CharacterType.Hero;
                 nhanVat.UpdateById();
+                nhanVat.UpdateLevel();
                 nhanVats.Add(nhanVat);
             }
 
-            for (int i = 5; i < 15; i++)
+            for (int i = 5; i < 45; i++)
             {
-                M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 100), -1);
+                M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 15), -1);
                 nhanVat.type = C_Enum.CharacterType.Hero;
                 nhanVat.UpdateById();
+                nhanVat.UpdateLevel();
                 nhanVats.Add(nhanVat);
             }
 

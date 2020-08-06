@@ -101,6 +101,8 @@ public class C_Bullet : MonoBehaviour
         await Task.Delay(TimeSpan.FromSeconds(timecb / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
         while (true)
         {
+            if (this == null || this.gameObject == null) break;
+
             float step = speed * Time.deltaTime * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
             transform.position = Vector3.MoveTowards(transform.position, comback, step);
 
@@ -128,6 +130,8 @@ public class C_Bullet : MonoBehaviour
 
         while (true)
         {
+            if (this == null || this.gameObject == null) break;
+
             if (isParabol)
             {
                 t += Time.deltaTime * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);

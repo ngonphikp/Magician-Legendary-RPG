@@ -44,6 +44,7 @@ public class HandleUser
             {
                 M_Character nhanVat = new M_Character(nhanvats.GetSFSObject(i), C_Enum.ReadType.SERVER);
                 nhanVat.UpdateById();
+                nhanVat.UpdateLevel();
                 nhanVat.type = C_Enum.CharacterType.Hero;
                 lstNhanVat.Add(nhanVat);
             }
@@ -77,6 +78,7 @@ public class HandleUser
             {
                 M_Character nhanVat = new M_Character(nhanvats.GetSFSObject(i), C_Enum.ReadType.SERVER);
                 nhanVat.UpdateById();
+                nhanVat.UpdateLevel();
                 nhanVat.type = C_Enum.CharacterType.Hero;
                 lstNhanVat.Add(nhanVat);
             }
@@ -113,6 +115,7 @@ public class HandleUser
 
             M_Character nhanvat = new M_Character(packet.GetSFSObject("nhanvat"), C_Enum.ReadType.SERVER);
             nhanvat.UpdateById();
+            nhanvat.UpdateLevel();
             nhanvat.type = C_Enum.CharacterType.Hero;            
                                     
             TavernGame.instance.RecCard(type, nhanvat);

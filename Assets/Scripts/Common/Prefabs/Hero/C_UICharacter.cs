@@ -21,6 +21,8 @@ public class C_UICharacter : MonoBehaviour
     [SerializeField]
     private GameObject textPrbHP2 = null;
     [SerializeField]
+    private GameObject textPrbHP2c = null;
+    [SerializeField]
     private GameObject textPrbEP1 = null;
     [SerializeField]
     private GameObject textPrbEP2 = null;
@@ -32,8 +34,8 @@ public class C_UICharacter : MonoBehaviour
     [Header("Anim Chang Hp and Ep")]
     [SerializeField]
     private float anim = 0.5f;
-    public float hp = 1.0f;
-    public float ep = 1.0f;
+    public float hp = 0.0f;
+    public float ep = 0.0f;
 
     private float curHp = 0.345f;
     private float curEp = 0.345f;
@@ -48,14 +50,14 @@ public class C_UICharacter : MonoBehaviour
     {
         float dis = hp - curHp;
         if (dis < 0) dis *= -1;
-        curHp = Mathf.Lerp(curHp, hp, Time.deltaTime * anim / dis);
+        curHp = Mathf.Lerp(curHp, hp, Time.deltaTime * anim * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1) / dis);
         Hp.fillAmount = curHp;
     }
     private void ChangEp()
     {
         float dis = ep - curEp;
         if (dis < 0) dis *= -1;
-        curEp = Mathf.Lerp(curEp, ep, Time.deltaTime * anim / dis);
+        curEp = Mathf.Lerp(curEp, ep, Time.deltaTime * anim * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1) / dis);
         Ep.fillAmount = curEp;
     }
 
@@ -63,6 +65,7 @@ public class C_UICharacter : MonoBehaviour
     {
         gameObject.SetActive(true);
         lvTxt.text = ctl.nhanvat.lv.ToString();
+        elImg.sprite = QuickFunction.getAssetImages("Sprites/Element/"+ ctl.nhanvat.element);
         this.isRight = (ctl.nhanvat.team == 1);
         if (isRight) UIRight();
     }
@@ -84,6 +87,9 @@ public class C_UICharacter : MonoBehaviour
                 break;
             case C_Enum.TypeText.HP2:
                 text = Instantiate(textPrbHP2, texts);
+                break;
+            case C_Enum.TypeText.HP2c:
+                text = Instantiate(textPrbHP2c, texts);
                 break;
             case C_Enum.TypeText.EP1:
                 text = Instantiate(textPrbEP1, texts);

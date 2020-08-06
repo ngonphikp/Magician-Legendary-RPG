@@ -35,14 +35,23 @@ public class C_Enum
         CHANGE_EP = 2,
         BEATEN = 3,
         DIE = 4,
+        DODGE = 5,
     }
 
     public enum TypeText
     {
         HP1, // Tăng HP
         HP2, // Giảm HP
+        HP2c, // Giảm HP có crit
         EP1, // Tăng EP
         EP2, // Giảm EP
         DG,  // Tránh né
+    }
+
+    public enum ENDGAME
+    {
+        NOT = 0,
+        WIN = 1,
+        LOSE = 2,
     }
 }

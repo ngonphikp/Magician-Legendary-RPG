@@ -8,7 +8,7 @@ public class M_Prop
     public List<int> idTargets = new List<int>();
 
     public int hpChange;
+    public bool hpChangeCrit = false;
 
     public int epChange;
-
 }

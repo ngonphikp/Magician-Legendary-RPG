@@ -61,7 +61,6 @@ MonoBehaviour:
   UICharacter: {fileID: 3692003256118822645}
   isCombat: 0
   isHit: 1
-  isDie: 0
   nhanvat:
     id_nv: -1
     id_cfg: 
@@ -76,6 +75,7 @@ MonoBehaviour:
     element: 
     star: 0
     idx: -1
+    isDie: 0
     current_ep: 0
     max_ep: 1
     current_hp: 0
@@ -278,7 +278,7 @@ PrefabInstance:
     - target: {fileID: 4446117679819595395, guid: 72ac4c418ba0ee445b7379fbd6ed7089,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4446117679819595395, guid: 72ac4c418ba0ee445b7379fbd6ed7089,
         type: 3}
@@ -288,7 +288,7 @@ PrefabInstance:
     - target: {fileID: 4446117679819595395, guid: 72ac4c418ba0ee445b7379fbd6ed7089,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 110
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4446117679819595395, guid: 72ac4c418ba0ee445b7379fbd6ed7089,
         type: 3}
@@ -318,7 +318,7 @@ PrefabInstance:
     - target: {fileID: 4446117679819595395, guid: 72ac4c418ba0ee445b7379fbd6ed7089,
         type: 3}
       propertyPath: m_Pivot.x
-      value: 0.6
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4446117679819595395, guid: 72ac4c418ba0ee445b7379fbd6ed7089,
         type: 3}

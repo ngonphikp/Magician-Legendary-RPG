@@ -21,6 +21,8 @@ public class M_Character
     public string element;
     public int star;
 
+    public List<string> skills = new List<string>();
+
     public int idx = -1;
 
     public bool isDie = false;
@@ -72,10 +74,25 @@ public class M_Character
         this.crit = nhanVat.crit;
         this.dodge = nhanVat.dodge;
         this.team = nhanVat.team;
+        this.lv = nhanVat.lv;
 
         this.current_hp = this.max_hp = this.hp;
         this.current_ep = 0;
         this.max_ep = 100;
+    }
+
+    public void UpdateLevel()
+    {
+        for (int i = 1; i < lv; i++) UpLevel();
+    }
+
+    public void UpLevel()
+    {
+        atk = Mathf.RoundToInt(atk * C_Params.coeUpLv);
+        def = Mathf.RoundToInt(def * C_Params.coeUpLv);
+        hp = Mathf.RoundToInt(hp * C_Params.coeUpLv);        
+        crit = crit * C_Params.coeUpLv;
+        dodge = dodge * C_Params.coeUpLv;
     }
 
     public M_Character(int id_nv, string id_cfg, int id_tk, int lv, int idx)
@@ -110,6 +127,12 @@ public class M_Character
                 this.atk = obj.GetInt("atk");
                 this.crit = (float)obj.GetDouble("crit");
                 this.dodge = (float)obj.GetDouble("dodge");
+
+                this.skills.Clear();
+                ISFSArray skills = obj.GetSFSArray("skill");
+                for(int i = 0; i < skills.Size(); i++)
+                    this.skills.Add(skills.GetUtfString(i));
+
                 break;
             default:
                 break;

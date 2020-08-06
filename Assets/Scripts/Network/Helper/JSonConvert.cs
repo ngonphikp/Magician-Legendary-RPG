@@ -35,12 +35,34 @@ public class JSonConvert
         }
     }
 
+    public IEnumerable<M_Skill> GetListSkill()
+    {
+        TextAsset file = QuickFunction.getAssetJsons("ConfigJSon/Skill");
+        string jsonString = file.ToString();
+        ISFSObject sfsObj = SFSObject.NewFromJsonData(jsonString);
+        ISFSArray arr = sfsObj.GetSFSArray("list");
+        for (int i = 0; i < arr.Size(); i++)
+        {
+            ISFSObject obj = arr.GetSFSObject(i);
+            //Debug.Log(obj.GetDump());
+
+            M_Skill skill = new M_Skill();
+
+            skill.id_cfg = obj.GetUtfString("id");
+            skill.name = obj.GetUtfString("name");
+            skill.describe = obj.GetUtfString("describe");
+            skill.type = obj.GetInt("type");
+
+            yield return skill;
+        }
+    }
+
     public IEnumerable<M_Character> GetListHero()
     {
         TextAsset file = QuickFunction.getAssetJsons("ConfigJSon/Hero");
         string jsonString = file.ToString();
         ISFSObject sfsObj = SFSObject.NewFromJsonData(jsonString);
-        ISFSArray arr = sfsObj.GetSFSArray("listHero");
+        ISFSArray arr = sfsObj.GetSFSArray("list");
         for (int i = 0; i < arr.Size(); i++)
         {
             ISFSObject obj = arr.GetSFSObject(i);
@@ -59,7 +81,7 @@ public class JSonConvert
         TextAsset file = QuickFunction.getAssetJsons("ConfigJSon/Creep");
         string jsonString = file.ToString();
         ISFSObject sfsObj = SFSObject.NewFromJsonData(jsonString);
-        ISFSArray arr = sfsObj.GetSFSArray("listCreep");
+        ISFSArray arr = sfsObj.GetSFSArray("list");
         for (int i = 0; i < arr.Size(); i++)
         {
             ISFSObject obj = arr.GetSFSObject(i);
@@ -78,7 +100,7 @@ public class JSonConvert
         TextAsset file = QuickFunction.getAssetJsons("ConfigJSon/Milestone");
         string jsonString = file.ToString();
         ISFSObject sfsObj = SFSObject.NewFromJsonData(jsonString);
-        ISFSArray arr = sfsObj.GetSFSArray("listMilestone");
+        ISFSArray arr = sfsObj.GetSFSArray("list");
         for (int i = 0; i < arr.Size(); i++)
         {
             ISFSObject obj = arr.GetSFSObject(i);

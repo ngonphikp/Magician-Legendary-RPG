@@ -18,6 +18,8 @@ public class SelectionGame : MonoBehaviour
     private string[] idHeros = new string[5];
     [SerializeField]
     private Transform posMagician = null;
+    [SerializeField]
+    private Image[] imgSkills = null;
 
     private int idxActive = 0;
     private C_Character hero = null;
@@ -45,6 +47,11 @@ public class SelectionGame : MonoBehaviour
         {
             GameObject heroObj = Instantiate(heroAs, posMagician);
             hero = heroObj.GetComponent<C_Character>();
+        }
+
+        for(int i = 0; i < GameManager.instance.herosDic[id].skills.Count; i++)
+        {
+            imgSkills[i].sprite = QuickFunction.getAssetImages("Sprites/Skill/" + GameManager.instance.herosDic[id].skills[i]);
         }
     }
 

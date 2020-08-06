@@ -134,12 +134,14 @@ public class C_LibSkill : MonoBehaviour
         await Task.Delay(TimeSpan.FromSeconds(timeds / ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1)));
 
         Vector3 old = thisTran.position;
-        Vector3 start;
+        Vector3 start = new Vector3();
 
         Vector3 dis = finish - old;
         float speed = dis.magnitude / timedm;
         while (true)
         {
+            if (thisTran == null) break;
+
             start = thisTran.position;
 
             t += Time.deltaTime * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
@@ -171,6 +173,8 @@ public class C_LibSkill : MonoBehaviour
             float speedCb = disCb.magnitude / 0.2f;
             while (true)
             {
+                if (thisTran == null) break;
+
                 t += Time.deltaTime * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1);
 
                 startCb = thisTran.position;
@@ -184,6 +188,6 @@ public class C_LibSkill : MonoBehaviour
         }
 
         // Reset RectTransform
-        thisTran.GetComponent<RectTransform>().localPosition = new Vector3();
+        if(thisTran != null) thisTran.GetComponent<RectTransform>().localPosition = new Vector3();
     }
 }

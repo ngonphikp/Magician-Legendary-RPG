@@ -153,6 +153,10 @@ public class C_Character : MonoBehaviour
             Play(6);
         }
         if (!nhanvat.isDie && isHit) Play(7);
+        if (!isHit && UICharacter != null)
+        {
+            UICharacter.CreateText(C_Enum.TypeText.DG);
+        }
 
         FightingGame.instance.Beaten--;
 
@@ -177,7 +181,14 @@ public class C_Character : MonoBehaviour
                 }
                 else
                 {
-                    UICharacter.CreateText(C_Enum.TypeText.HP2, "- " + Mathf.Abs(prop.hpChange).ToString());
+                    if (prop.hpChangeCrit)
+                    {
+                        UICharacter.CreateText(C_Enum.TypeText.HP2c, "- " + Mathf.Abs(prop.hpChange).ToString());
+                    }
+                    else
+                    {
+                        UICharacter.CreateText(C_Enum.TypeText.HP2, "- " + Mathf.Abs(prop.hpChange).ToString());
+                    }
                 }
             }
             propHPs.RemoveAt(0);
@@ -220,6 +231,8 @@ public class C_Character : MonoBehaviour
 
     public bool isAnim1()
     {
+        if (this == null) return false;
+
         if (this.GetComponent<RectTransform>().localPosition != new Vector3() && FightingGame.instance) return false;
 
         return (AnimatorExtensions.GetCurrentStateName(anim, 0) == "Base Layer." + "anim1" && AnimatorExtensions.GetNextStateName(anim, 0) == "");
