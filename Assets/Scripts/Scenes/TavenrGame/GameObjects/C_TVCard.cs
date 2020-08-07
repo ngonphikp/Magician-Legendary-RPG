@@ -41,7 +41,9 @@ public class C_TVCard : MonoBehaviour
 
         if (nvAs != null)
         {
-            Instantiate(nvAs, content);
+            GameObject obj = Instantiate(nvAs, content);
+            C_Character character = obj.GetComponent<C_Character>();
+            character.Set(nhanvat);
         }
 
         GameManager.instance.nhanVats.Add(nhanvat);

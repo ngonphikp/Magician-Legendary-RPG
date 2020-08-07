@@ -16,7 +16,7 @@ public class C_CharacterAvEl : MonoBehaviour
     {
         this.nhanVat = nhanVat;
 
-        txtIdCfg.text = nhanVat.id_nv + " / " + nhanVat.id_cfg;
+        txtIdCfg.text = nhanVat.id_nv + " / " + nhanVat.id_cfg + " / " + nhanVat.lv + " / " + nhanVat.element;
     }
 
     public void ClickHero()

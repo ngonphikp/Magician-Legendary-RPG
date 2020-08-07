@@ -47,6 +47,13 @@ public class SelectionGame : MonoBehaviour
         {
             GameObject heroObj = Instantiate(heroAs, posMagician);
             hero = heroObj.GetComponent<C_Character>();
+            M_Character nhanVat = new M_Character();
+            nhanVat.Current_ep = nhanVat.max_ep = 1;
+            nhanVat.Current_hp = nhanVat.max_hp = 1;
+            nhanVat.id_cfg = id;
+            nhanVat.UpdateById();
+            nhanVat.lv = 1;
+            hero.Set(nhanVat);
         }
 
         for(int i = 0; i < GameManager.instance.herosDic[id].skills.Count; i++)

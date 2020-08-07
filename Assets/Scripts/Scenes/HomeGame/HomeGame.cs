@@ -10,6 +10,10 @@ public class HomeGame : MonoBehaviour
     private Transform listHeroAc = null;
     [SerializeField]
     private GameObject heroAcEl = null;
+    [SerializeField]
+    private Transform bagHero = null;
+    [SerializeField]
+    private GameObject bagEl = null;
 
     public void OutGame()
     {
@@ -18,7 +22,8 @@ public class HomeGame : MonoBehaviour
 
     private void Start()
     {
-        FilterListHero();        
+        FilterListHero();
+        LoadBagHero();
     }
 
     private async void FilterListHero()
@@ -37,6 +42,17 @@ public class HomeGame : MonoBehaviour
 
                 heroAc.set(nhanVat);
             }                
+        }
+
+        await Task.Yield();
+    }
+
+    private async void LoadBagHero()
+    {
+        for (int i = 0; i < GameManager.instance.nhanVats.Count; i++)
+        {
+            C_BagEl heroBag = Instantiate(bagEl, bagHero).GetComponent<C_BagEl>();
+            heroBag.set(GameManager.instance.nhanVats[i]);
         }
 
         await Task.Yield();
