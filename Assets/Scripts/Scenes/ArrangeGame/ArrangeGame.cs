@@ -66,10 +66,8 @@ public class ArrangeGame : MonoBehaviour
         for (int i = 0; i < GameManager.instance.nhanVats.Count; i++)
         {
             M_Character nhanVat = GameManager.instance.nhanVats[i];
-            nhanVat.max_hp = 1;
-            nhanVat.Current_hp = 1;
-            nhanVat.max_ep = 1;
-            nhanVat.Current_ep = 1;
+            nhanVat.Current_ep = nhanVat.max_ep = 100;
+            nhanVat.Current_hp = nhanVat.max_hp = nhanVat.hp;
             nhanVat.team = 0;
 
             C_CharacterAvEl heroAv = Instantiate(heroAvEl, listHeroAv).GetComponent<C_CharacterAvEl>();
@@ -105,10 +103,8 @@ public class ArrangeGame : MonoBehaviour
             if (creeps[i].idx != -1)
             {
                 M_Character nhanVat = creeps[i];
-                nhanVat.max_hp = 1;
-                nhanVat.Current_hp = 1;
-                nhanVat.max_ep = 1;
-                nhanVat.Current_ep = 1;
+                nhanVat.Current_ep = nhanVat.max_ep = 100;
+                nhanVat.Current_hp = nhanVat.max_hp = nhanVat.hp;
                 nhanVat.team = 1;
 
                 teamR[creeps[i].idx].set(nhanVat, canvas, false);

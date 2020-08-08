@@ -105,11 +105,18 @@ public class C_Character : MonoBehaviour
         }
     }
 
-    public void Set(M_Character nhanvat)
+    public void Set(M_Character nhanvat, bool isUI = true)
     {
         this.nhanvat = nhanvat;
 
-        if (UICharacter != null) UICharacter.set(this);
+        if(isUI)
+        {
+            if (UICharacter != null) UICharacter.set(this);
+        }
+        else
+        {
+            if (UICharacter != null) UICharacter.gameObject.SetActive(false);
+        }
     }
 
     public void Play(int i)

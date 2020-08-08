@@ -7,11 +7,15 @@ public class C_CharacterAcEl : MonoBehaviour
     [SerializeField]
     private Transform content = null;
 
-    private M_Character nhanVat;
+    private int idx;
 
-    public void set(M_Character nhanVat)
+    public void set(int idx)
     {
-        this.nhanVat = nhanVat;
+        M_Character nhanVat = new M_Character(GameManager.instance.nhanVats[idx]);
+        nhanVat.Current_ep = nhanVat.max_ep = 100;
+        nhanVat.Current_hp = nhanVat.max_hp = nhanVat.hp;
+
+        this.idx = idx;
 
         GameObject heroAs = Resources.Load("Prefabs/Character/" + nhanVat.id_cfg, typeof(GameObject)) as GameObject;
 
@@ -28,6 +32,7 @@ public class C_CharacterAcEl : MonoBehaviour
 
     public void ClickHero()
     {
-        Debug.Log("==================================ClickHero: " + nhanVat.id_nv + " / " + nhanVat.id_cfg);
+        GameManager.instance.idxCharacter = idx;
+        ScenesManager.instance.ChangeScene("InforGame");
     }
 }

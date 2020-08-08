@@ -32,15 +32,8 @@ public class HomeGame : MonoBehaviour
         {
             if (GameManager.instance.nhanVats[i].idx != -1)
             {
-                C_CharacterAcEl heroAc = Instantiate(heroAcEl, listHeroAc).GetComponent<C_CharacterAcEl>();
-
-                M_Character nhanVat = GameManager.instance.nhanVats[i];
-                nhanVat.max_hp = 1;
-                nhanVat.Current_hp = 1;
-                nhanVat.max_ep = 1;
-                nhanVat.Current_ep = 1;
-
-                heroAc.set(nhanVat);
+                C_CharacterAcEl heroAc = Instantiate(heroAcEl, listHeroAc).GetComponent<C_CharacterAcEl>();               
+                heroAc.set(i);
             }                
         }
 
@@ -52,7 +45,7 @@ public class HomeGame : MonoBehaviour
         for (int i = 0; i < GameManager.instance.nhanVats.Count; i++)
         {
             C_BagEl heroBag = Instantiate(bagEl, bagHero).GetComponent<C_BagEl>();
-            heroBag.set(GameManager.instance.nhanVats[i]);
+            heroBag.set(i);
         }
 
         await Task.Yield();

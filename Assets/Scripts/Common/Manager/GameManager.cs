@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
     public bool isAttack = false;
     public int idxMilestone = 0;
 
+    // Infor
+    public int idxCharacter = 0;
+
     private void Awake()
     {
         MakeSingleInstance();
@@ -119,7 +122,7 @@ public class GameManager : MonoBehaviour
                 nhanVats.Add(nhanVat);
             }
 
-            for (int i = 5; i < 45; i++)
+            for (int i = 5; i < 10; i++)
             {
                 M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 15), -1);
                 nhanVat.type = C_Enum.CharacterType.Hero;

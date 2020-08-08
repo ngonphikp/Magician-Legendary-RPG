@@ -23,11 +23,11 @@ public class C_BagEl : MonoBehaviour
     [SerializeField]
     private GameObject active = null;
 
-    private M_Character nhanVat;
+    private int idx = 0;
 
-    public void set(M_Character nhanVat)
+    public void set(int idx)
     {
-        this.nhanVat = nhanVat;
+        M_Character nhanVat = new M_Character(GameManager.instance.nhanVats[idx]);
 
         imgBg.sprite = Resources.Load<Sprite>("Sprites/Avatar/BG" + nhanVat.star);
         imgFr.sprite = Resources.Load<Sprite>("Sprites/Avatar/Frame" + nhanVat.star);
@@ -43,6 +43,7 @@ public class C_BagEl : MonoBehaviour
 
     public void Click()
     {
-        Debug.Log("==================================Click Bag EL: " + nhanVat.id_nv);
+        GameManager.instance.idxCharacter = idx;
+        ScenesManager.instance.ChangeScene("InforGame");
     }
 }

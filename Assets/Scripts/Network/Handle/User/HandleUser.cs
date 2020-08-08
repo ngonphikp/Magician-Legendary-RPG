@@ -116,8 +116,8 @@ public class HandleUser
             M_Character nhanvat = new M_Character(packet.GetSFSObject("nhanvat"), C_Enum.ReadType.SERVER);
             nhanvat.lv = 1;
             nhanvat.UpdateById();
-            nhanvat.Current_ep = nhanvat.max_ep = 1;
-            nhanvat.Current_hp = nhanvat.max_hp = 1;
+            nhanvat.Current_ep = nhanvat.max_ep = 100;
+            nhanvat.Current_hp = nhanvat.max_hp = nhanvat.hp;
             nhanvat.UpdateLevel();
             nhanvat.type = C_Enum.CharacterType.Hero;            
                                     
