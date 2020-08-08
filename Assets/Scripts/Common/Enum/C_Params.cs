@@ -9,16 +9,15 @@ public class C_Params
         ratioCrit = 2.0f,
         ratioSC = (1/1.5f),
         ratioSM = 1.5f;
-    /// <summary>
-    /// Kim: K1
-    /// Thủy: K2
-    /// Mộc: K3
-    /// Hỏa: K4
-    /// Thổ: K5
-    /// 
-    /// Hệ tương khắc: 1->3->5->2->4->1
-    /// Hệ tương sinh: 1->2->3->4->5->1
-    /// </summary>
+    public static readonly Dictionary<string, string> Element
+        = new Dictionary<string, string>
+        {
+            {"K1", "Kim"},
+            {"K2", "Thủy"},
+            {"K3", "Mộc"},
+            {"K4", "Hỏa"},
+            {"K5", "Thổ"},
+       };
     public static readonly Dictionary<string, string> SystemCorrelation
         = new Dictionary<string, string>
         {

@@ -48,7 +48,7 @@ public class C_Enum
         DG,  // Tránh né
     }
 
-    public enum ENDGAME
+    public enum EndGame
     {
         NOT = 0,
         WIN = 1,

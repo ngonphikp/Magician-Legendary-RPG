@@ -32,11 +32,11 @@ public class C_TVCard : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        GameObject nvAs = QuickFunction.getAssetPref("Prefabs/Character/" + nhanvat.id_cfg);
+        GameObject nvAs = Resources.Load("Prefabs/Character/" + nhanvat.id_cfg, typeof(GameObject)) as GameObject;
 
         if (nvAs == null)
         {
-            nvAs = QuickFunction.getAssetPref("Prefabs/Character/T1004");
+            nvAs = Resources.Load("Prefabs/Character/T1004", typeof(GameObject)) as GameObject;
         }
 
         if (nvAs != null)

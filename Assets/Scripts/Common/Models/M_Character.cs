@@ -176,5 +176,6 @@ public class M_Character
         this.crit = nvInCfg.crit;
         this.dodge = nvInCfg.dodge;
         this.atk = nvInCfg.atk;
+        this.star = nvInCfg.star;
     }
 }

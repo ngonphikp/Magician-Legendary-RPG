@@ -41,20 +41,20 @@ public class C_DD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         if (this.isActive)
         {
-            GameObject nvAs = QuickFunction.getAssetPref("Prefabs/Character/" + nhanVat.id_cfg);
+            GameObject nvAs = Resources.Load("Prefabs/Character/" + nhanVat.id_cfg, typeof(GameObject)) as GameObject;
 
             if (nvAs == null)
             {
                 switch (nhanVat.type)
                 {
                     case C_Enum.CharacterType.Hero:
-                        nvAs = QuickFunction.getAssetPref("Prefabs/Character/T1004");
+                        nvAs = Resources.Load("Prefabs/Character/T1004", typeof(GameObject)) as GameObject;
                         break;
                     case C_Enum.CharacterType.Creep:
-                        nvAs = QuickFunction.getAssetPref("Prefabs/Character/M1000");
+                        nvAs = Resources.Load("Prefabs/Character/M1000", typeof(GameObject)) as GameObject;
                         break;
                     default:
-                        nvAs = QuickFunction.getAssetPref("Prefabs/Character/T1004");
+                        nvAs = Resources.Load("Prefabs/Character/T1004", typeof(GameObject)) as GameObject;
                         break;
                 }
                 

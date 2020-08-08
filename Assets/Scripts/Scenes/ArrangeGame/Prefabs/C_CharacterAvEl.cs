@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class C_CharacterAvEl : MonoBehaviour
 {
     [SerializeField]
-    private Text txtIdCfg = null;
-    
+    private C_Avatar av = null;
+    [SerializeField]
+    private GameObject active = null;
+
     public bool isActive = false;
 
     public M_Character nhanVat;
@@ -16,7 +18,7 @@ public class C_CharacterAvEl : MonoBehaviour
     {
         this.nhanVat = nhanVat;
 
-        txtIdCfg.text = nhanVat.id_nv + " / " + nhanVat.id_cfg + " / " + nhanVat.lv + " / " + nhanVat.element;
+        av.set(nhanVat);
     }
 
     public void ClickHero()
@@ -40,11 +42,15 @@ public class C_CharacterAvEl : MonoBehaviour
     {
         isActive = true;
         this.GetComponent<Button>().interactable = false;
+
+        active.SetActive(isActive);
     }
 
     public void UnActive()
     {
         isActive = false;
         this.GetComponent<Button>().interactable = true;
+
+        active.SetActive(isActive);
     }
 }

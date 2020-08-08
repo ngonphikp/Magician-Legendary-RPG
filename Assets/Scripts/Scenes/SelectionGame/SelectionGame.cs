@@ -42,7 +42,8 @@ public class SelectionGame : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        GameObject heroAs = QuickFunction.getAssetPref("Prefabs/Character/" + id);
+        GameObject heroAs = Resources.Load("Prefabs/Character/" + id, typeof(GameObject)) as GameObject;
+
         if (heroAs != null)
         {
             GameObject heroObj = Instantiate(heroAs, posMagician);
@@ -58,7 +59,7 @@ public class SelectionGame : MonoBehaviour
 
         for(int i = 0; i < GameManager.instance.herosDic[id].skills.Count; i++)
         {
-            imgSkills[i].sprite = QuickFunction.getAssetImages("Sprites/Skill/" + GameManager.instance.herosDic[id].skills[i]);
+            imgSkills[i].sprite = Resources.Load<Sprite>("Sprites/Skill/" + GameManager.instance.herosDic[id].skills[i]);
         }
     }
 

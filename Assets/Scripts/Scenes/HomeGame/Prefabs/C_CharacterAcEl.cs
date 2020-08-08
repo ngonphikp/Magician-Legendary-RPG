@@ -13,12 +13,12 @@ public class C_CharacterAcEl : MonoBehaviour
     {
         this.nhanVat = nhanVat;
 
-        GameObject heroAs = QuickFunction.getAssetPref("Prefabs/Character/" + nhanVat.id_cfg);
+        GameObject heroAs = Resources.Load("Prefabs/Character/" + nhanVat.id_cfg, typeof(GameObject)) as GameObject;
 
         // Test
-        if (heroAs == null) heroAs = QuickFunction.getAssetPref("Prefabs/Character/T1004");
-        
-        if(heroAs != null)
+        if (heroAs == null) heroAs = Resources.Load("Prefabs/Character/T1004", typeof(GameObject)) as GameObject;
+
+        if (heroAs != null)
         {
             GameObject obj = Instantiate(heroAs, content);
             C_Character hero = obj.GetComponent<C_Character>();

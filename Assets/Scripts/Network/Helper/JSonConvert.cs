@@ -1,11 +1,7 @@
-﻿using Crossdata;
-using Newtonsoft.Json.Linq;
-using Sfs2X.Entities.Data;
+﻿using Sfs2X.Entities.Data;
 using SFSLitJson;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 public class JSonConvert
 {      
@@ -16,7 +12,7 @@ public class JSonConvert
     {
         try
         {
-            TextAsset file = QuickFunction.getAssetJsons("ConfigJSon/config_connect");
+            TextAsset file = Resources.Load<TextAsset>("ConfigJSon/config_connect");
             jsonString = file.ToString();
             itemData = JsonMapper.ToObject(jsonString);
             ConfigConnection.TCPPort.Value = (int)itemData["TCPPort"];
@@ -37,7 +33,7 @@ public class JSonConvert
 
     public IEnumerable<M_Skill> GetListSkill()
     {
-        TextAsset file = QuickFunction.getAssetJsons("ConfigJSon/Skill");
+        TextAsset file = Resources.Load<TextAsset>("ConfigJSon/Skill");
         string jsonString = file.ToString();
         ISFSObject sfsObj = SFSObject.NewFromJsonData(jsonString);
         ISFSArray arr = sfsObj.GetSFSArray("list");
@@ -59,7 +55,7 @@ public class JSonConvert
 
     public IEnumerable<M_Character> GetListHero()
     {
-        TextAsset file = QuickFunction.getAssetJsons("ConfigJSon/Hero");
+        TextAsset file = Resources.Load<TextAsset>("ConfigJSon/Hero");
         string jsonString = file.ToString();
         ISFSObject sfsObj = SFSObject.NewFromJsonData(jsonString);
         ISFSArray arr = sfsObj.GetSFSArray("list");
@@ -78,7 +74,7 @@ public class JSonConvert
 
     public IEnumerable<M_Character> GetListCreep()
     {
-        TextAsset file = QuickFunction.getAssetJsons("ConfigJSon/Creep");
+        TextAsset file = Resources.Load<TextAsset>("ConfigJSon/Creep");
         string jsonString = file.ToString();
         ISFSObject sfsObj = SFSObject.NewFromJsonData(jsonString);
         ISFSArray arr = sfsObj.GetSFSArray("list");
@@ -97,7 +93,7 @@ public class JSonConvert
 
     public IEnumerable<M_Milestone> GetListMilestone()
     {
-        TextAsset file = QuickFunction.getAssetJsons("ConfigJSon/Milestone");
+        TextAsset file = Resources.Load<TextAsset>("ConfigJSon/Milestone");
         string jsonString = file.ToString();
         ISFSObject sfsObj = SFSObject.NewFromJsonData(jsonString);
         ISFSArray arr = sfsObj.GetSFSArray("list");

@@ -65,7 +65,7 @@ public class C_UICharacter : MonoBehaviour
     {
         gameObject.SetActive(true);
         lvTxt.text = ctl.nhanvat.lv.ToString();
-        elImg.sprite = QuickFunction.getAssetImages("Sprites/Element/"+ ctl.nhanvat.element);
+        elImg.sprite = Resources.Load<Sprite>("Sprites/Element/"+ ctl.nhanvat.element);
         this.isRight = (ctl.nhanvat.team == 1);
         if (isRight) UIRight();
     }

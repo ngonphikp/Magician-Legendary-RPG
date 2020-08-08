@@ -235,7 +235,13 @@ public class C_Character : MonoBehaviour
 
         if (this.GetComponent<RectTransform>().localPosition != new Vector3() && FightingGame.instance) return false;
 
-        return (AnimatorExtensions.GetCurrentStateName(anim, 0) == "Base Layer." + "anim1" && AnimatorExtensions.GetNextStateName(anim, 0) == "");
+        AnimatorClipInfo[] m_CurrentClipInfo = anim.GetCurrentAnimatorClipInfo(0);
+        if (m_CurrentClipInfo.Length < 1) return false;
+        string m_ClipName = m_CurrentClipInfo[0].clip.name;
+        //Debug.Log(m_ClipName);
+        return (m_ClipName == "anim1");
+
+        //return (AnimatorExtensions.GetCurrentStateName(anim, 0) == "Base Layer." + "anim1" && AnimatorExtensions.GetNextStateName(anim, 0) == "");
     }
 
     private async void AnimDie()

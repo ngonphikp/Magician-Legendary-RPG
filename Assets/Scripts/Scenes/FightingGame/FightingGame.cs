@@ -23,7 +23,7 @@ public class FightingGame : MonoBehaviour
     [SerializeField]
     private List<M_Character> dataTeamR = new List<M_Character>();
 
-    private C_Enum.ENDGAME isEndGame = C_Enum.ENDGAME.NOT;
+    private C_Enum.EndGame isEndGame = C_Enum.EndGame.NOT;
     private int starEndGame = 0;
 
     [SerializeField]
@@ -109,20 +109,20 @@ public class FightingGame : MonoBehaviour
     {
         for (int i = 0; i < datas.Count; i++)
         {
-            GameObject nvAs = QuickFunction.getAssetPref("Prefabs/Character/" + datas[i].id_cfg);
+            GameObject nvAs = Resources.Load("Prefabs/Character/" + datas[i].id_cfg, typeof(GameObject)) as GameObject;
 
             if (nvAs == null)
             {
                 switch (datas[i].type)
                 {
                     case C_Enum.CharacterType.Hero:
-                        nvAs = QuickFunction.getAssetPref("Prefabs/Character/T1004");
+                        nvAs = Resources.Load("Prefabs/Character/T1004", typeof(GameObject)) as GameObject;
                         break;
                     case C_Enum.CharacterType.Creep:
-                        nvAs = QuickFunction.getAssetPref("Prefabs/Character/M1000");
+                        nvAs = Resources.Load("Prefabs/Character/M1000", typeof(GameObject)) as GameObject;
                         break;
                     default:
-                        nvAs = QuickFunction.getAssetPref("Prefabs/Character/T1004");
+                        nvAs = Resources.Load("Prefabs/Character/T1004", typeof(GameObject)) as GameObject;
                         break;
                 }
             }
@@ -150,16 +150,16 @@ public class FightingGame : MonoBehaviour
 
         while (true)
         {
-            if (isEndGame != C_Enum.ENDGAME.NOT) break;
+            if (isEndGame != C_Enum.EndGame.NOT) break;
 
-            Attack(dataTeamL, dataTeamR, C_Enum.ENDGAME.WIN);
+            Attack(dataTeamL, dataTeamR, C_Enum.EndGame.WIN);
 
-            Attack(dataTeamR, dataTeamL, C_Enum.ENDGAME.LOSE);
+            Attack(dataTeamR, dataTeamL, C_Enum.EndGame.LOSE);
         }        
     }
 
     [Obsolete]
-    private void Attack(List<M_Character> TeamAttack, List<M_Character> TeamAttacked, C_Enum.ENDGAME rs)
+    private void Attack(List<M_Character> TeamAttack, List<M_Character> TeamAttacked, C_Enum.EndGame rs)
     {
         for (int i = 0; i < TeamAttack.Count; i++)
         {
@@ -177,7 +177,7 @@ public class FightingGame : MonoBehaviour
                 isEndGame = rs;
 
                 // Nếu win thì kiểm tra số sao
-                if (rs == C_Enum.ENDGAME.WIN)
+                if (rs == C_Enum.EndGame.WIN)
                 {
                     bool isFull = true;
                     bool is3Star = true;
