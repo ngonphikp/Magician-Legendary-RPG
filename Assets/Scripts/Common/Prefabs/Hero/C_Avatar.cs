@@ -20,7 +20,11 @@ public class C_Avatar : MonoBehaviour
     {
         imgBg.sprite = Resources.Load<Sprite>("Sprites/Avatar/BG" + nhanVat.star);
         imgFr.sprite = Resources.Load<Sprite>("Sprites/Avatar/Frame" + nhanVat.star);
-        imgAv.sprite = Resources.Load<Sprite>("Sprites/Avatar/" + nhanVat.id_cfg);
+
+        Sprite sprite = Resources.Load<Sprite>("Sprites/Avatar/" + nhanVat.id_cfg);
+
+        if (sprite != null) imgAv.sprite = sprite;
+
         imgEl.sprite = Resources.Load<Sprite>("Sprites/Element/" + nhanVat.element);
         txtLv.text = nhanVat.lv + "";
     }

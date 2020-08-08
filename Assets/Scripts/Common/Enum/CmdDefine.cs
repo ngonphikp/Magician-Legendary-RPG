@@ -14,5 +14,6 @@ public class CmdDefine
         GETINFO = 1003,
         SELECTION = 1004,
         ARRANGE = 1005,
-        TAVERN = 1006;
+        TAVERN = 1006,
+        UPLEVEL = 1007;
 }

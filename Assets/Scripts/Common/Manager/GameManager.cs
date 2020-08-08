@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public bool demo = false;
-
     public static GameManager instance = null;
 
     public Dictionary<string, string> scenes = new Dictionary<string, string>(); // Key: Tên scene, Value: Tên scene cha (PreviousScene - Khi back)
@@ -35,6 +33,9 @@ public class GameManager : MonoBehaviour
 
     // Infor
     public int idxCharacter = 0;
+
+    // Test
+    public bool test = false;
 
     private void Awake()
     {
@@ -100,51 +101,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
-    {
-        if (demo)
-        {
-            taikhoan = new M_TaiKhoan();
-            taikhoan.id = 99;
-            taikhoan.usename = "username99";
-            taikhoan.password = "password99";
-            taikhoan.name = "name99";
-
-            nhanVats.Clear();
-
-            int[] arrIdx = { 0, 2, 4, 6, 8};
-
-            for(int i = 0; i < 5; i++)
-            {
-                M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, i + 1, arrIdx[i]);
-                nhanVat.type = C_Enum.CharacterType.Hero;
-                nhanVat.UpdateById();
-                nhanVat.UpdateLevel();
-                nhanVats.Add(nhanVat);
-            }
-
-            for (int i = 5; i < 10; i++)
-            {
-                M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 15), -1);
-                nhanVat.type = C_Enum.CharacterType.Hero;
-                nhanVat.UpdateById();
-                nhanVat.UpdateLevel();
-                nhanVats.Add(nhanVat);
-            }
-
-            for(int i = 0; i < 10; i++)
-            {
-                tick_milestones.Add(new M_Milestone(i, UnityEngine.Random.Range(1, 4)));
-            }
-
-            tick_milestones.Add(new M_Milestone(10, 0));
-
-            UpdateTickMS();
-
-            ScenesManager.instance.ChangeScene("HomeGame");
-
-            return;
-        }
-
+    {        
         SmartFoxConnection.Connect();
     }
 
@@ -156,7 +113,51 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (demo) return;
+        if (test) return;
         SmartFoxConnection.ListenerEvent();
     }
+
+    public void TestPlay()
+    {
+        test = true;
+        taikhoan = new M_TaiKhoan();
+        taikhoan.id = 99;
+        taikhoan.usename = "username99";
+        taikhoan.password = "password99";
+        taikhoan.name = "name99";
+
+        nhanVats.Clear();
+
+        int[] arrIdx = { 0, 2, 4, 6, 8 };
+
+        for (int i = 0; i < 5; i++)
+        {
+            M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, i + 1, arrIdx[i]);
+            nhanVat.type = C_Enum.CharacterType.Hero;
+            nhanVat.UpdateById();
+            nhanVat.UpdateLevel();
+            nhanVats.Add(nhanVat);
+        }
+
+        for (int i = 5; i < 25; i++)
+        {
+            M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 15), -1);
+            nhanVat.type = C_Enum.CharacterType.Hero;
+            nhanVat.UpdateById();
+            nhanVat.UpdateLevel();
+            nhanVats.Add(nhanVat);
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            tick_milestones.Add(new M_Milestone(i, UnityEngine.Random.Range(1, 4)));
+        }
+
+        tick_milestones.Add(new M_Milestone(10, 0));
+
+        UpdateTickMS();
+
+        ScenesManager.instance.ChangeScene("HomeGame");
+    }
+
 }

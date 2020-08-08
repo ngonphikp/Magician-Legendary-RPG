@@ -26,15 +26,32 @@ public class HandleUser
             case CmdDefine.TAVERN:
                 handleTavern(sfsObject);
                 break;
+            case CmdDefine.UPLEVEL:
+                handleUpLevel(sfsObject);
+                break;
             default:
 
                 break;
         }
     }
 
+    public static void handleUpLevel(SFSObject packet)
+    {
+        Debug.Log("=========================== HANDLE UP LEVEL\n" + packet.GetDump());
+        short ec = packet.GetShort(CmdDefine.ERROR_CODE);
+        if (ec == ErrorCode.SUCCESS)
+        {
+            InforGame.instance.RecUpLevel();
+        }
+        else
+        {
+            Debug.Log("ErrorCode: " + ec);
+        }
+    }
+
     public static void handleGetInfo(SFSObject packet)
     {
-        Debug.Log("______________HANDLE GET INFO_____________\n" + packet.GetDump());
+        Debug.Log("=========================== HANDLE GET INFO\n" + packet.GetDump());
         short ec = packet.GetShort(CmdDefine.ERROR_CODE);
         if (ec == ErrorCode.SUCCESS)
         {
@@ -68,7 +85,7 @@ public class HandleUser
 
     public static void handleSelection(SFSObject packet)
     {
-        Debug.Log("______________HANDLE SELECTION_____________\n" + packet.GetDump());
+        Debug.Log("=========================== HANDLE SELECTION\n" + packet.GetDump());
         short ec = packet.GetShort(CmdDefine.ERROR_CODE);
         if (ec == ErrorCode.SUCCESS)
         {
@@ -93,7 +110,7 @@ public class HandleUser
 
     public static void handleArrange(SFSObject packet)
     {
-        Debug.Log("______________HANDLE ARRANGE_____________\n" + packet.GetDump());
+        Debug.Log("=========================== HANDLE ARRANGE\n" + packet.GetDump());
         short ec = packet.GetShort(CmdDefine.ERROR_CODE);
         if (ec == ErrorCode.SUCCESS)
         {
@@ -107,7 +124,7 @@ public class HandleUser
 
     public static void handleTavern(SFSObject packet)
     {
-        Debug.Log("______________HANDLE TAVERN_____________\n" + packet.GetDump());
+        Debug.Log("=========================== HANDLE TAVERN\n" + packet.GetDump());
         short ec = packet.GetShort(CmdDefine.ERROR_CODE);
         if (ec == ErrorCode.SUCCESS)
         {

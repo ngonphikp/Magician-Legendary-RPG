@@ -13,6 +13,7 @@ public class C_TVCard : MonoBehaviour
     [SerializeField]
     private Transform content = null;
 
+    [System.Obsolete]
     public void OnClick()
     {
         Debug.Log("OnClick");

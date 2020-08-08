@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class InforGame : MonoBehaviour
 {
+    public static InforGame instance = null;
+
     [SerializeField]
     private Transform posCharacter = null;
     [SerializeField]
@@ -16,6 +18,11 @@ public class InforGame : MonoBehaviour
     private int index = 0;
     private C_Character hero;
     private M_Character nhanVat;
+
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+    }
 
     private void Start()
     {
@@ -79,6 +86,15 @@ public class InforGame : MonoBehaviour
 
     public void UpLevel()
     {
-        C_Util.GetDumpObject(nhanVat);
+        UserSendUtil.sendUpLevel(nhanVat.id_nv);
+
+        if (GameManager.instance.test) RecUpLevel();
+    }
+
+    public void RecUpLevel()
+    {
+        GameManager.instance.nhanVats[index].lv += 1;
+        GameManager.instance.nhanVats[index].UpLevel();
+        LoadCharacter();
     }
 }

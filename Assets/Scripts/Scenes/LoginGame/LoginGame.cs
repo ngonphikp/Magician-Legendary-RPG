@@ -17,7 +17,7 @@ public class LoginGame : MonoBehaviour
 
         GameManager.instance.taikhoan = tk;
 
-        UserSendUtil.GetInfo(tk.id);
+        UserSendUtil.sendGetInfo(tk.id);
     }
 
     public void RecRegister(M_TaiKhoan tk)
@@ -26,7 +26,7 @@ public class LoginGame : MonoBehaviour
 
         GameManager.instance.taikhoan = tk;
 
-        UserSendUtil.GetInfo(tk.id);
+        UserSendUtil.sendGetInfo(tk.id);
     }
 
     public void RecInfo(List<M_Character> lstNhanVat, List<M_Milestone> tick_milestones)

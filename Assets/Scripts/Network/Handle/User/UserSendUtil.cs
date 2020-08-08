@@ -6,9 +6,28 @@ using UnityEngine;
 
 public class UserSendUtil 
 {
-    public static void GetInfo(int id)
+    public static void sendUpLevel(int id_nv)
     {
-        Debug.Log("----------------------->GetInfo: " + id);
+        Debug.Log("=========================== Up Level");
+        ISFSObject isFSObject = new SFSObject();
+        isFSObject.PutInt(CmdDefine.CMDID, CmdDefine.UPLEVEL);
+
+        isFSObject.PutInt("id_nv", id_nv);
+        var packet = new ExtensionRequest(ModuleConfig.USER, isFSObject);
+        if (SmartFoxConnection.isAlready())
+        {
+            SmartFoxConnection.send(packet);
+        }
+        else
+        {
+            SmartFoxConnection.Init();
+            SmartFoxConnection.send(packet);
+        }
+    }
+
+    public static void sendGetInfo(int id)
+    {
+        Debug.Log("=========================== Get Info: " + id);
         ISFSObject isFSObject = new SFSObject();
         isFSObject.PutInt(CmdDefine.CMDID, CmdDefine.GETINFO);
         isFSObject.PutInt("id", id);
@@ -27,7 +46,7 @@ public class UserSendUtil
 
     public static void sendSelection(string tennhanvat, string id_cfg)
     {
-        Debug.Log("----------------------->Selection");
+        Debug.Log("=========================== Selection");
         ISFSObject isFSObject = new SFSObject();
         isFSObject.PutInt(CmdDefine.CMDID, CmdDefine.SELECTION);
         isFSObject.PutInt("id", GameManager.instance.taikhoan.id);
@@ -47,7 +66,7 @@ public class UserSendUtil
 
     public static void sendArrange(List<M_Character> nhanVats)
     {
-        Debug.Log("----------------------->Arrange");
+        Debug.Log("=========================== Arrange");
         ISFSObject isFSObject = new SFSObject();
         isFSObject.PutInt(CmdDefine.CMDID, CmdDefine.ARRANGE);
 
@@ -72,7 +91,7 @@ public class UserSendUtil
 
     public static void sendTavern(C_Enum.CardType type)
     {
-        Debug.Log("----------------------->Tavern");
+        Debug.Log("=========================== Tavern");
         ISFSObject isFSObject = new SFSObject();
         isFSObject.PutInt(CmdDefine.CMDID, CmdDefine.TAVERN);
 

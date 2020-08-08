@@ -171,7 +171,7 @@ public class ArrangeGame : MonoBehaviour
 
         GameManager.instance.nhanVats = nhanVats;
 
-        if (GameManager.instance.demo) RecArrange();
+        if (GameManager.instance.test) RecArrange();
     }
 
     public async void RecArrange()

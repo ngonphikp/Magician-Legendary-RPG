@@ -27,11 +27,15 @@ public class C_BagEl : MonoBehaviour
 
     public void set(int idx)
     {
+        this.idx = idx;
         M_Character nhanVat = new M_Character(GameManager.instance.nhanVats[idx]);
 
         imgBg.sprite = Resources.Load<Sprite>("Sprites/Avatar/BG" + nhanVat.star);
         imgFr.sprite = Resources.Load<Sprite>("Sprites/Avatar/Frame" + nhanVat.star);
-        imgAv.sprite = Resources.Load<Sprite>("Sprites/Avatar/" + nhanVat.id_cfg);
+
+        Sprite sprite = Resources.Load<Sprite>("Sprites/Avatar/" + nhanVat.id_cfg);
+
+        if (sprite != null) imgAv.sprite = sprite;
         
         txtTen.text = nhanVat.name + "";
         txtLv.text = nhanVat.lv + "";
