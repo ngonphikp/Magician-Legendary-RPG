@@ -74,7 +74,6 @@ public class SmartFoxConnection : MonoBehaviour
         if (SmartFoxConnection.IsInitialized)
         {
             sfs = SmartFoxConnection.Connection;
-
         }
         else
         {

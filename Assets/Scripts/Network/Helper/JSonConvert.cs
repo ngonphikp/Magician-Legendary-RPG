@@ -15,11 +15,14 @@ public class JSonConvert
             TextAsset file = Resources.Load<TextAsset>("ConfigJSon/config_connect");
             jsonString = file.ToString();
             itemData = JsonMapper.ToObject(jsonString);
+
+            ConfigConnection.Host.Value = GameManager.instance.host;
+
             ConfigConnection.TCPPort.Value = (int)itemData["TCPPort"];
             ConfigConnection.WsPort.Value = (int)itemData["WsPort"];
             ConfigConnection.Zone.Value = (string)itemData["Zone"];
-            ConfigConnection.Host.Value = (string)itemData["host"];
-
+            //ConfigConnection.Host.Value = (string)itemData["host"];
+           
             //Debug.Log(ConfigConnection.TCPPort);
             //Debug.Log(ConfigConnection.WsPort);
             //Debug.Log(ConfigConnection.host);

@@ -69,6 +69,8 @@ public class LoginGame : MonoBehaviour
 
     public void QuitGame()
     {
+        SmartFoxConnection.Sfs.Disconnect();
+        SmartFoxConnection.setNull();
         Application.Quit();
     }
 }

@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
 
+    public string host = "192.168.1.46";
+
     public Dictionary<string, string> scenes = new Dictionary<string, string>(); // Key: Tên scene, Value: Tên scene cha (PreviousScene - Khi back)
 
     // Data Config
@@ -181,6 +183,8 @@ public class GameManager : MonoBehaviour
     public void OnApplicationQuit()
     {
         LoginSendUtil.sendLogout();
+        SmartFoxConnection.Sfs.Disconnect();
+        SmartFoxConnection.setNull();
     }
 
 }
