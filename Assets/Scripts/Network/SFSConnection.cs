@@ -79,6 +79,7 @@ public class SmartFoxConnection : MonoBehaviour
         {
             JSonConvert convert = new JSonConvert();
             convert.GetConfig_ConnectSFS();
+
             ConfigData cfg = new ConfigData();
             cfg.Host = ConfigConnection.Host;
             cfg.Port = ConfigConnection.TCPPort;

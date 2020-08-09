@@ -5,28 +5,21 @@ using System.Collections.Generic;
 using UnityEngine;
 public class JSonConvert
 {      
-    private string jsonString;
-    private JsonData itemData;
-
     public void GetConfig_ConnectSFS()
     {
         try
         {
-            TextAsset file = Resources.Load<TextAsset>("ConfigJSon/config_connect");
-            jsonString = file.ToString();
-            itemData = JsonMapper.ToObject(jsonString);
+            TextAsset file = Resources.Load<TextAsset>("ConfigJSon/ConfigConnect");
+            string jsonString = file.ToString();
+            ISFSObject sfsObj = SFSObject.NewFromJsonData(jsonString);
 
-            ConfigConnection.Host.Value = GameManager.instance.host;
+            ConfigConnection.Host = GameManager.instance.host;
 
-            ConfigConnection.TCPPort.Value = (int)itemData["TCPPort"];
-            ConfigConnection.WsPort.Value = (int)itemData["WsPort"];
-            ConfigConnection.Zone.Value = (string)itemData["Zone"];
-            //ConfigConnection.Host.Value = (string)itemData["host"];
-           
-            //Debug.Log(ConfigConnection.TCPPort);
-            //Debug.Log(ConfigConnection.WsPort);
-            //Debug.Log(ConfigConnection.host);
-            //Debug.Log(ConfigConnection.Zone);
+            ConfigConnection.TCPPort = sfsObj.GetInt("TCPPort");
+            ConfigConnection.WsPort = sfsObj.GetInt("WsPort");
+            ConfigConnection.Zone = sfsObj.GetUtfString("Zone");
+
+            //ConfigConnection.Host = sfsObj.GetUtfString("Host");
         }
         catch (Exception e)
         {

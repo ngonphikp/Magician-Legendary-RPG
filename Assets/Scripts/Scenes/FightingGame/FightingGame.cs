@@ -714,14 +714,14 @@ public class FightingGame : MonoBehaviour
         EndGame();
     }
 
-    void OnGUI()
-    {
-        GUIStyle myStyle = new GUIStyle();
-        myStyle.fontSize = 40;
-        myStyle.normal.textColor = Color.white;
+    //void OnGUI()
+    //{
+    //    GUIStyle myStyle = new GUIStyle();
+    //    myStyle.fontSize = 40;
+    //    myStyle.normal.textColor = Color.white;
 
-        GUI.Label(new Rect(20, 20, 100, 20), "Get Action: " + getAction, myStyle);
-        GUI.Label(new Rect(20, 70, 100, 20), "Turn: " + turn, myStyle);
-        GUI.Label(new Rect(20, 120, 100, 20), "Beaten: " + Beaten, myStyle);
-    }
+    //    GUI.Label(new Rect(20, 20, 100, 20), "Get Action: " + getAction, myStyle);
+    //    GUI.Label(new Rect(20, 70, 100, 20), "Turn: " + turn, myStyle);
+    //    GUI.Label(new Rect(20, 120, 100, 20), "Beaten: " + Beaten, myStyle);
+    //}
 }
