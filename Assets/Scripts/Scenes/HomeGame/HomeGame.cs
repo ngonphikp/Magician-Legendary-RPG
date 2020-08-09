@@ -27,7 +27,7 @@ public class HomeGame : MonoBehaviour
     }
 
     private void Start()
-    {
+    {        
         FilterListHero();
         LoadBagHero();
     }

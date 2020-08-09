@@ -100,13 +100,13 @@ MonoBehaviour:
   time3ds: 0
   time3df: 1
   time3dm: 0.3
-  fx3d0: {fileID: 0}
+  fx3d0: {fileID: 5967275346046703635, guid: 707fd9a3102f49445a36872f5d729a62, type: 3}
   dis3d0: -17
   time5d0: 0.6
   time5ds: 0
   time5df: 1
   time5dm: 0.3
-  fx5d0: {fileID: 0}
+  fx5d0: {fileID: 5967275346046703635, guid: 707fd9a3102f49445a36872f5d729a62, type: 3}
   dis5d0: -17
 --- !u!1 &4266876341988923581
 GameObject:

@@ -55,8 +55,9 @@ MonoBehaviour:
   isChangeAngle: 0
   isRotating: 0
   rotating: {x: 0, y: 0, z: 0}
-  isExplosion: 0
-  Explosion: {fileID: 0}
+  isExplosion: 1
+  Explosion: {fileID: 5967275346046703635, guid: 191f55e34198d29418cbfd85f4afd787,
+    type: 3}
   isInPlace: 1
   isBreak: 0
   fragment: {fileID: 0}

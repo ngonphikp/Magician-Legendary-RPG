@@ -175,6 +175,7 @@ public class GameManager : MonoBehaviour
         UpdateTickMS();
 
         ScenesManager.instance.ChangeScene("HomeGame");
+        SoundManager.instance.PlayLoop();
     }
 
     public void OnApplicationQuit()

@@ -6,9 +6,17 @@ public class LoginGame : MonoBehaviour
 {    
     public static LoginGame instance = null;
 
+    [SerializeField]
+    private AudioClip audioClip = null;
+
     private void Awake()
     {
         if (instance == null) instance = this;
+    }
+
+    private void Start()
+    {
+        SoundManager.instance.PlayLoop(audioClip);
     }
 
     public void RecLogin(M_TaiKhoan tk)
@@ -50,6 +58,8 @@ public class LoginGame : MonoBehaviour
         {
             ScenesManager.instance.ChangeScene("SelectionGame");
         }
+
+        SoundManager.instance.PlayLoop();
     }
 
     public void TestPlay()

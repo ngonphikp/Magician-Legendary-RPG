@@ -244,7 +244,7 @@ MonoBehaviour:
   posB3: {fileID: 7750226108351096143}
   offset3: {x: 0, y: 5, z: 0}
   time5d0: 0.6
-  fx5d0: {fileID: 0}
+  fx5d0: {fileID: 5967275346046703635, guid: 707fd9a3102f49445a36872f5d729a62, type: 3}
   time5ds: 0.5
   time5df: 0.8
   time5dm: 0.3

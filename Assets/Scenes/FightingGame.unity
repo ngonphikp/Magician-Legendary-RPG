@@ -423,6 +423,8 @@ MonoBehaviour:
   - {fileID: 1311515240}
   - {fileID: 92338521}
   spStar: {fileID: 21300000, guid: b037df0a7b5c8e44da42188aa160a1f3, type: 3}
+  acFighting: {fileID: 8300000, guid: 8a5c0a5da23713d478cf2f4f64dd01d6, type: 3}
+  acEndGame: {fileID: 8300000, guid: d3aa8ef0b4d9c3d41ba49ee86a9e5104, type: 3}
   idTargets: 
   targets: []
   Beaten: 0

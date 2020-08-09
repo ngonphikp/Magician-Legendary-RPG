@@ -50,6 +50,10 @@ public class FightingGame : MonoBehaviour
     private Image[] imgResultStars = new Image[3];
     [SerializeField]
     private Sprite spStar = null;
+    [SerializeField]
+    private AudioClip acFighting = null;
+    [SerializeField]
+    private AudioClip acEndGame = null;
 
     private C_Enum.EndGame isEndGame = C_Enum.EndGame.NOT;
     private int starEndGame = 0;
@@ -85,6 +89,8 @@ public class FightingGame : MonoBehaviour
         {
             Application.runInBackground = true;
         }
+
+        SoundManager.instance.PlayLoop(acFighting);
 
         LoadData();
         Scenario();
@@ -491,10 +497,14 @@ public class FightingGame : MonoBehaviour
         }
 
         SceneManager.LoadScene("CampaignGame");
+
+        SoundManager.instance.PlayLoop();
     }
 
     private void EndGame()
     {
+        SoundManager.instance.PlayOneShotAs(acEndGame);
+
         popupEndGame.SetActive(true);
         txtResult.text = isEndGame.ToString();        
 
