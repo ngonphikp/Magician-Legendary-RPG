@@ -29,9 +29,27 @@ public class HandleUser
             case CmdDefine.UPLEVEL:
                 handleUpLevel(sfsObject);
                 break;
+            case CmdDefine.ENDGAME:
+                handleEndGame(sfsObject);
+                break;
             default:
 
                 break;
+        }
+    }
+
+
+    public static void handleEndGame(SFSObject packet)
+    {
+        Debug.Log("=========================== HANDLE END GAME\n" + packet.GetDump());
+        short ec = packet.GetShort(CmdDefine.ERROR_CODE);
+        if (ec == ErrorCode.SUCCESS)
+        {
+            FightingGame.instance.RecEndGame();
+        }
+        else
+        {
+            Debug.Log("ErrorCode: " + ec);
         }
     }
 

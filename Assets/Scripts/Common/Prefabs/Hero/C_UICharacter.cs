@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class C_UICharacter : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField]
     private Image Hp = null;
     [SerializeField]
@@ -14,6 +15,7 @@ public class C_UICharacter : MonoBehaviour
     [SerializeField]
     private Image elImg = null;
 
+    [Header("Text")]
     [SerializeField]
     private Transform texts = null;
     [SerializeField]
@@ -36,6 +38,8 @@ public class C_UICharacter : MonoBehaviour
     private float anim = 0.5f;
     public float hp = 0.0f;
     public float ep = 0.0f;
+    [SerializeField]
+    private GameObject fullMana = null;
 
     private float curHp = 0.345f;
     private float curEp = 0.345f;
@@ -59,6 +63,8 @@ public class C_UICharacter : MonoBehaviour
         if (dis < 0) dis *= -1;
         curEp = Mathf.Lerp(curEp, ep, Time.deltaTime * anim * ((FightingGame.instance) ? FightingGame.instance.myTimeScale : 1) / dis);
         Ep.fillAmount = curEp;
+
+        if (FightingGame.instance) fullMana.SetActive(curEp >= 1);
     }
 
     public void set(C_Character ctl)

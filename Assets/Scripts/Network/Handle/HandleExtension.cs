@@ -11,7 +11,7 @@ public class HandleExtension
         string cmd = (string)evt.Params["cmd"];
         SFSObject dataObject = (SFSObject)evt.Params["params"];
 
-        Debug.Log(dataObject.GetDump());
+        //Debug.Log(dataObject.GetDump());
 
         switch (cmd)
         {

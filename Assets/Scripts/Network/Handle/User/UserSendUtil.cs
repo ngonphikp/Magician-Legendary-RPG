@@ -6,6 +6,28 @@ using UnityEngine;
 
 public class UserSendUtil 
 {
+    public static void sendEndGame(int id_ml, int id_tk, int star, bool isSave = true)
+    {
+        Debug.Log("=========================== End Game: Save: " + isSave);
+        ISFSObject isFSObject = new SFSObject();
+        isFSObject.PutInt(CmdDefine.CMDID, CmdDefine.ENDGAME);
+
+        isFSObject.PutInt("id_ml", id_ml);
+        isFSObject.PutInt("id_tk", id_tk);
+        isFSObject.PutInt("star", star);
+        isFSObject.PutBool("is_save", isSave);
+        var packet = new ExtensionRequest(ModuleConfig.USER, isFSObject);
+        if (SmartFoxConnection.isAlready())
+        {
+            SmartFoxConnection.send(packet);
+        }
+        else
+        {
+            SmartFoxConnection.Init();
+            SmartFoxConnection.send(packet);
+        }
+    }
+
     public static void sendUpLevel(int id_nv)
     {
         Debug.Log("=========================== Up Level");

@@ -150,6 +150,45 @@ public class C_Character : MonoBehaviour
         else
         {
             Debug.LogWarning("=========================== " + this.nhanvat.id_nv + " Not Anim 1");
+            FAnim(i);
+        }
+    }
+
+    private async void FAnim(int i)
+    {
+        Debug.Log("=========================== F anim: " + i);
+        switch (i)
+        {
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+            case 5:
+
+                break;
+            case 6:
+                while (true)
+                {
+                    Debug.Log("=========================== Loop F Anim");
+                    if (this == null || this.gameObject == null || isAnim1() || nhanvat.isDie) break;
+                    await Task.Delay(TimeSpan.FromSeconds(0.01));
+                }
+                isAnim6 = true;
+                break;
+            case 7:
+                while (true)
+                {
+                    Debug.Log("=========================== Loop F Anim");
+                    if (this == null || this.gameObject == null || isAnim1() || nhanvat.isDie) break;
+                    await Task.Delay(TimeSpan.FromSeconds(0.01));
+                }
+                isAnim7 = true;
+                break;
         }
     }
 

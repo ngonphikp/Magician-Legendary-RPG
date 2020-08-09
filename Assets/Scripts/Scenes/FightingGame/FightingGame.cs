@@ -6,57 +6,77 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FightingGame : MonoBehaviour
 {
     public static FightingGame instance = null;
 
+    [Header("Posstion")]
     [SerializeField]
     private Transform[] posTeamL = null;
     [SerializeField]
     private Transform[] posTeamR = null;
 
-    // Data
+    [Header("Data")]
     [SerializeField]
     private List<M_Character> dataTeamL = new List<M_Character>();
     [SerializeField]
-    private List<M_Character> dataTeamR = new List<M_Character>();
+    private List<M_Character> dataTeamR = new List<M_Character>();    
+
+    [Header("Turn")]
+    [SerializeField]
+    private Text txtTime = null;
+    [SerializeField]
+    private Text txtTurn = null;
+
+    private int currentTurn = 0;
+
+    [Header("Time Scale")]
+    [SerializeField]
+    private Text txtTimeScale = null;
+
+    public float myTimeScale = 1.0f;
+    [SerializeField]
+    public float[] arrTimeScale = { 1, 2, 4 };
+
+    [Header("End Game")]
+    [SerializeField]
+    private GameObject popupEndGame = null;
+    [SerializeField]
+    private Text txtResult = null;
+    [SerializeField]
+    private Image[] imgResultStars = new Image[3];
+    [SerializeField]
+    private Sprite spStar = null;
 
     private C_Enum.EndGame isEndGame = C_Enum.EndGame.NOT;
     private int starEndGame = 0;
 
-    [SerializeField]
-    private Text txtTime = null;
-
     private List<C_Character> lstObj = new List<C_Character>();
     public Dictionary<int, C_Character> Objs = new Dictionary<int, C_Character>();
 
+    // Data Combat
     public List<int> idTargets = new List<int>();
     public List<C_Character> targets = new List<C_Character>();
     public int Beaten = 0;
 
     private List<M_Action> actions = new List<M_Action>();
+    private M_Milestone milestone = null;
 
-    public float myTimeScale = 1.0f;
-    public bool isScaleTime = false;
-    
-    // Check anim1 tất cả
+    // Check Combat
     public bool Turn { get => turn; }
     private bool turn = true;
     private int check = 0;
     private bool getAction = false;
 
+    private bool isSkip = false;    
+
     private void Awake()
     {
         if (instance == null) instance = this;
-    }
-
-    public void ScaleTime()
-    {
-        isScaleTime = !isScaleTime;
-        myTimeScale = (isScaleTime) ? 2.0f : 1.0f;
-    }
+    }    
 
     [Obsolete]
     private void Start()
@@ -75,6 +95,9 @@ public class FightingGame : MonoBehaviour
     private void LoadData()
     {
         Debug.Log("LoadData");
+        milestone = GameManager.instance.milestones[GameManager.instance.idxMilestone];
+        txtTurn.text = currentTurn + " / " + milestone.maxTurn;
+
         dataTeamL.Clear();
         for (int i = 0; i < GameManager.instance.nhanVats.Count; i++)
         {
@@ -87,9 +110,9 @@ public class FightingGame : MonoBehaviour
             }
         }
         dataTeamR.Clear();
-        for (int i = 0; i < GameManager.instance.milestones[GameManager.instance.idxMilestone].listCreep.Count; i++)
+        for (int i = 0; i < milestone.listCreep.Count; i++)
         {
-            M_Character nhanVat = new M_Character(GameManager.instance.milestones[GameManager.instance.idxMilestone].listCreep[i]);
+            M_Character nhanVat = new M_Character(milestone.listCreep[i]);
             nhanVat.team = 1;
             nhanVat.id_nv = i + dataTeamL.Count;
             nhanVat.UpdateLevel();
@@ -97,6 +120,9 @@ public class FightingGame : MonoBehaviour
         }
 
         Init();
+
+        myTimeScale = arrTimeScale[GameManager.instance.IdxTimeScale];
+        txtTimeScale.text = "X" + myTimeScale;
     }
 
     private void Init()
@@ -198,6 +224,8 @@ public class FightingGame : MonoBehaviour
                     else starEndGame = 1;
                 }
                 else starEndGame = 0;
+
+                Debug.Log("=========================== Scenario End Game: " + isEndGame.ToString() + ": " + starEndGame + " Star");
 
                 break;
             }
@@ -389,10 +417,10 @@ public class FightingGame : MonoBehaviour
         txtTime.gameObject.SetActive(true);
         while (true)
         {
-            if (t <= 0) break;
+            if (t <= 0 || isSkip) break;
             Debug.Log("Đếm ngược: " + t);
             txtTime.text = t + " ";
-            await Task.Delay(TimeSpan.FromSeconds(1));                        
+            await Task.Delay(TimeSpan.FromSeconds(1 / myTimeScale));                        
             t -= 1;            
         }
         txtTime.gameObject.SetActive(false);
@@ -401,12 +429,15 @@ public class FightingGame : MonoBehaviour
 
         while (true)
         {
-            if(actions.Count == 0)
+            if (isSkip)
             {
-                txtTime.text = isEndGame.ToString();
-                txtTime.gameObject.SetActive(true);
-                Debug.LogWarning(isEndGame.ToString() + " / " + starEndGame);
-                break;
+                CheckTurn();
+
+                if (turn)
+                {
+                    EndGame();
+                    break;
+                }
             }
 
             if(!getAction && Beaten == 0)
@@ -422,10 +453,54 @@ public class FightingGame : MonoBehaviour
 
                     actions.RemoveAt(0);
                     getAction = false;
-                }                
+                }
+
+                if (actions.Count == 0)
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(2 / myTimeScale));
+                    EndGame();
+                    isSkip = true;
+                    break;
+                }
             }
 
             await Task.Delay(TimeSpan.FromSeconds(0.1));
+        }
+    }
+
+    public void SendEndGame()
+    {        
+        if (GameManager.instance.test) RecEndGame();
+        else UserSendUtil.sendEndGame(milestone.id, GameManager.instance.taikhoan.id, starEndGame, (starEndGame > milestone.star));
+    }
+
+    public void RecEndGame()
+    {
+        milestone.star = Math.Max(milestone.star, starEndGame);
+
+        GameManager.instance.tick_milestonesDic[milestone.id].star = milestone.star;
+
+        // Mở khóa ải tiếp theo
+        //Debug.Log(GameManager.instance.idxMilestone);
+        //C_Util.GetDumpObject(GameManager.instance.tick_milestonesDic.Values);
+        if(isEndGame == C_Enum.EndGame.WIN && GameManager.instance.idxMilestone == GameManager.instance.tick_milestones.Count - 1)
+        {
+            GameManager.instance.tick_milestones.Add(new M_Milestone(GameManager.instance.idxMilestone + 1, 0));
+
+            GameManager.instance.UpdateTickMS();
+        }
+
+        SceneManager.LoadScene("CampaignGame");
+    }
+
+    private void EndGame()
+    {
+        popupEndGame.SetActive(true);
+        txtResult.text = isEndGame.ToString();        
+
+        for(int i = 0; i < starEndGame; i++)
+        {
+            imgResultStars[i].sprite = spStar;
         }
     }
 
@@ -610,16 +685,33 @@ public class FightingGame : MonoBehaviour
                 }
             }
         }
-    }    
+    }
 
-    //void OnGUI()
-    //{
-    //    GUIStyle myStyle = new GUIStyle();
-    //    myStyle.fontSize = 40;
-    //    myStyle.normal.textColor = Color.white;
+    public void ScaleTime()
+    {
+        GameManager.instance.IdxTimeScale++;
+        if (GameManager.instance.IdxTimeScale >= arrTimeScale.Length) GameManager.instance.IdxTimeScale = 0;
 
-    //    GUI.Label(new Rect(20, 20, 100, 20), "Get Action: " + getAction, myStyle);
-    //    GUI.Label(new Rect(20, 70, 100, 20), "Turn: " + turn, myStyle);
-    //    GUI.Label(new Rect(20, 120, 100, 20), "Beaten: " + Beaten, myStyle);
-    //}
+        myTimeScale = arrTimeScale[GameManager.instance.IdxTimeScale];
+        txtTimeScale.text = "X" + myTimeScale;
+    }
+
+    public void Skip()
+    {
+        if (isSkip) return;
+
+        isSkip = true;
+        EndGame();
+    }
+
+    void OnGUI()
+    {
+        GUIStyle myStyle = new GUIStyle();
+        myStyle.fontSize = 40;
+        myStyle.normal.textColor = Color.white;
+
+        GUI.Label(new Rect(20, 20, 100, 20), "Get Action: " + getAction, myStyle);
+        GUI.Label(new Rect(20, 70, 100, 20), "Turn: " + turn, myStyle);
+        GUI.Label(new Rect(20, 120, 100, 20), "Beaten: " + Beaten, myStyle);
+    }
 }

@@ -20,8 +20,7 @@ public class TavernGame : MonoBehaviour
         Debug.Log("ReqCard: " + card.type);
 
         cardsDic.Add(card.type, card);
-        UserSendUtil.sendTavern(card.type);
-
+        
         if (GameManager.instance.test)
         {
             M_Character nhanvat = new M_Character();
@@ -40,6 +39,7 @@ public class TavernGame : MonoBehaviour
 
             RecCard(card.type, nhanvat);
         }
+        else UserSendUtil.sendTavern(card.type);
     }
 
     public void RecCard(C_Enum.CardType type, M_Character nhanvat)

@@ -166,12 +166,11 @@ public class ArrangeGame : MonoBehaviour
         }
 
         //heros.ForEach(x => Debug.Log(x.id_nv + " / " + x.id_cfg + " / " + x.idx));        
-
-        UserSendUtil.sendArrange(nhanVats);
-
+        
         GameManager.instance.nhanVats = nhanVats;
 
         if (GameManager.instance.test) RecArrange();
+        else UserSendUtil.sendArrange(nhanVats);
     }
 
     public async void RecArrange()

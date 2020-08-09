@@ -75,6 +75,7 @@ public class M_Character
         this.dodge = nhanVat.dodge;
         this.team = nhanVat.team;
         this.lv = nhanVat.lv;
+        this.type = nhanVat.type;
 
         this.current_hp = this.max_hp = this.hp;
         this.current_ep = 0;

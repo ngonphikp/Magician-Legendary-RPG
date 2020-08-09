@@ -31,6 +31,15 @@ public class GameManager : MonoBehaviour
     public bool isAttack = false;
     public int idxMilestone = 0;
 
+    private int idxTimeScale = 0;
+    public int IdxTimeScale { 
+        get => idxTimeScale;
+        set {
+            idxTimeScale = value;
+            PlayerPrefs.SetInt("idxTimeScale", idxTimeScale);
+        } 
+    }
+
     // Infor
     public int idxCharacter = 0;
 
@@ -41,6 +50,7 @@ public class GameManager : MonoBehaviour
     {
         MakeSingleInstance();
         LoadConfigJson();
+        LoadLocalStorage();
     }
 
     private void MakeSingleInstance()
@@ -54,6 +64,11 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    private void LoadLocalStorage()
+    {
+        idxTimeScale = PlayerPrefs.GetInt("idxTimeScale", 0);
     }
 
     private void LoadConfigJson()
@@ -132,7 +147,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, i + 1, arrIdx[i]);
+            M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), taikhoan.id, i + 1, arrIdx[i]);
             nhanVat.type = C_Enum.CharacterType.Hero;
             nhanVat.UpdateById();
             nhanVat.UpdateLevel();
@@ -141,23 +156,30 @@ public class GameManager : MonoBehaviour
 
         for (int i = 5; i < 25; i++)
         {
-            M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), 99, UnityEngine.Random.Range(1, 15), -1);
+            M_Character nhanVat = new M_Character(i, "T100" + UnityEngine.Random.Range(2, 8), taikhoan.id, UnityEngine.Random.Range(1, 15), -1);
             nhanVat.type = C_Enum.CharacterType.Hero;
             nhanVat.UpdateById();
             nhanVat.UpdateLevel();
             nhanVats.Add(nhanVat);
         }
 
+        tick_milestones.Clear();
+
         for (int i = 0; i < 10; i++)
         {
             tick_milestones.Add(new M_Milestone(i, UnityEngine.Random.Range(1, 4)));
         }
 
-        tick_milestones.Add(new M_Milestone(10, 0));
+        tick_milestones.Add(new M_Milestone(tick_milestones.Count, 0));
 
         UpdateTickMS();
 
         ScenesManager.instance.ChangeScene("HomeGame");
+    }
+
+    public void OnApplicationQuit()
+    {
+        LoginSendUtil.sendLogout();
     }
 
 }

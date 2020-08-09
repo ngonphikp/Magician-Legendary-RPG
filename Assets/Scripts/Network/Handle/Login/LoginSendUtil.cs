@@ -3,6 +3,7 @@ using Sfs2X.Requests;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoginSendUtil 
 {
@@ -46,7 +47,7 @@ public class LoginSendUtil
 
     public static void sendLogout()
     {
-        Debug.Log("----------------------->Logout");
+        Debug.Log("----------------------->Logout");        
         SmartFoxConnection.send(new LogoutRequest());
     }
 }

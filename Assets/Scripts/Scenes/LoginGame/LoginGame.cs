@@ -17,7 +17,7 @@ public class LoginGame : MonoBehaviour
 
         GameManager.instance.taikhoan = tk;
 
-        UserSendUtil.sendGetInfo(tk.id);
+        if(!GameManager.instance.test) UserSendUtil.sendGetInfo(tk.id);
     }
 
     public void RecRegister(M_TaiKhoan tk)
@@ -26,7 +26,7 @@ public class LoginGame : MonoBehaviour
 
         GameManager.instance.taikhoan = tk;
 
-        UserSendUtil.sendGetInfo(tk.id);
+        if (!GameManager.instance.test) UserSendUtil.sendGetInfo(tk.id);
     }
 
     public void RecInfo(List<M_Character> lstNhanVat, List<M_Milestone> tick_milestones)
@@ -50,5 +50,15 @@ public class LoginGame : MonoBehaviour
         {
             ScenesManager.instance.ChangeScene("SelectionGame");
         }
+    }
+
+    public void TestPlay()
+    {
+        GameManager.instance.TestPlay();
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

@@ -15,5 +15,6 @@ public class CmdDefine
         SELECTION = 1004,
         ARRANGE = 1005,
         TAVERN = 1006,
-        UPLEVEL = 1007;
+        UPLEVEL = 1007,
+        ENDGAME = 1008;
 }

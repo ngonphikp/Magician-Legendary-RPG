@@ -85,16 +85,15 @@ public class InforGame : MonoBehaviour
     }
 
     public void UpLevel()
-    {
-        UserSendUtil.sendUpLevel(nhanVat.id_nv);
-
+    {        
         if (GameManager.instance.test) RecUpLevel();
+        else UserSendUtil.sendUpLevel(nhanVat.id_nv);
     }
 
     public void RecUpLevel()
     {
         GameManager.instance.nhanVats[index].lv += 1;
         GameManager.instance.nhanVats[index].UpLevel();
-        LoadCharacter();
+        profile.set(nhanVat);
     }
 }

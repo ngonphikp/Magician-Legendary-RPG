@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HomeGame : MonoBehaviour
 {
@@ -16,8 +17,13 @@ public class HomeGame : MonoBehaviour
     private GameObject bagEl = null;
 
     public void OutGame()
-    {
-        LoginSendUtil.sendLogout();
+    {       
+        if (GameManager.instance.test)
+        {
+            SceneManager.LoadScene("LoginGame");
+            GameManager.instance.test = false;
+        }
+        else LoginSendUtil.sendLogout();
     }
 
     private void Start()
