@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HomeGame : MonoBehaviour
 {
@@ -15,6 +16,14 @@ public class HomeGame : MonoBehaviour
     private Transform bagHero = null;
     [SerializeField]
     private GameObject bagEl = null;
+    [SerializeField]
+    private Scrollbar sbVolume = null;
+    [SerializeField]
+    private Text txtVolume = null;
+    [SerializeField]
+    private GameObject btnMuteOn = null;
+    [SerializeField]
+    private GameObject btnMuteOff = null;
 
     public void OutGame()
     {       
@@ -27,7 +36,12 @@ public class HomeGame : MonoBehaviour
     }
 
     private void Start()
-    {        
+    {
+        sbVolume.value = SoundManager.instance.volume;
+        txtVolume.text = (int)(SoundManager.instance.volume * 100) + "";
+        btnMuteOn.SetActive(!SoundManager.instance.isMute);
+        btnMuteOff.SetActive(SoundManager.instance.isMute);
+
         FilterListHero();
         LoadBagHero();
     }
@@ -55,5 +69,17 @@ public class HomeGame : MonoBehaviour
         }
 
         await Task.Yield();
+    }
+
+    public void ChangeVolume()
+    {
+        txtVolume.text = (int)(sbVolume.value * 100) + "";
+
+        SoundManager.instance.ChangeVolume(sbVolume.value);
+    }
+
+    public void ChangeMute()
+    {
+        SoundManager.instance.ChangeMute();
     }
 }

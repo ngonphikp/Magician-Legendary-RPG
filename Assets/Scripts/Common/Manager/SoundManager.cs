@@ -60,6 +60,8 @@ public class SoundManager : MonoBehaviour
     public async void PlayOneShotAs(AudioClip audioClip = null)
     {
         AudioSource audioSource2 = this.gameObject.AddComponent<AudioSource>();
+        audioSource2.mute = isMute;
+        audioSource2.volume = volume;
         audioSource2.PlayOneShot(audioClip, volume);
 
         audioSource.volume = 0;
@@ -101,5 +103,19 @@ public class SoundManager : MonoBehaviour
         }
 
         await Task.Yield();
+    }
+
+    public void ChangeMute()
+    {
+        isMute = !isMute;
+        audioSource.mute = isMute;
+        if (audioSource2 != null) audioSource2.mute = isMute;        
+    }
+
+    public void ChangeVolume(float value)
+    {
+        volume = value;
+        audioSource.volume = volume;
+        if(audioSource2 != null) audioSource2.volume = volume;
     }
 }
